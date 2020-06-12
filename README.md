@@ -364,3 +364,4 @@ Você deve implementar os endpoints e as telas necessárias para se fazer as fun
 Nós gostaríamos de que você escrevesse testes automatizados durante a sua implementação. Não é obrigatório, mas consideramos importante!
 
 Bom trabalho, sabemos que teremos ótimos resultados! 😄
+
