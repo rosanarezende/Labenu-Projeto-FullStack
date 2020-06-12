@@ -1,10 +1,10 @@
 import React from 'react'
-import { AppBar } from '@material-ui/core'
+import Appbar from '../../containers/Appbar'
 
 function HomePage() {
     return (
         <>
-            <AppBar/>
+            <Appbar/>
             Homepage
         </>
     )
