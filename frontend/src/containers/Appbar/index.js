@@ -17,7 +17,7 @@ function Appbar() {
                     onClick={() => dispatch(goToHome)}
                     style={ { cursor: "pointer" }}
                 >
-                    Spotenu
+                    <img src="https://user-images.githubusercontent.com/45580434/84555007-12291700-acf1-11ea-9b01-91d7f94f0755.png" alt="logo"/>
                 </Typography>
             </Toolbar>
         </AppBar>
