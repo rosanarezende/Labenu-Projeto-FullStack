@@ -6,13 +6,11 @@ export const SignupWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    width: 100vw;
 `
 
 export const SignupLogo = styled.img`
     width: 200px;
-    margin-bottom: 32px;
+    margin: 32px 0;
 `
 
 export const SignupForm = styled.form`
@@ -31,6 +29,13 @@ export const InputWrapper = styled(TextField)`
     height: 56px;
     margin: 8px auto;
 `
+
+export const TextAreaWrapper = styled(TextField)`
+    width: 100%;
+    margin: 8px auto;
+`
+
+
 export const ButtonWrapper = styled(Button)`
     width: 100%;
     height: 42px;

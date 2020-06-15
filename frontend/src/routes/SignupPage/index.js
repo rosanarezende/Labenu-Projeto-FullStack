@@ -1,19 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // import { useDispatch } from 'react-redux'
 // import { push } from 'connected-react-router'
 // import { routes } from "../../utils/constants"
 
-import { InputAdornment } from '@material-ui/core';
-import * as S from "./styles"
-
 // import { signup } from '../../actions/user';
+
+import * as S from "./styles"
+import { InputAdornment, Snackbar, MenuItem } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function SignupPage() {
     const [formInfo, setFormInfo] = useState({})
+    const [isAdmin, setIsAdmin] = useState(false)
+
     const [hidenPassword, setHidenPassword] = useState(false)
     const [hidenConfirm, setHidenConfirm] = useState(false)
-    const [isAdmin, setIsAdmin] = useState(false)
-    // const [alert, setAlert] = useState(false)
+    
     const [open, setOpen] = React.useState(false);
     // const dispatch = useDispatch()
     // const goHome = push(routes.home)
@@ -22,7 +28,7 @@ function SignupPage() {
         {
             name: "name",
             label: "Nome",
-            placeholder: "Nome e Sobrenome",
+            placeholder: formInfo?.role !== "BAND" ? "Nome e Sobrenome" : "Nome da banda",
             type: "text",
             pattern: "[a-zA-Zà-úÀ-ú ]{3,}",
             title: "O nome do usuário deve conter apenas letras, no mínimo de 3"
@@ -38,8 +44,8 @@ function SignupPage() {
             label: "Nickname",
             placeholder: "nickname",
             type: "text",
-            pattern: "[0-9]{3,}[.]{1,}[0-9]{3,}[.]{1,}[0-9]{3,}[-]{1,}[0-9]{2,}", // mudar
-            title: "Digite seu CPF com pontos e traço.", //mudar
+            pattern: "[a-zA-Z0-9_]{5,}",
+            title: "O nickname deve conter no mínimo 5 caracteres (lestras, números ou _)."
         },
         {
             name: 'password',
@@ -67,8 +73,8 @@ function SignupPage() {
             title: `Sua senha deve conter no mínimo ${isAdmin ? "10" : "6"} caracteres`,
             endAdornment: <InputAdornment position="end">
                 <img
-                    onClick={() => setHidenPassword(!hidenPassword)}
-                    src={hidenPassword
+                    onClick={() => setHidenConfirm(!hidenConfirm)}
+                    src={hidenConfirm
                         ? "https://user-images.githubusercontent.com/45580434/84558424-2842d180-ad09-11ea-8377-cc34a14d02df.png"
                         : "https://user-images.githubusercontent.com/45580434/84558461-60e2ab00-ad09-11ea-9c26-aec40d92e425.png"
                     }
@@ -77,8 +83,14 @@ function SignupPage() {
         }
     ]
 
-    // setIsAdmin(true)
-    // fazer um useEffect q verifica se o usuário logado é admin
+    useEffect(() => {
+        // const token = localStorage.getItem('token')
+        // const user = dispatch(getLoggedUser(token))
+        // if(user.role === "ADMINISTRATOR"){
+            setIsAdmin(true)
+        // }
+    }, [])
+
 
     const getFormInfo = (e) => {
         const { name, value } = e.target
@@ -87,12 +99,11 @@ function SignupPage() {
 
     const sendUserInfo = (e) => {
         e.preventDefault()
-        console.log(formInfo)
-
-        // ver como eu fiz a questão do description no back... se não passa é null?
-        const { name, email, nickname, password, confirm, description } = formInfo
-        const signupData = description
+        const { role, name, email, nickname, password, confirm, description } = formInfo
+        const selectedRole = isAdmin ? "ADMINISTRATOR" : role
+        const signupData = selectedRole === "BAND"
             ? {
+                role: selectedRole,
                 name: name,
                 email: email,
                 nickname: nickname,
@@ -100,18 +111,27 @@ function SignupPage() {
                 description: description
             }
             : {
+                role: selectedRole,
                 name: name,
                 email: email,
                 nickname: nickname,
                 password: password
             }
+
         if (password !== confirm) {
-            // alert('Senhas não conferem')
             setOpen(true)
-        } else {
+        } 
+        else {
             console.log(signupData)
-            // dispatch(signup(signupData))
-            // lembrar de ir pra home lá
+                // lembrar de ir pra home lá
+            if (isAdmin) {
+                // dispatch(signupAdmin(signupData))
+            }
+            else if (role === "BAND") {
+                // dispatch(signupBand(signupData))
+            } else {
+                // dispatch(signupUser(signupData))
+            }
         }
     }
 
@@ -122,15 +142,41 @@ function SignupPage() {
         setOpen(false);
     };
 
-
-
     return (
         <S.SignupWrapper>
             <S.SignupLogo src="https://user-images.githubusercontent.com/45580434/84555007-12291700-acf1-11ea-9b01-91d7f94f0755.png" alt="logo" />
 
-            <S.Text variant="h6" color="textSecondary"> Entrar </S.Text>
+            <S.Text variant="h6" color="textSecondary"> Cadastrar {isAdmin && "Administrador"}</S.Text>
 
             <S.SignupForm onSubmit={sendUserInfo}>
+
+            {/* {formInfo?.role !== "ADMINISTRATOR" && */}
+            { !isAdmin &&
+                <S.InputWrapper
+                    select
+                    required
+                    key="role"
+                    variant="outlined"
+                    margin="normal"
+                    label="Tipo de usuário"
+                    name="role"
+                    onChange={getFormInfo}
+                    value={formInfo.role || ""}
+                    // placeholder={field.placeholder}
+                    // value={formInfo[field.name] || ""} // || ""
+                    // type={field.type}
+                    // InputLabelProps={{ shrink: true }}
+                    // SelectProps={{
+                    //     IconComponent: () => <S.Img src={require("../../assets/dropdown.svg")} alt='home' />,
+                    // }}
+                >
+                    {[
+                        { type: "BAND", name: "Banda"}, 
+                        { type: "PAYING-LISTENER", name: "Ouvinte (plano pago)"},
+                        { type: "NON-PAYING-LISTENER", name: "Ouvinte (plano gratuito)"}
+                    ].map(user => <MenuItem value={user.type} key={user.type}>{user.name}</MenuItem> )}
+                </S.InputWrapper>
+            }
 
                 {createNewUser.map(field => (
                     <S.InputWrapper
@@ -140,7 +186,7 @@ function SignupPage() {
                         label={field.label}
                         name={field.name}
                         placeholder={field.placeholder}
-                        value={formInfo[field.name]} // || ""
+                        value={formInfo[field.name] || ""} // || ""
                         onChange={getFormInfo}
                         type={field.type}
                         required
@@ -155,8 +201,8 @@ function SignupPage() {
                     />
                 ))}
 
-                {isAdmin &&
-                    <S.InputWrapper
+                {formInfo?.role === "BAND" &&
+                    <S.TextAreaWrapper
                         name='description'
                         variant="outlined"
                         label="Descrição"
@@ -180,7 +226,7 @@ function SignupPage() {
             {open &&
                 <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                     <Alert onClose={handleClose} severity="error">
-                    Senhas não conferem!
+                        Senhas não conferem!
                     </Alert>
                 </Snackbar>
             }
