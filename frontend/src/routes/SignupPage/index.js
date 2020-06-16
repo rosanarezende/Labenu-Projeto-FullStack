@@ -20,9 +20,17 @@ function SignupPage() {
     const [hidenPassword, setHidenPassword] = useState(false)
     const [hidenConfirm, setHidenConfirm] = useState(false)
     
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false)
+    const [message, setMessage] = useState("")
+    const [status, setStatus] = useState("")
     // const dispatch = useDispatch()
     // const goHome = push(routes.home)
+
+    const userRoles = [
+        { type: "BAND", name: "Banda"}, 
+        { type: "PAYING-LISTENER", name: "Ouvinte (plano pago)"},
+        { type: "NON-PAYING-LISTENER", name: "Ouvinte (plano gratuito)"}
+    ]
 
     const createNewUser = [
         {
@@ -119,19 +127,37 @@ function SignupPage() {
             }
 
         if (password !== confirm) {
+            setStatus("bad")
+            setMessage("Senhas não conferem!")
             setOpen(true)
         } 
         else {
-            console.log(signupData)
-                // lembrar de ir pra home lá
-            if (isAdmin) {
-                // dispatch(signupAdmin(signupData))
-            }
-            else if (role === "BAND") {
-                // dispatch(signupBand(signupData))
-            } else {
-                // dispatch(signupUser(signupData))
-            }
+            setStatus("good")
+            setMessage("Cadastro efetuado com sucesso!")
+            setOpen(true)
+            setFormInfo({})
+            setTimeout(() => {
+                
+                if (isAdmin) {
+                    console.log("admin", signupData)
+                    // dispatch(signupAdmin(signupData))
+                        // não guardar nada no token
+                        // mas lembrar de ir para home
+                }
+                
+                else if (role === "BAND") {
+                    console.log("band", signupData)
+                    // dispatch(signupBand(signupData))
+                        // token + home
+                } 
+
+                else {
+                    console.log("user", signupData)
+                    // dispatch(signupUser(signupData))
+                        // token + home
+                }
+
+            }, 1000)
         }
     }
 
@@ -150,7 +176,6 @@ function SignupPage() {
 
             <S.SignupForm onSubmit={sendUserInfo}>
 
-            {/* {formInfo?.role !== "ADMINISTRATOR" && */}
             { !isAdmin &&
                 <S.InputWrapper
                     select
@@ -162,19 +187,8 @@ function SignupPage() {
                     name="role"
                     onChange={getFormInfo}
                     value={formInfo.role || ""}
-                    // placeholder={field.placeholder}
-                    // value={formInfo[field.name] || ""} // || ""
-                    // type={field.type}
-                    // InputLabelProps={{ shrink: true }}
-                    // SelectProps={{
-                    //     IconComponent: () => <S.Img src={require("../../assets/dropdown.svg")} alt='home' />,
-                    // }}
                 >
-                    {[
-                        { type: "BAND", name: "Banda"}, 
-                        { type: "PAYING-LISTENER", name: "Ouvinte (plano pago)"},
-                        { type: "NON-PAYING-LISTENER", name: "Ouvinte (plano gratuito)"}
-                    ].map(user => <MenuItem value={user.type} key={user.type}>{user.name}</MenuItem> )}
+                    {userRoles.map(user => <MenuItem value={user.type} key={user.type}>{user.name}</MenuItem> )}
                 </S.InputWrapper>
             }
 
@@ -186,7 +200,7 @@ function SignupPage() {
                         label={field.label}
                         name={field.name}
                         placeholder={field.placeholder}
-                        value={formInfo[field.name] || ""} // || ""
+                        value={formInfo[field.name] || ""}
                         onChange={getFormInfo}
                         type={field.type}
                         required
@@ -206,7 +220,6 @@ function SignupPage() {
                         name='description'
                         variant="outlined"
                         label="Descrição"
-                        // placeholder=''
                         type='text'
                         value={formInfo.description || ''}
                         onChange={getFormInfo}
@@ -224,9 +237,9 @@ function SignupPage() {
             </S.SignupForm>
 
             {open &&
-                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="error">
-                        Senhas não conferem!
+                <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity={status === "bad" ? "error" : "success"}>
+                        {message}
                     </Alert>
                 </Snackbar>
             }
