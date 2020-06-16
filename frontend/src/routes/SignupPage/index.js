@@ -1,10 +1,250 @@
-import React from "react"
+import React, { useState, useEffect } from 'react'
+// import { useDispatch } from 'react-redux'
+// import { push } from 'connected-react-router'
+// import { routes } from "../../utils/constants"
+
+// import { signup } from '../../actions/user';
+
+import * as S from "./styles"
+import { InputAdornment, Snackbar, MenuItem } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function SignupPage() {
+    const [formInfo, setFormInfo] = useState({})
+    const [isAdmin, setIsAdmin] = useState(false)
+
+    const [hidenPassword, setHidenPassword] = useState(false)
+    const [hidenConfirm, setHidenConfirm] = useState(false)
+    
+    const [open, setOpen] = useState(false)
+    const [message, setMessage] = useState("")
+    const [status, setStatus] = useState("")
+    // const dispatch = useDispatch()
+    // const goHome = push(routes.home)
+
+    const userRoles = [
+        { type: "BAND", name: "Banda"}, 
+        { type: "PAYING-LISTENER", name: "Ouvinte (plano pago)"},
+        { type: "NON-PAYING-LISTENER", name: "Ouvinte (plano gratuito)"}
+    ]
+
+    const createNewUser = [
+        {
+            name: "name",
+            label: "Nome",
+            placeholder: formInfo?.role !== "BAND" ? "Nome e Sobrenome" : "Nome da banda",
+            type: "text",
+            pattern: "[a-zA-Zà-úÀ-ú ]{3,}",
+            title: "O nome do usuário deve conter apenas letras, no mínimo de 3"
+        },
+        {
+            name: 'email',
+            label: "Email",
+            placeholder: "email@email.com",
+            type: "email"
+        },
+        {
+            name: 'nickname',
+            label: "Nickname",
+            placeholder: "nickname",
+            type: "text",
+            pattern: "[a-zA-Z0-9_]{5,}",
+            title: "O nickname deve conter no mínimo 5 caracteres (lestras, números ou _)."
+        },
+        {
+            name: 'password',
+            label: "Senha",
+            type: hidenPassword ? 'text' : 'password',
+            placeholder: isAdmin ? "Mínimo 10 caracteres" : "Mínimo 6 caracteres",
+            pattern: isAdmin ? ".{10,}" : ".{6,}",
+            title: `Sua senha deve conter no mínimo ${isAdmin ? "10" : "6"} caracteres`,
+            endAdornment: <InputAdornment position="end">
+                <img
+                    onClick={() => setHidenPassword(!hidenPassword)}
+                    src={hidenPassword
+                        ? "https://user-images.githubusercontent.com/45580434/84558424-2842d180-ad09-11ea-8377-cc34a14d02df.png"
+                        : "https://user-images.githubusercontent.com/45580434/84558461-60e2ab00-ad09-11ea-9c26-aec40d92e425.png"
+                    }
+                    alt='password' />
+            </InputAdornment>
+        },
+        {
+            name: 'confirm',
+            label: "Confirmar",
+            type: hidenConfirm ? 'text' : 'password',
+            placeholder: "Confirme a senha anterior",
+            pattern: isAdmin ? ".{10,}" : ".{6,}",
+            title: `Sua senha deve conter no mínimo ${isAdmin ? "10" : "6"} caracteres`,
+            endAdornment: <InputAdornment position="end">
+                <img
+                    onClick={() => setHidenConfirm(!hidenConfirm)}
+                    src={hidenConfirm
+                        ? "https://user-images.githubusercontent.com/45580434/84558424-2842d180-ad09-11ea-8377-cc34a14d02df.png"
+                        : "https://user-images.githubusercontent.com/45580434/84558461-60e2ab00-ad09-11ea-9c26-aec40d92e425.png"
+                    }
+                    alt='password' />
+            </InputAdornment>
+        }
+    ]
+
+    useEffect(() => {
+        // const token = localStorage.getItem('token')
+        // const user = dispatch(getLoggedUser(token))
+        // if(user.role === "ADMINISTRATOR"){
+            setIsAdmin(true)
+        // }
+    }, [])
+
+
+    const getFormInfo = (e) => {
+        const { name, value } = e.target
+        setFormInfo({ ...formInfo, [name]: value })
+    }
+
+    const sendUserInfo = (e) => {
+        e.preventDefault()
+        const { role, name, email, nickname, password, confirm, description } = formInfo
+        const selectedRole = isAdmin ? "ADMINISTRATOR" : role
+        const signupData = selectedRole === "BAND"
+            ? {
+                role: selectedRole,
+                name: name,
+                email: email,
+                nickname: nickname,
+                password: password,
+                description: description
+            }
+            : {
+                role: selectedRole,
+                name: name,
+                email: email,
+                nickname: nickname,
+                password: password
+            }
+
+        if (password !== confirm) {
+            setStatus("bad")
+            setMessage("Senhas não conferem!")
+            setOpen(true)
+        } 
+        else {
+            setStatus("good")
+            setMessage("Cadastro efetuado com sucesso!")
+            setOpen(true)
+            setFormInfo({})
+            setTimeout(() => {
+                
+                if (isAdmin) {
+                    console.log("admin", signupData)
+                    // dispatch(signupAdmin(signupData))
+                        // não guardar nada no token
+                        // mas lembrar de ir para home
+                }
+                
+                else if (role === "BAND") {
+                    console.log("band", signupData)
+                    // dispatch(signupBand(signupData))
+                        // token + home
+                } 
+
+                else {
+                    console.log("user", signupData)
+                    // dispatch(signupUser(signupData))
+                        // token + home
+                }
+
+            }, 1000)
+        }
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+    };
+
     return (
-        <>
-            SignupPage
-        </>
+        <S.SignupWrapper>
+            <S.SignupLogo src="https://user-images.githubusercontent.com/45580434/84555007-12291700-acf1-11ea-9b01-91d7f94f0755.png" alt="logo" />
+
+            <S.Text variant="h6" color="textSecondary"> Cadastrar {isAdmin && "Administrador"}</S.Text>
+
+            <S.SignupForm onSubmit={sendUserInfo}>
+
+            { !isAdmin &&
+                <S.InputWrapper
+                    select
+                    required
+                    key="role"
+                    variant="outlined"
+                    margin="normal"
+                    label="Tipo de usuário"
+                    name="role"
+                    onChange={getFormInfo}
+                    value={formInfo.role || ""}
+                >
+                    {userRoles.map(user => <MenuItem value={user.type} key={user.type}>{user.name}</MenuItem> )}
+                </S.InputWrapper>
+            }
+
+                {createNewUser.map(field => (
+                    <S.InputWrapper
+                        key={field.name}
+                        variant="outlined"
+                        margin="normal"
+                        label={field.label}
+                        name={field.name}
+                        placeholder={field.placeholder}
+                        value={formInfo[field.name] || ""}
+                        onChange={getFormInfo}
+                        type={field.type}
+                        required
+                        InputLabelProps={{ shrink: true }}
+                        InputProps={{
+                            endAdornment: field.endAdornment,
+                            inputProps: {
+                                pattern: field.pattern,
+                                title: field.title
+                            }
+                        }}
+                    />
+                ))}
+
+                {formInfo?.role === "BAND" &&
+                    <S.TextAreaWrapper
+                        name='description'
+                        variant="outlined"
+                        label="Descrição"
+                        type='text'
+                        value={formInfo.description || ''}
+                        onChange={getFormInfo}
+                        required
+                        InputLabelProps={{ shrink: true }}
+                        multiline
+                        rows="5"
+                    />
+                }
+
+                <S.ButtonWrapper type='onSubmit' variant="contained" color="primary">
+                    Entrar
+                </S.ButtonWrapper>
+
+            </S.SignupForm>
+
+            {open &&
+                <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity={status === "bad" ? "error" : "success"}>
+                        {message}
+                    </Alert>
+                </Snackbar>
+            }
+
+        </S.SignupWrapper>
     )
 }
 
