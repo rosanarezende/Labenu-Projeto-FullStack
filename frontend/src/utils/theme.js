@@ -1,4 +1,5 @@
 import { createMuiTheme } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 
 export default createMuiTheme(
   {
@@ -39,3 +40,18 @@ export default createMuiTheme(
     }
   }
 );
+
+export const useStyles = makeStyles((theme) => ({
+  sectionDesktop: {
+      display: 'none',
+      [theme.breakpoints.up('md')]: {
+          display: 'flex',
+      },
+  },
+  sectionMobile: {
+      display: 'flex',
+      [theme.breakpoints.up('md')]: {
+          display: 'none',
+      },
+  },
+}));

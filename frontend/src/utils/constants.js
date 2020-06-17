@@ -4,7 +4,8 @@ export const routes = {
     login: "/login",
     signup: "/signup",
     approveBand: "/approveband",
-    genres: "/genres"
+    genres: "/genres",
+    profile: "/profile"
     
     // detail: '/produto/:id'
 }

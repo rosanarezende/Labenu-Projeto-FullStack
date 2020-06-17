@@ -11,6 +11,7 @@ import NotFoundPage from './NotFoundPage';
 import SignupPage from './SignupPage';
 import ApproveBandPage from './ApproveBandPage';
 import GenresPage from './GenresPage';
+import ProfilePage from './ProfilePage';
 
 function Routes(props){
     const { history } = props
@@ -24,6 +25,7 @@ function Routes(props){
                 <Route exact path={routes.signup} component={SignupPage}/>
                 <Route exact path={routes.approveBand} component={ApproveBandPage}/>
                 <Route exact path={routes.genres} component={GenresPage}/>
+                <Route exact path={routes.profile} component={ProfilePage}/>
                 {/* <Route exact path={routes.detail} component={DetailPage}/> */}
                 <Route path="*" component={NotFoundPage} />
             </Switch>

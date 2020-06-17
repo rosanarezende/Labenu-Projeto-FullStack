@@ -3,17 +3,22 @@ import React, { useState, useEffect } from 'react'
 // import { push } from 'connected-react-router'
 // import { routes } from "../../utils/constants"
 
-// import { signup } from '../../actions/user';
+// import { signupAdmin, signupBand, signupUser } from '../../actions/user';
+import { useUser } from '../../utils/personalizedHooks'
 
 import * as S from "./styles"
 import { InputAdornment, Snackbar, MenuItem } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
+
+import Appbar from '../../containers/Appbar';
+
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 function SignupPage() {
+    const { userRole } = useUser()
     const [formInfo, setFormInfo] = useState({})
     const [isAdmin, setIsAdmin] = useState(false)
 
@@ -92,11 +97,9 @@ function SignupPage() {
     ]
 
     useEffect(() => {
-        // const token = localStorage.getItem('token')
-        // const user = dispatch(getLoggedUser(token))
-        // if(user.role === "ADMINISTRATOR"){
+        if(userRole === "ADMINISTRATOR"){
             setIsAdmin(true)
-        // }
+        }
     }, [])
 
 
@@ -169,8 +172,13 @@ function SignupPage() {
     };
 
     return (
+        <>
+        {isAdmin && <Appbar/>}
         <S.SignupWrapper>
-            <S.SignupLogo src="https://user-images.githubusercontent.com/45580434/84555007-12291700-acf1-11ea-9b01-91d7f94f0755.png" alt="logo" />
+            {!isAdmin 
+                ? <S.SignupLogo src="https://user-images.githubusercontent.com/45580434/84555007-12291700-acf1-11ea-9b01-91d7f94f0755.png" alt="logo" />
+                : <S.MarginTop/>
+            }
 
             <S.Text variant="h6" color="textSecondary"> Cadastrar {isAdmin && "Administrador"}</S.Text>
 
@@ -245,6 +253,7 @@ function SignupPage() {
             }
 
         </S.SignupWrapper>
+        </>
     )
 }
 

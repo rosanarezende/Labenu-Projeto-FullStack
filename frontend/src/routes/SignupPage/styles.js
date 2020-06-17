@@ -13,6 +13,10 @@ export const SignupLogo = styled.img`
     margin: 32px 0;
 `
 
+export const MarginTop = styled.div`
+    margin-top: 32px;
+`
+
 export const SignupForm = styled.form`
     display: flex;
     flex-direction: column;
