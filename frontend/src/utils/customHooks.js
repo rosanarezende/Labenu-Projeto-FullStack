@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux'
+import { useState
+    // , useEffect 
+
+} from 'react';
+// import { useDispatch } from 'react-redux'
 
 // import { getLoggedUser } from '../actions';
 
 export const useUser = () => {
     // const dispatch = useDispatch()
-    const [userRole, setUserRole] = useState("ADMINISTRATOR")
+    const [userRole, setUserRole] = useState("PAYING-LISTENER")
     const [userName, setUserName] = useState("Rosana")
 
     // useEffect(() => {

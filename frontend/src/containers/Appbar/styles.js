@@ -1,9 +1,23 @@
 import styled from "styled-components"
+import { Toolbar } from "@material-ui/core"
+
+export const ToolBarStyled = styled(Toolbar)`
+
+    @media screen and (max-device-width: 1200px){
+        padding: 0 5px;
+    }
+`
 
 export const Logo = styled.img`
-    height: 30px;
+    height: 40px;
     width: auto;
     cursor: pointer;
+    margin: 10px 10px 10px 0;
+
+    @media screen and (max-device-width: 1200px){
+        height: 25px;
+        margin: 5px 5px 5px 0;
+    }
 `
 
 export const DivGrow = styled.div`

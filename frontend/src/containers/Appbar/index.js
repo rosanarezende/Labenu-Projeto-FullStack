@@ -4,18 +4,20 @@ import { push } from 'connected-react-router'
 
 import { routes } from "../../utils/constants"
 import { useStyles } from "../../utils/theme"
-import { useUser } from '../../utils/personalizedHooks'
+import { useUser } from '../../utils/customHooks'
 
 import * as S from "./styles"
-import { AppBar, Toolbar, IconButton } from "@material-ui/core"
+import { AppBar, IconButton } from "@material-ui/core"
 import { AccountCircle, MoreVert } from "@material-ui/icons"
 
-import { MenuItensAdmin } from '../MenuItensAdmin'
+import MenuItensAdmin from '../MenuItensAdmin'
 import MenuPC from '../MenuPC'
 import MenuMobile from '../MenuMobile'
+import MenuItensBand from '../MenuItensBand'
+import MenuItensPayingListener from '../MenuItensPayingListener'
+import SearchContainer from '../SearchContainer'
 
-function Appbar(props) {
-    const { search } = props
+function Appbar() {
     const { userRole } = useUser()
     const classes = useStyles();
     const dispatch = useDispatch()
@@ -23,6 +25,7 @@ function Appbar(props) {
     // const goToLogin = push(routes.login)
     // const goToProfile = push(routes.profile)
 
+    let search = undefined
     let buttons = undefined
     switch (userRole) {
         case "ADMINISTRATOR":
@@ -30,14 +33,17 @@ function Appbar(props) {
             break;
 
         case "BAND":
-            buttons = <div></div>
+            buttons = <MenuItensBand/>
             break;
 
         case "PAYING-LISTENER":
-            buttons = <div></div>
+            buttons = <MenuItensPayingListener/>
+            search = <SearchContainer/>
             break;
 
+        case "NON-PAYING-LISTENER":
         default:
+            search = <SearchContainer/>
             break;
     }
 
@@ -85,20 +91,18 @@ function Appbar(props) {
 
     return (
         <div>
-            <AppBar position="static">
-                <Toolbar variant="dense">
+            <AppBar position="static" >
+                <S.ToolBarStyled variant="dense">
                     <S.Logo
                         src="https://user-images.githubusercontent.com/45580434/84555007-12291700-acf1-11ea-9b01-91d7f94f0755.png"
                         alt="logo"
                         onClick={() => dispatch(goToHome)}
                     />
-                    <S.DivGrow />
-                    {search && // campo de pesquisa + select gênero
-                        <div>
+                    
+                    {search}
 
-                        </div>
-                    }
                     <S.DivGrow />
+
                     <div className={classes.sectionDesktop}>
                         {buttons}
                         <IconButton
@@ -125,7 +129,7 @@ function Appbar(props) {
                         </IconButton>
                     </div>
 
-                </Toolbar>
+                </S.ToolBarStyled>
             </AppBar>
             {renderMenu}
             {renderMobileMenu}

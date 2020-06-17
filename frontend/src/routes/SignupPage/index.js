@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 // import { routes } from "../../utils/constants"
 
 // import { signupAdmin, signupBand, signupUser } from '../../actions/user';
-import { useUser } from '../../utils/personalizedHooks'
+import { useUser } from '../../utils/customHooks'
 
 import * as S from "./styles"
 import { InputAdornment, Snackbar, MenuItem } from '@material-ui/core';
@@ -100,7 +100,7 @@ function SignupPage() {
         if(userRole === "ADMINISTRATOR"){
             setIsAdmin(true)
         }
-    }, [])
+    }, [userRole])
 
 
     const getFormInfo = (e) => {

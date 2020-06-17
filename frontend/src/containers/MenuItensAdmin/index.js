@@ -4,7 +4,7 @@ import { routes } from "../../utils/constants"
 import MenuItemPersonalized from "../../components/MenuItemPersonalized"
 
 
-export function MenuItensAdmin() {
+function MenuItensAdmin() {
     let badgeContentMocked1 = 1
 
     return (
@@ -29,3 +29,5 @@ export function MenuItensAdmin() {
         </>
     )
 }
+
+export default MenuItensAdmin

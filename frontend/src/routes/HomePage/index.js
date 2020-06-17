@@ -1,6 +1,6 @@
 import React from 'react'
 import Appbar from '../../containers/Appbar'
-// import { useUser } from '../../utils/personalizedHooks'
+// import { useUser } from '../../utils/customHooks'
 
 function HomePage() {
     
