@@ -91,7 +91,7 @@ function Appbar() {
 
     return (
         <div>
-            <AppBar position="static" >
+            <AppBar position="static" style={ { height: "8vh", justifyContent: "center"}} >
                 <S.ToolBarStyled variant="dense">
                     <S.Logo
                         src="https://user-images.githubusercontent.com/45580434/84555007-12291700-acf1-11ea-9b01-91d7f94f0755.png"

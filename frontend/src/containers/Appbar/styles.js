@@ -9,7 +9,7 @@ export const ToolBarStyled = styled(Toolbar)`
 `
 
 export const Logo = styled.img`
-    height: 40px;
+    height: 50px;
     width: auto;
     cursor: pointer;
     margin: 10px 10px 10px 0;

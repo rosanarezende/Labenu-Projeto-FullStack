@@ -8,8 +8,8 @@ import { useState
 
 export const useUser = () => {
     // const dispatch = useDispatch()
-    const [userRole, setUserRole] = useState("PAYING-LISTENER")
-    const [userName, setUserName] = useState("Rosana")
+    const [userRole, setUserRole] = useState("ADMINISTRATOR")
+    const [userName, setUserName] = useState("Cleiton")
 
     // useEffect(() => {
     //     const user = dispatch(getLoggedUser())
