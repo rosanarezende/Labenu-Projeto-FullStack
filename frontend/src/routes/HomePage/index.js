@@ -1,6 +1,5 @@
 import React from 'react'
 import Appbar from '../../containers/Appbar'
-
 import { useUser } from '../../utils/customHooks'
 import * as S from "./style"
 

@@ -17,11 +17,15 @@ import MenuItensBand from '../MenuItensBand'
 import MenuItensPayingListener from '../MenuItensPayingListener'
 import SearchContainer from '../SearchContainer'
 
+
 function Appbar() {
-    const { userRole } = useUser()
     const classes = useStyles();
     const dispatch = useDispatch()
     const goToHome = push(routes.home)
+
+    const { userRole } = useUser()
+    // const userRole = "ADMINISTRATOR"
+    // const userRole = localStorage.getItem("userRole")
     // const goToLogin = push(routes.login)
     // const goToProfile = push(routes.profile)
 

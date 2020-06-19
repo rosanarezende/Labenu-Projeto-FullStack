@@ -28,8 +28,8 @@ function MenuPC(props){
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={() => dispatch(goToProfile)}>Profile</MenuItem>
-            <MenuItem onClick={logout}>Logout</MenuItem>
+            <MenuItem onClick={() => dispatch(goToProfile)}>Perfil</MenuItem>
+            <MenuItem onClick={logout}>Sair</MenuItem>
         </Menu>
     )
 }

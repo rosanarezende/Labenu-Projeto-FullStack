@@ -42,7 +42,7 @@ function SearchContainer() {
                 value={selectedGenre || ""}
                 style={ {width: "100px", marginBottom: "15px"}}
             >
-                <MenuItem value=""></MenuItem>
+                <MenuItem value="">Selecione:</MenuItem>
                 {genres.map(genre => 
                     <MenuItem key={genre} value={genre}>
                         {genre}

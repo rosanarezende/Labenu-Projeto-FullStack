@@ -1,22 +1,16 @@
-import { useState
-    // , useEffect 
-
-} from 'react';
+import { useState, useEffect } from 'react';
 // import { useDispatch } from 'react-redux'
 
-// import { getLoggedUser } from '../actions';
-
 export const useUser = () => {
-    // const dispatch = useDispatch()
-    const [userRole, setUserRole] = useState("ADMINISTRATOR")
-    const [userName, setUserName] = useState("Cleiton")
+    const [userRole, setUserRole] = useState("")
+    const [userName, setUserName] = useState("")
 
-    // useEffect(() => {
-    //     const user = dispatch(getLoggedUser())
-    //     setUserRole(user.role)
-    //     setUserName(user.name)
-
-    // }, [])
+    useEffect(() => {
+        const role = localStorage.getItem("userRole")
+        const name = localStorage.getItem("userName")
+        setUserRole(role)
+        setUserName(name)
+    }, [userRole, userName])
 
     return {
         userRole,

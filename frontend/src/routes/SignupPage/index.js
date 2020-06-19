@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from 'react'
-// import { useDispatch } from 'react-redux'
-// import { push } from 'connected-react-router'
-// import { routes } from "../../utils/constants"
-
-// import { signupAdmin, signupBand, signupUser } from '../../actions/user';
+import { useDispatch } from 'react-redux'
+import { signupAdministrator, signupBand, signupListening } from '../../actions';
 import { useUser } from '../../utils/customHooks'
-
 import * as S from "./styles"
 import { InputAdornment, Snackbar, MenuItem } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
-
 import Appbar from '../../containers/Appbar';
-
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -21,15 +15,12 @@ function SignupPage() {
     const { userRole } = useUser()
     const [formInfo, setFormInfo] = useState({})
     const [isAdmin, setIsAdmin] = useState(false)
-
     const [hidenPassword, setHidenPassword] = useState(false)
     const [hidenConfirm, setHidenConfirm] = useState(false)
-    
     const [open, setOpen] = useState(false)
     const [message, setMessage] = useState("")
     const [status, setStatus] = useState("")
-    // const dispatch = useDispatch()
-    // const goHome = push(routes.home)
+    const dispatch = useDispatch()
 
     const userRoles = [
         { type: "BAND", name: "Banda"}, 
@@ -135,32 +126,29 @@ function SignupPage() {
             setOpen(true)
         } 
         else {
-            setStatus("good")
-            setMessage("Cadastro efetuado com sucesso!")
-            setOpen(true)
-            setFormInfo({})
-            setTimeout(() => {
-                
                 if (isAdmin) {
-                    console.log("admin", signupData)
-                    // dispatch(signupAdmin(signupData))
-                        // não guardar nada no token
-                        // mas lembrar de ir para home
+                    dispatch(signupAdministrator(signupData))
+                    // tratar pra só aparecer no sucesso
+                    setStatus("good")
+                    setMessage("Novo administrador cadastrado com sucesso!")
+                    setOpen(true)
+                    setFormInfo({})
                 }
                 
                 else if (role === "BAND") {
                     console.log("band", signupData)
-                    // dispatch(signupBand(signupData))
-                        // token + home
+                    // tratar pra só aparecer no sucesso
+                    dispatch(signupBand(signupData))
+                    setStatus("good")
+                    setMessage("Artista cadastrado com sucesso! Aguarde aprovação do administrador para acessar a aplicação!")
+                    setOpen(true)
+                    setFormInfo({})    
                 } 
 
                 else {
                     console.log("user", signupData)
-                    // dispatch(signupUser(signupData))
-                        // token + home
+                    dispatch(signupListening(signupData))
                 }
-
-            }, 1000)
         }
     }
 

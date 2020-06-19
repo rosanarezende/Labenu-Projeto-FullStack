@@ -6,7 +6,7 @@ import { routes } from "../../utils/constants"
 import { InputAdornment } from '@material-ui/core';
 import * as S from "./styles"
 
-// import { login } from '../../actions/user';
+import { login } from '../../actions';
 
 function LoginPage() {
     const [userInfo, setUserInfo] = useState({})
@@ -25,9 +25,7 @@ function LoginPage() {
 
     function sendUserInfo(e) {
         e.preventDefault()
-        console.log(userInfo)
-        // dispatch(login(userInfo))
-        // e ir para a home - lembrar de colocar na action
+        dispatch(login(userInfo))
     }
 
     return (
@@ -47,23 +45,23 @@ function LoginPage() {
                     value={userInfo.input || ''}
                     onChange={getUserInfo}
                     required
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
+                    // InputLabelProps={{
+                    //     shrink: true,
+                    // }}
                 />
 
                 <S.InputWrapper
                     name='password'
                     variant="outlined"
                     label="Senha"
-                    placeholder='mínimo 6 caracteres'
+                    placeholder='senha'
                     type={hidenPassword ? 'text' : 'password'}
                     value={userInfo.password || ''}
                     onChange={getUserInfo}
                     required
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
+                    // InputLabelProps={{
+                    //     shrink: true,
+                    // }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">

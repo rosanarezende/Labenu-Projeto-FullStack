@@ -1,9 +1,7 @@
 import React from "react"
-
-import { useUser } from '../../utils/customHooks'
-
 import { Menu, MenuItem, IconButton } from "@material-ui/core"
 import { AccountCircle } from "@material-ui/icons"
+import { useUser } from '../../utils/customHooks'
 
 function MenuMobile(props) {
     const {

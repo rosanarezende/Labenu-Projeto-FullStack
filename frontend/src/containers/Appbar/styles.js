@@ -15,7 +15,7 @@ export const Logo = styled.img`
     margin: 10px 10px 10px 0;
 
     @media screen and (max-device-width: 1200px){
-        height: 25px;
+        height: 30px;
         margin: 5px 5px 5px 0;
     }
 `
