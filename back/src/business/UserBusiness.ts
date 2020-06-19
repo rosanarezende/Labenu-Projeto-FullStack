@@ -25,15 +25,15 @@ export class UserBusiness {
         role: string
     ) {
         if (!name || !email || !nickname || !password || !role) {
-            throw new InvalidParameterError("Missing input");
+            throw new InvalidParameterError("Preencha os campos para prosseguir.");
         }
 
         if (email.indexOf("@") === -1) {
-            throw new InvalidParameterError("Invalid email");
+            throw new InvalidParameterError("Email inválido");
         }
 
         if (password.length < 6) {
-            throw new InvalidParameterError("Invalid password");
+            throw new InvalidParameterError("Senha inválida");
         }
 
         const id = this.idGenerator.generatorId()
@@ -58,24 +58,24 @@ export class UserBusiness {
         token: string
     ) {
         if (!name || !email || !nickname || !password || !token) {
-            throw new InvalidParameterError("Missing input");
+            throw new InvalidParameterError("Preencha os campos para prosseguir.");
         }
 
         const userData = this.authenticator.verify(token)
         const user = await this.userDatabase.getUserById(userData.id)
         if (!user) {
-            throw new NotFoundError("User not found");
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
         }
         if (user.getRole() !== UserRole.ADMINISTRATOR) {
-            throw new UnauthorizedError("You must be an admin to access this endpoint")
+            throw new UnauthorizedError("Você não tem permissão para cadastrar um usuário administrador!")
         }
 
         if (email.indexOf("@") === -1) {
-            throw new InvalidParameterError("Invalid email");
+            throw new InvalidParameterError("Email inválido");
         }
 
         if (password.length < 10) {
-            throw new InvalidParameterError("Invalid password");
+            throw new InvalidParameterError("Senha inválida");
         }
 
         const role = UserRole.ADMINISTRATOR
@@ -102,15 +102,15 @@ export class UserBusiness {
         description: string
     ) {
         if (!name || !email || !nickname || !password || !description) {
-            throw new InvalidParameterError("Missing input");
+            throw new InvalidParameterError("Preencha os campos para prosseguir.");
         }
 
         if (email.indexOf("@") === -1) {
-            throw new InvalidParameterError("Invalid email");
+            throw new InvalidParameterError("Email inválido");
         }
 
         if (password.length < 6) {
-            throw new InvalidParameterError("Invalid password");
+            throw new InvalidParameterError("Senha inválida");
         }
 
         const id = this.idGenerator.generatorId()
@@ -127,10 +127,10 @@ export class UserBusiness {
         const userData = this.authenticator.verify(token)
         const user = await this.userDatabase.getUserById(userData.id)
         if (!user) {
-            throw new NotFoundError("User not found");
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
         }
         if (user.getRole() !== UserRole.ADMINISTRATOR) {
-            throw new UnauthorizedError("You must be an admin to access this endpoint")
+            throw new UnauthorizedError("Você não tem permissão visualizar todos os artistas!")
         }
 
         const bands = await this.userDatabase.getAllBands()
@@ -152,18 +152,18 @@ export class UserBusiness {
         const userData = this.authenticator.verify(token)
         const user = await this.userDatabase.getUserById(userData.id)
         if (!user) {
-            throw new NotFoundError("User not found");
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
         }
         if (user.getRole() !== UserRole.ADMINISTRATOR) {
-            throw new UnauthorizedError("You must be an admin to access this endpoint")
+            throw new UnauthorizedError("Você não tem permissão para aprovar artista!")
         }
 
         const band = await this.userDatabase.getUserById(id)
         if (!band) {
-            throw new NotFoundError("Band not found");
+            throw new NotFoundError("Artista não encontrado.");
         }
         if(band.getIsApproved() == true){
-            throw new GenericError("Band already approved")
+            throw new GenericError("Artista já aprovado anteriormente.")
         }       
 
         await this.userDatabase.approveBand(id)
@@ -173,7 +173,7 @@ export class UserBusiness {
     //6
     public async login(input: string, password: string) {
         if (!input || !password) {
-            throw new InvalidParameterError("Missing input");
+            throw new InvalidParameterError("Preencha os campos para prosseguir.");
         }
 
         let user
@@ -184,11 +184,11 @@ export class UserBusiness {
         }
 
         if (!user) {
-            throw new NotFoundError("User not found");
+            throw new NotFoundError("Usuário e/ou senha inválidos.");
         }
 
         if(user.getIsApproved() == false){
-            throw new UnauthorizedError("The band needs to be approved by an administrator to login")
+            throw new UnauthorizedError("A banda precisa ser aprovada por um administrador para realizar login.")
         }
 
         const isPasswordCorrect = await this.hashManager.compare(
@@ -197,7 +197,7 @@ export class UserBusiness {
         );
 
         if (!isPasswordCorrect) {
-            throw new InvalidParameterError("Invalid password");
+            throw new InvalidParameterError("Usuário e/ou senha inválidos");
         }
 
         const accessToken = this.authenticator.generateToken({
