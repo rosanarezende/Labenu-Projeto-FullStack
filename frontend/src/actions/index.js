@@ -2,6 +2,21 @@ import axios from 'axios'
 import { push } from 'connected-react-router'
 import { routes, baseUrl, getToken } from "../utils/constants"
 
+export const setOpen = (option) => ({
+    type: "SET_OPEN",
+    payload: {
+        option
+    }
+})
+
+export const setMessage = (text, color) => ({
+    type: "SET_MESSAGE",
+    payload: {
+        text,
+        color
+    }
+})
+
 export const signupListening = (signupData) => async (dispatch) => {
     try {
         const response = await axios.post(`${baseUrl}/signup/listening`, signupData)
@@ -14,7 +29,7 @@ export const signupListening = (signupData) => async (dispatch) => {
         dispatch(push(routes.home))
     } catch (err) {
         console.error(err.response)
-        dispatch(setMessage(err.response.data.message || "Não foi possivel criar cadastrar o usuário, tente novamente mais tarde !", "red"))
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel criar cadastrar o usuário, tente novamente mais tarde !", "red"))
         dispatch(setOpen(true))
     }
 }
@@ -26,7 +41,7 @@ export const signupBand = (signupData) => async (dispatch) => {
         dispatch(setOpen(true))
     } catch (err) {
         console.error(err.response)
-        dispatch(setMessage(err.response.data.message || "Não foi possivel cadastrar o artista, tente novamente mais tarde!", "red"))
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel cadastrar o artista, tente novamente mais tarde!", "red"))
         dispatch(setOpen(true))
     }
 }
@@ -45,7 +60,7 @@ export const signupAdministrator = (signupData) => async (dispatch) => {
         dispatch(setOpen(true))
     } catch (err) {
         console.error(err.response)
-        dispatch(setMessage(err.response.data.message || "Não foi possivel cadastrar um novo administrador, tente novamente mais tarde!", "red"))
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel cadastrar um novo administrador, tente novamente mais tarde!", "red"))
         dispatch(setOpen(true))
     }
 }
@@ -62,25 +77,82 @@ export const login = loginData => async (dispatch) => {
         dispatch(push(routes.home))
     } catch (err) {
         console.error(err.response)
-        dispatch(setMessage(err.response.data.message  || "Não foi possivel fazer o login, tente novamente mais tarde!", "red"))
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel fazer o login, tente novamente mais tarde!", "red"))
         dispatch(setOpen(true))
     }
 }
 
-export const setOpen = (option) => ({
-    type: "SET_OPEN",
+export const setAllBands = (bands) => ({
+    type: "SET_ALL_BANDS",
     payload: {
-        option
+        bands
     }
 })
 
-export const setMessage = (text, color) => ({
-    type: "SET_MESSAGE",
+
+export const getAllBands = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/bands`, {
+            headers: {
+                authorization: getToken()
+            }
+        })
+        dispatch(setAllBands(response.data))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de artistas!", "red"))
+        dispatch(setOpen(true))
+    }
+
+}
+
+export const aproveBand = (id) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${baseUrl}/approve-band`,
+            { id: id },
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel aprovar o artista!", "red"))
+        dispatch(setOpen(true))
+    }
+
+}
+
+
+
+export const setAllGenres = (genres) => ({
+    type: "SET_ALL_GENRES",
     payload: {
-        text,
-        color
+        genres
     }
 })
+
+export const getAllGenres = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/genre/all`, {
+            headers: {
+                authorization: getToken()
+            }
+        })
+        dispatch(setAllGenres(response.data))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de gêneros!", "red"))
+        dispatch(setOpen(true))
+    }
+
+}
+
 
 
 // const setLoggedUser = (user) => ({

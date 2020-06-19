@@ -24,10 +24,6 @@ function Appbar() {
     const goToHome = push(routes.home)
 
     const { userRole } = useUser()
-    // const userRole = "ADMINISTRATOR"
-    // const userRole = localStorage.getItem("userRole")
-    // const goToLogin = push(routes.login)
-    // const goToProfile = push(routes.profile)
 
     let search = undefined
     let buttons = undefined

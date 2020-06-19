@@ -1,16 +1,17 @@
 import React from "react"
-
 import { routes } from "../../utils/constants"
+import { useAllBands } from "../../utils/customHooks"
 import MenuItemPersonalized from "../../components/MenuItemPersonalized"
 
 
 function MenuItensAdmin() {
-    let badgeContentMocked1 = 1
-
+    const allBands = useAllBands()
+    const bandsNumber = allBands?.filter(band => band?.isApproved === false).length
+    
     return (
         <>
             <MenuItemPersonalized
-                badgeContent={badgeContentMocked1}
+                badgeContent={bandsNumber}
                 text="APROVAR BANDA"
                 path={routes.approveBand}
             />
