@@ -135,16 +135,13 @@ export class UserBusiness {
 
         const bands = await this.userDatabase.getAllBands()
         
-        return bands.map(band => {
-            const isApproved = band.getIsApproved() == true ? true : false
-            return {
+        return bands.map(band => ({
+                id: band.getId(),
                 name: band.getName(),
                 email: band.getEmail(),
                 nickname: band.getNickame(),
-                isApproved: isApproved
-            }
-        }
-        )
+                isApproved: band.getIsApproved() == true ? true : false
+        }))
     }
 
     //5
@@ -187,7 +184,7 @@ export class UserBusiness {
             throw new NotFoundError("Usuário e/ou senha inválidos.");
         }
 
-        if(user.getIsApproved() == false){
+        if(user.getIsApproved() === false){
             throw new UnauthorizedError("A banda precisa ser aprovada por um administrador para realizar login.")
         }
 

@@ -76,7 +76,7 @@ export class UserController {
         try {
             await UserController.UserBusiness.aproveBand(id, token)
             res.status(200).send({
-                message: "Approved band!"
+                message: "Artista aprovado com sucesso!"
             })
         }
         catch (err) {
