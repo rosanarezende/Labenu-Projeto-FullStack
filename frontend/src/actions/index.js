@@ -12,34 +12,41 @@ export const signupListening = (signupData) => async (dispatch) => {
         localStorage.setItem("userRole", userRole)
         localStorage.setItem("userName", userName)
         dispatch(push(routes.home))
-    } catch (error) {
-        console.error(error.message)
-        alert("Não foi possivel criar o cadastro, tente novamente mais tarde !")
+    } catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err.response.data.message || "Não foi possivel criar cadastrar o usuário, tente novamente mais tarde !", "red"))
+        dispatch(setOpen(true))
     }
 }
 
 export const signupBand = (signupData) => async (dispatch) => {
     try {
         await axios.post(`${baseUrl}/signup/band`, signupData)
-    } catch (error) {
-        console.error(error.message)
-        alert("Não foi possivel criar o cadastro, tente novamente mais tarde !")
+        dispatch(setMessage("Artista cadastrado com sucesso! Aguarde aprovação do administrador para acessar a aplicação!", "green"))
+        dispatch(setOpen(true))
+    } catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err.response.data.message || "Não foi possivel cadastrar o artista, tente novamente mais tarde!", "red"))
+        dispatch(setOpen(true))
     }
 }
 
 export const signupAdministrator = (signupData) => async (dispatch) => {
     console.log("chegou", signupData)
     try {
-        await axios.post(`${baseUrl}/signup/administrator`, 
-        signupData, 
-        {
-            headers: {
-                authorization: getToken()
-            }
-        })
-    } catch (error) {
-        console.error(error.message)
-        alert("Não foi possivel criar o cadastro, tente novamente mais tarde !")
+        await axios.post(`${baseUrl}/signup/administrator`,
+            signupData,
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage("Novo administrador cadastrado com sucesso!", "green"))
+        dispatch(setOpen(true))
+    } catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err.response.data.message || "Não foi possivel cadastrar um novo administrador, tente novamente mais tarde!", "red"))
+        dispatch(setOpen(true))
     }
 }
 
@@ -54,11 +61,27 @@ export const login = loginData => async (dispatch) => {
         localStorage.setItem("userName", userName)
         dispatch(push(routes.home))
     } catch (err) {
-        console.error(err.message)
-        // alert(err.message)
-        // alert("Não foi possivel fazer o login, tente novamente mais tarde!")
+        console.error(err.response)
+        dispatch(setMessage(err.response.data.message  || "Não foi possivel fazer o login, tente novamente mais tarde!", "red"))
+        dispatch(setOpen(true))
     }
 }
+
+export const setOpen = (option) => ({
+    type: "SET_OPEN",
+    payload: {
+        option
+    }
+})
+
+export const setMessage = (text, color) => ({
+    type: "SET_MESSAGE",
+    payload: {
+        text,
+        color
+    }
+})
+
 
 // const setLoggedUser = (user) => ({
 //     type: "SET_LOGGED_USER",

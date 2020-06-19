@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { push } from 'connected-react-router'
 import { routes } from "../../utils/constants"
 
@@ -7,15 +7,16 @@ import { InputAdornment } from '@material-ui/core';
 import * as S from "./styles"
 
 import { login } from '../../actions';
+import Message from '../../components/Message';
 
 function LoginPage() {
     const [userInfo, setUserInfo] = useState({})
     const [hidenPassword, setHidenPassword] = useState(false)
+    const open = useSelector(state => state.messages.open)
     const dispatch = useDispatch()
-    const goSignup = push(routes.signup)
 
     function goToSignUp() {
-        dispatch(goSignup)
+        dispatch(push(routes.signup))
     }
 
     function getUserInfo(e) {
@@ -29,6 +30,7 @@ function LoginPage() {
     }
 
     return (
+        <>
         <S.LoginWrapper>
             <S.LoginLogo src="https://user-images.githubusercontent.com/45580434/84555007-12291700-acf1-11ea-9b01-91d7f94f0755.png" alt="logo" />
 
@@ -94,6 +96,8 @@ function LoginPage() {
             </S.GoSignupDiv>
 
         </S.LoginWrapper>
+        {open && <Message/>}
+        </>
     )
 }
 

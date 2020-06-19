@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { signupAdministrator, signupBand, signupListening } from '../../actions';
+import { useDispatch, useSelector } from 'react-redux'
+import { signupAdministrator, signupBand, signupListening, setOpen, setMessage } from '../../actions';
 import { useUser } from '../../utils/customHooks'
 import * as S from "./styles"
-import { InputAdornment, Snackbar, MenuItem } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
+import { InputAdornment, MenuItem } from '@material-ui/core';
 import Appbar from '../../containers/Appbar';
-
-function Alert(props) {
-    return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+import Message from '../../components/Message';
 
 function SignupPage() {
     const { userRole } = useUser()
@@ -17,13 +13,11 @@ function SignupPage() {
     const [isAdmin, setIsAdmin] = useState(false)
     const [hidenPassword, setHidenPassword] = useState(false)
     const [hidenConfirm, setHidenConfirm] = useState(false)
-    const [open, setOpen] = useState(false)
-    const [message, setMessage] = useState("")
-    const [status, setStatus] = useState("")
+    const { open } = useSelector(state => state.messages)
     const dispatch = useDispatch()
 
     const userRoles = [
-        { type: "BAND", name: "Banda"}, 
+        { type: "BAND", name: "Banda | Cantor(a)"}, 
         { type: "PAYING-LISTENER", name: "Ouvinte (plano pago)"},
         { type: "NON-PAYING-LISTENER", name: "Ouvinte (plano gratuito)"}
     ]
@@ -119,45 +113,29 @@ function SignupPage() {
                 nickname: nickname,
                 password: password
             }
-
+        
         if (password !== confirm) {
-            setStatus("bad")
-            setMessage("Senhas não conferem!")
-            setOpen(true)
+            console.log("entrou no erro")
+            dispatch(setMessage("Senhas não conferem!", "red"))
+            dispatch(setOpen(true))           
         } 
         else {
                 if (isAdmin) {
+                    console.log("admin", signupData)
                     dispatch(signupAdministrator(signupData))
-                    // tratar pra só aparecer no sucesso
-                    setStatus("good")
-                    setMessage("Novo administrador cadastrado com sucesso!")
-                    setOpen(true)
                     setFormInfo({})
                 }
-                
                 else if (role === "BAND") {
                     console.log("band", signupData)
-                    // tratar pra só aparecer no sucesso
                     dispatch(signupBand(signupData))
-                    setStatus("good")
-                    setMessage("Artista cadastrado com sucesso! Aguarde aprovação do administrador para acessar a aplicação!")
-                    setOpen(true)
                     setFormInfo({})    
                 } 
-
                 else {
                     console.log("user", signupData)
                     dispatch(signupListening(signupData))
                 }
         }
     }
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false);
-    };
 
     return (
         <>
@@ -232,13 +210,7 @@ function SignupPage() {
 
             </S.SignupForm>
 
-            {open &&
-                <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity={status === "bad" ? "error" : "success"}>
-                        {message}
-                    </Alert>
-                </Snackbar>
-            }
+            {open && <Message />}
 
         </S.SignupWrapper>
         </>
