@@ -29,8 +29,8 @@ function SignupPage() {
             label: "Nome",
             placeholder: formInfo?.role !== "BAND" ? "Nome e Sobrenome" : "Nome da banda",
             type: "text",
-            pattern: "[a-zA-Zà-úÀ-ú ]{3,}",
-            title: "O nome do usuário deve conter apenas letras, no mínimo de 3"
+            pattern: "[a-zA-Zà-úÀ-ú0-9 ]{3,}",
+            title: "O nome deve conter apenas letras ou números, no mínimo de 3"
         },
         {
             name: 'email',
@@ -44,7 +44,7 @@ function SignupPage() {
             placeholder: "nickname",
             type: "text",
             pattern: "[a-zA-Z0-9_]{5,}",
-            title: "O nickname deve conter no mínimo 5 caracteres (lestras, números ou _)."
+            title: "O nickname deve conter no mínimo 5 caracteres (letras, números ou _), sem espaços."
         },
         {
             name: 'password',
