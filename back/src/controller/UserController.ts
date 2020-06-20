@@ -47,7 +47,7 @@ export class UserController {
         try {
             await UserController.UserBusiness.signupBandUser(name, email, nickname, password, description)
             res.status(200).send({
-                message: "Registered band. Wait for approval by the administrator!"
+                message: "Artista cadastrado. Aguarde aprovação de um administrador para acessar a aplicação!"
             })
         }
         catch (err) {

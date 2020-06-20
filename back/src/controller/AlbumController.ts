@@ -21,7 +21,7 @@ export class AlbumController {
         const { name, genreList } = req.body
         try {
             await AlbumController.AlbumBusiness.createAlbum(token, name, genreList)
-            res.status(200).send({ message: "Successfully created album" })
+            res.status(200).send({ message: "Álbum criado com sucesso!" })
         }
         catch (err) {
             res.status(err.errorCode || 400).send({ message: err.message });

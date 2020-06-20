@@ -25,13 +25,13 @@ export class AlbumBusiness {
         const userData = this.authenticator.verify(token)
         const user = await this.userDatabase.getUserById(userData.id)
         if (!user) {
-            throw new NotFoundError("User not found");
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
         }
         if (user.getRole() !== UserRole.BAND) {
-            throw new UnauthorizedError("You must be a band to access this endpoint")
+            throw new UnauthorizedError("Você não tem permissão para cadastrar um álbum!")
         }
         if (!name || !genreList || !token) {
-            throw new InvalidParameterError("Missing input");
+            throw new InvalidParameterError("Preencha os campos para prosseguir.");
         }
 
         const id = this.idGenerator.generatorId()
@@ -43,7 +43,7 @@ export class AlbumBusiness {
         for(const genre of genreList){
             let found = genres.find(item => item.getId() === genre)
             if(!found){
-                throw new NotFoundError("Genre not found")
+                throw new NotFoundError("Gênero não encontrado!")
             }
         }
 
