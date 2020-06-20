@@ -1,6 +1,6 @@
 import React from "react"
 
-// import { routes } from "../../utils/constants"
+import { routes } from "../../utils/constants"
 import MenuItemPersonalized from "../../components/MenuItemPersonalized"
 
 
@@ -10,11 +10,11 @@ function MenuItensBand() {
         <>
             <MenuItemPersonalized
                 text="GERENCIAR ÁLBUNS"
-                // path={routes.album}
+                path={routes.createAlbum}
             />
             <MenuItemPersonalized
                 text="GERENCIAR MÚSICAS"
-                // path={routes.music}
+                path={routes.createMusic}
             />
         </>
     )

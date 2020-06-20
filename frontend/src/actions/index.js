@@ -153,7 +153,6 @@ export const getAllGenres = () => async (dispatch) => {
 }
 
 export const addGenre = (name) => async (dispatch) => {
-    
     try {
         const response = await axios.post(`${baseUrl}/genre/add`,
             name,
@@ -170,7 +169,25 @@ export const addGenre = (name) => async (dispatch) => {
         dispatch(setMessage(err?.response?.data?.message || "Não foi possivel aprovar o artista!", "red"))
         dispatch(setOpen(true))
     }
+}
 
+export const createAlbum = (info) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${baseUrl}/album/create`,
+            info,
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel criar o álbum!", "red"))
+        dispatch(setOpen(true))
+    }
 }
 
 

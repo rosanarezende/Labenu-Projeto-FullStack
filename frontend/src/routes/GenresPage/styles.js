@@ -20,10 +20,6 @@ export const GenreForm = styled.form`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 2rem;
-
-    @media screen and (max-device-width: 1000px) {  
-        /* justify-content: center; */
-    }
 `
 
 export const GenreTitle = styled(Typography)`

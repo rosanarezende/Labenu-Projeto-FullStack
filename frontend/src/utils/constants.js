@@ -5,7 +5,9 @@ export const routes = {
     signup: "/signup",
     approveBand: "/approveband",
     genres: "/genres",
-    profile: "/profile"
+    profile: "/profile",
+    createAlbum: "/create/album",
+    createMusic: "/create/music"
     
     // detail: '/produto/:id'
 }
