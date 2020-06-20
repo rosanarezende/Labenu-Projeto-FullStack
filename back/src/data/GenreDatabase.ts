@@ -1,5 +1,5 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { Genre, GenreOption, stringToGenreOption } from "../model/Genre";
+import { Genre } from "../model/Genre";
 
 export class GenreDatabase extends BaseDatabase {
     public static TABLE_NAME: string = "SpotenuGenre";

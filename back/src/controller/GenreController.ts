@@ -20,7 +20,7 @@ export class GenreController {
         const { name } = req.body
         try {
             await GenreController.GenreBusiness.addGenre(name, token)
-            res.status(200).send({ message: "Genre added successfully" })
+            res.status(200).send({ message: "Gênero adicionado com sucesso!" })
         }
         catch (err) {
             res.status(err.errorCode || 400).send({ message: err.message });
