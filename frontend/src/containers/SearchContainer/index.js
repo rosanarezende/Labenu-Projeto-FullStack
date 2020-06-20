@@ -14,7 +14,7 @@ function SearchContainer() {
     const onChangeGenre = (event) => {
         setSelectedGenre(event.target.value)
     }
-    console.log(selectedGenre)
+    
     return (
         <>
             <div className={classes.search}>

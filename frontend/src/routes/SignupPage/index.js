@@ -17,9 +17,9 @@ function SignupPage() {
     const dispatch = useDispatch()
 
     const userRoles = [
-        { type: "BAND", name: "Banda | Cantor(a)"}, 
-        { type: "PAYING-LISTENER", name: "Ouvinte (plano pago)"},
-        { type: "NON-PAYING-LISTENER", name: "Ouvinte (plano gratuito)"}
+        { type: "BAND", name: "Banda | Cantor(a)" },
+        { type: "PAYING-LISTENER", name: "Ouvinte (plano pago)" },
+        { type: "NON-PAYING-LISTENER", name: "Ouvinte (plano gratuito)" }
     ]
 
     const createNewUser = [
@@ -82,7 +82,7 @@ function SignupPage() {
     ]
 
     useEffect(() => {
-        if(userRole === "ADMINISTRATOR"){
+        if (userRole === "ADMINISTRATOR") {
             setIsAdmin(true)
         }
     }, [userRole])
@@ -113,106 +113,104 @@ function SignupPage() {
                 nickname: nickname,
                 password: password
             }
-        
+
         if (password !== confirm) {
-            console.log("entrou no erro")
+
             dispatch(setMessage("Senhas não conferem!", "red"))
-            dispatch(setOpen(true))           
-        } 
+            dispatch(setOpen(true))
+        }
         else {
-                if (isAdmin) {
-                    console.log("admin", signupData)
-                    dispatch(signupAdministrator(signupData))
-                    setFormInfo({})
-                }
-                else if (role === "BAND") {
-                    console.log("band", signupData)
-                    dispatch(signupBand(signupData))
-                    setFormInfo({})    
-                } 
-                else {
-                    console.log("user", signupData)
-                    dispatch(signupListening(signupData))
-                }
+            if (isAdmin) {
+                dispatch(signupAdministrator(signupData))
+                setFormInfo({})
+            }
+            else if (role === "BAND") {
+                dispatch(signupBand(signupData))
+                setFormInfo({})
+            }
+            else {
+                dispatch(signupListening(signupData))
+                setFormInfo({})
+            }
         }
     }
 
     return (
         <>
-        {isAdmin && <Appbar/>}
-        <S.SignupWrapper>
-            {!isAdmin 
-                ? <S.SignupLogo src="https://user-images.githubusercontent.com/45580434/84555007-12291700-acf1-11ea-9b01-91d7f94f0755.png" alt="logo" />
-                : <S.MarginTop/>
-            }
-
-            <S.Text variant="h6" color="textSecondary"> Cadastrar {isAdmin && "Administrador"}</S.Text>
-
-            <S.SignupForm onSubmit={sendUserInfo}>
-
-            { !isAdmin &&
-                <S.InputWrapper
-                    select
-                    required
-                    key="role"
-                    variant="outlined"
-                    margin="normal"
-                    label="Tipo de usuário"
-                    name="role"
-                    onChange={getFormInfo}
-                    value={formInfo.role || ""}
-                >
-                    {userRoles.map(user => <MenuItem value={user.type} key={user.type}>{user.name}</MenuItem> )}
-                </S.InputWrapper>
-            }
-
-                {createNewUser.map(field => (
-                    <S.InputWrapper
-                        key={field.name}
-                        variant="outlined"
-                        margin="normal"
-                        label={field.label}
-                        name={field.name}
-                        placeholder={field.placeholder}
-                        value={formInfo[field.name] || ""}
-                        onChange={getFormInfo}
-                        type={field.type}
-                        required
-                        InputLabelProps={{ shrink: true }}
-                        InputProps={{
-                            endAdornment: field.endAdornment,
-                            inputProps: {
-                                pattern: field.pattern,
-                                title: field.title
-                            }
-                        }}
-                    />
-                ))}
-
-                {formInfo?.role === "BAND" &&
-                    <S.TextAreaWrapper
-                        name='description'
-                        variant="outlined"
-                        label="Descrição"
-                        type='text'
-                        value={formInfo.description || ''}
-                        onChange={getFormInfo}
-                        required
-                        InputLabelProps={{ shrink: true }}
-                        multiline
-                        rows="5"
-                    />
+            {isAdmin && <Appbar />}
+            <S.SignupWrapper>
+                {!isAdmin
+                    ? <S.SignupLogo src="https://user-images.githubusercontent.com/45580434/84555007-12291700-acf1-11ea-9b01-91d7f94f0755.png" alt="logo" />
+                    : <S.MarginTop />
                 }
 
-                <S.ButtonWrapper type='onSubmit' variant="contained" color="primary">
-                    Entrar
+                <S.Text variant="h6" color="textSecondary"> Cadastrar {isAdmin && "Administrador"}</S.Text>
+
+                <S.SignupForm onSubmit={sendUserInfo}>
+
+                    {!isAdmin &&
+                        <S.InputWrapper
+                            select
+                            required
+                            key="role"
+                            variant="outlined"
+                            margin="normal"
+                            label="Tipo de usuário"
+                            name="role"
+                            onChange={getFormInfo}
+                            value={formInfo.role || ""}
+                        >
+                            {userRoles.map(user => <MenuItem value={user.type} key={user.type}>{user.name}</MenuItem>)}
+                        </S.InputWrapper>
+                    }
+
+                    {createNewUser.map(field => (
+                        <S.InputWrapper
+                            key={field.name}
+                            variant="outlined"
+                            margin="normal"
+                            label={field.label}
+                            name={field.name}
+                            placeholder={field.placeholder}
+                            value={formInfo[field.name] || ""}
+                            onChange={getFormInfo}
+                            type={field.type}
+                            required
+                            InputLabelProps={{ shrink: true }}
+                            InputProps={{
+                                endAdornment: field.endAdornment,
+                                inputProps: {
+                                    pattern: field.pattern,
+                                    title: field.title
+                                }
+                            }}
+                        />
+                    ))}
+
+                    {formInfo?.role === "BAND" &&
+                        <S.TextAreaWrapper
+                            name='description'
+                            variant="outlined"
+                            label="Descrição"
+                            type='text'
+                            value={formInfo.description || ''}
+                            onChange={getFormInfo}
+                            required
+                            InputLabelProps={{ shrink: true }}
+                            multiline
+                            rows="5"
+                        />
+                    }
+
+                    <S.ButtonWrapper type='onSubmit' variant="contained" color="primary">
+                        Entrar
                 </S.ButtonWrapper>
 
-            </S.SignupForm>
+                </S.SignupForm>
 
-            {open && <Message />}
+                {open && <Message />}
 
-        </S.SignupWrapper>
+            </S.SignupWrapper>
         </>
     )
 }

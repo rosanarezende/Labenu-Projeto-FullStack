@@ -47,7 +47,6 @@ export const signupBand = (signupData) => async (dispatch) => {
 }
 
 export const signupAdministrator = (signupData) => async (dispatch) => {
-    console.log("chegou", signupData)
     try {
         await axios.post(`${baseUrl}/signup/administrator`,
             signupData,
@@ -148,6 +147,27 @@ export const getAllGenres = () => async (dispatch) => {
     catch (err) {
         console.error(err.response)
         dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de gêneros!", "red"))
+        dispatch(setOpen(true))
+    }
+
+}
+
+export const addGenre = (name) => async (dispatch) => {
+    
+    try {
+        const response = await axios.post(`${baseUrl}/genre/add`,
+            name,
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel aprovar o artista!", "red"))
         dispatch(setOpen(true))
     }
 

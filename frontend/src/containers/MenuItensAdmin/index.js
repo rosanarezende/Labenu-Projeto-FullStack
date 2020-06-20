@@ -1,13 +1,17 @@
 import React from "react"
 import { routes } from "../../utils/constants"
-import { useAllBands } from "../../utils/customHooks"
+import { useSelector } from 'react-redux'
+
+// import { useAllBands } from "../../utils/customHooks"
 import MenuItemPersonalized from "../../components/MenuItemPersonalized"
 
 
 function MenuItensAdmin() {
-    const allBands = useAllBands()
-    const bandsNumber = allBands?.filter(band => band?.isApproved === false).length
+    // const allBands = useAllBands()
     
+    const allBands = useSelector(state => state.genres.allBands)
+    const bandsNumber = allBands?.filter(band => band?.isApproved === false).length
+
     return (
         <>
             <MenuItemPersonalized
