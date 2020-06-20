@@ -6,6 +6,7 @@ import * as S from "./styles"
 import { InputAdornment, MenuItem } from '@material-ui/core';
 import Appbar from '../../containers/Appbar';
 import Message from '../../components/Message';
+import ButtonBack from '../../components/ButtonBack';
 
 function SignupPage() {
     const { userRole } = useUser()
@@ -140,7 +141,10 @@ function SignupPage() {
             {isAdmin && <Appbar />}
             <S.SignupWrapper>
                 {!isAdmin
-                    ? <S.SignupLogo src="https://user-images.githubusercontent.com/45580434/84555007-12291700-acf1-11ea-9b01-91d7f94f0755.png" alt="logo" />
+                    ? <>
+                        <S.SignupLogo src="https://user-images.githubusercontent.com/45580434/84555007-12291700-acf1-11ea-9b01-91d7f94f0755.png" alt="logo" />
+                        <ButtonBack/>
+                    </>
                     : <S.MarginTop />
                 }
 
