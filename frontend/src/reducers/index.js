@@ -4,6 +4,7 @@ import { connectRouter } from 'connected-react-router'
 import messages from "./messages"
 import users from "./users"
 import genres from "./genres"
+import albuns from "./albuns"
 
 export const generateReducers = history =>
     combineReducers({
@@ -11,5 +12,6 @@ export const generateReducers = history =>
 
         messages,
         users,
-        genres
+        genres,
+        albuns
 })

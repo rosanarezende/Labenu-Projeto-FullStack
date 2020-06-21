@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllBands, getAllGenres } from "../actions"
+import { getAllBands, getAllGenres, getBandAlbuns } from "../actions"
 
 export const useUser = () => {
     const [userRole, setUserRole] = useState("")
@@ -39,4 +39,15 @@ export const useAllGenres = () => {
     }, [dispatch])
 
     return allGenres
+}
+
+export const useBandAlbuns = () => {
+    const { bandAlbuns } = useSelector(state => state.albuns)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getBandAlbuns())
+    }, [dispatch])
+
+    return bandAlbuns
 }

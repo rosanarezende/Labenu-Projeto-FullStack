@@ -190,29 +190,47 @@ export const createAlbum = (info) => async (dispatch) => {
     }
 }
 
+export const createMusic = (info) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${baseUrl}/music/create`,
+            info,
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel criar a música!", "red"))
+        dispatch(setOpen(true))
+    }
+}
 
 
-// const setLoggedUser = (user) => ({
-//     type: "SET_LOGGED_USER",
-//     payload: {
-//         user
-//     }
-// })
+export const setBandAlbuns = (albuns) => ({
+    type: "SET_BAND_ALBUNS",
+    payload: {
+        albuns
+    }
+})
 
-// export const getLoggedUser = () => async (dispatch) => {
-//     // preciso enviar o token? acho que sim... pelo headers
-//     try{
-//         const response = await axios.get(`${baseUrl}/profile`, { // ver /alguma coisa
-//             headers: {
-//                 authorization: getToken()
-//             }
-//         })
-//         dispatch(setLoggedUser(response.data)) // ver .data.algumaCoisa
+export const getBandAlbuns = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/album/band`,
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setBandAlbuns(response.data))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel criar a música!", "red"))
+        dispatch(setOpen(true))
+    }
+}
 
-//     }
-//     catch(err) {
-//         console.error(err.message)
-//         alert("Não foi possível encontrar o usuário")
-//         // dá um dispatch pro login???
-//     }
-// }
