@@ -88,7 +88,6 @@ export class UserController {
     //6
     public async login(req: Request, res: Response) {
         const { input, password } = req.body
-        console.log(input)
         try {
             const result = await UserController.UserBusiness.login(input, password)
             res.status(200).send(result)

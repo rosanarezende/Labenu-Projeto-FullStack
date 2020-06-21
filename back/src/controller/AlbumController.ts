@@ -29,4 +29,16 @@ export class AlbumController {
         await BaseDatabase.destroyConnection()
     }
 
+    public async getAlbunsByBandId(req: Request, res: Response) {
+        const token = req.headers.authorization as string
+        try {
+            const albuns = await AlbumController.AlbumBusiness.getAlbunsByBandId(token)
+            res.status(200).send(albuns)
+        }
+        catch (err) {
+            res.status(err.errorCode || 400).send({ message: err.message });
+        }
+        await BaseDatabase.destroyConnection()
+    }
+
 }

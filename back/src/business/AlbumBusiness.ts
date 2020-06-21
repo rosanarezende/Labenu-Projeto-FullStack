@@ -54,4 +54,27 @@ export class AlbumBusiness {
     }
 
 
+    public async getAlbunsByBandId(token: string) {
+        const userData = this.authenticator.verify(token)
+        const user = await this.userDatabase.getUserById(userData.id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
+        if (user.getRole() !== UserRole.BAND) {
+            throw new UnauthorizedError("Você não tem permissão para buscar álbuns por artista!")
+        }
+
+        const albuns = await this.albumDatabase.getAlbunsByBandId(user.getId())
+        return albuns
+            
+        // return bands.map(band => ({
+        //         id: band.getId(),
+        //         name: band.getName(),
+        //         email: band.getEmail(),
+        //         nickname: band.getNickame(),
+        //         isApproved: band.getIsApproved() == true ? true : false
+        // }))
+    }
+
+
 }
