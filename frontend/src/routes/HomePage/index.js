@@ -5,14 +5,14 @@ import * as S from "./style"
 
 function HomePage() {
     // const profile = useProfile()
-    const { userRole } = useUser()
+    const { userName } = useUser()
 
     return (
         <>
             <Appbar />
             <S.HomeWrapper>
                 <S.HomeText>
-                    <span>Bem vindx <strong style={{ color: "#fff" }}>{userRole}</strong></span>
+                    <span>Bem vindx <strong style={{ color: "#fff" }}>{userName}</strong></span>
                 </S.HomeText>
                 <S.Backdrop/>
             </S.HomeWrapper>
