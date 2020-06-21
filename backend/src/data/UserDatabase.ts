@@ -105,4 +105,12 @@ export class UserDatabase extends BaseDatabase {
         `)
     }
 
+    public async changeNameById(id: string, name: string): Promise<void> {
+        await super.connection().raw(`
+            UPDATE ${UserDatabase.TABLE_NAME}
+            SET name = "${name}"
+            WHERE id = "${id}"
+        `)
+    }
+
 }

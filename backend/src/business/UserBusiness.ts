@@ -144,11 +144,6 @@ export class UserBusiness {
             role: user.getRole(),
         });
 
-        const userInformation = {
-            role: user.getRole(), 
-            name: user.getName()
-        }
-
         return { accessToken, role: user.getRole(), name: user.getName()  };
     }
 
@@ -194,7 +189,6 @@ export class UserBusiness {
         await this.userDatabase.approveBand(id)
     }
 
-
     public async getAllUsers(token: string) {
         const userData = this.authenticator.verify(token)
         const user = await this.userDatabase.getUserById(userData.id)
@@ -216,7 +210,6 @@ export class UserBusiness {
                 role: user.getRole()
         }))
     }
-
 
     public async blockUser(id: string, token: string) {
         const userLoggedData = this.authenticator.verify(token)
@@ -242,8 +235,36 @@ export class UserBusiness {
         await this.userDatabase.blockUser(id)
     }
 
+    public async getProfile(token: string){
+        const userLoggedData = this.authenticator.verify(token)
+        const userLogged = await this.userDatabase.getUserById(userLoggedData.id)
+        if (!userLogged) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
 
+        // não mandar a senha
+        return {
+            id: userLogged.getId(),
+            name: userLogged.getName(),
+            nickname: userLogged.getNickame(),
+            email: userLogged.getEmail(),
+            description: userLogged.getDescription(),
+            role: userLogged.getRole(),
+            isApproved: userLogged.getIsApproved()
+        }
+        
+        return userLogged
+    }
 
+    public async changeNameById(name: string, token: string) {
+        const userLoggedData = this.authenticator.verify(token)
+        const userLogged = await this.userDatabase.getUserById(userLoggedData.id)
+        if (!userLogged) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
+
+        await this.userDatabase.changeNameById(userLogged.getId(), name)
+    }
 
 
 }

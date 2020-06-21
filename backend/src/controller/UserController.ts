@@ -119,4 +119,31 @@ export class UserController {
         await BaseDatabase.destroyConnection()
     }
 
+    public async getProfile(req: Request, res: Response) {
+        const token = req.headers.authorization as string
+        try {
+            const user = await UserController.UserBusiness.getProfile(token)
+            res.status(200).send(user)
+        }
+        catch (err) {
+            res.status(err.errorCode || 400).send({ message: err.message });
+        }
+        await BaseDatabase.destroyConnection()
+    }
+
+    public async changeNameById(req: Request, res: Response) {
+        const token = req.headers.authorization as string
+        const { name } = req.body
+        try {
+            await UserController.UserBusiness.changeNameById(name, token)
+            res.status(200).send({
+                message: "Nome do usuário alterado com sucesso!"
+            })
+        }
+        catch (err) {
+            res.status(err.errorCode || 400).send({ message: err.message });
+        }
+        await BaseDatabase.destroyConnection()
+    }
+
 }
