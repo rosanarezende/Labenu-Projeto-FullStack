@@ -15,11 +15,6 @@ function MenuItensAdmin() {
     return (
         <>
             <MenuItemPersonalized
-                badgeContent={bandsNumber}
-                text="APROVAR BANDA"
-                path={routes.approveBand}
-            />
-            <MenuItemPersonalized
                 text="CADASTRAR ADMINISTRADOR"
                 path={routes.signup}
             />
@@ -28,8 +23,13 @@ function MenuItensAdmin() {
                 path={routes.genres}
             />
             <MenuItemPersonalized
+                badgeContent={bandsNumber}
+                text="APROVAR BANDA"
+                path={routes.approveBand}
+            />
+            <MenuItemPersonalized
                 text="BLOQUEAR USUÁRIOS"
-            // path={routes.}
+                path={routes.blockUser}
             />
         </>
     )

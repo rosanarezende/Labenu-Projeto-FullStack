@@ -14,6 +14,7 @@ import GenresPage from './GenresPage';
 import ProfilePage from './ProfilePage';
 import CreateAlbumPage from './CreateAlbumPage';
 import CreateMusicPage from './CreateMusicPage';
+import BlockUserPage from './BlockUserPage';
 
 function Routes(props){
     const { history } = props
@@ -30,7 +31,7 @@ function Routes(props){
                 <Route exact path={routes.profile} component={ProfilePage}/>
                 <Route exact path={routes.createAlbum} component={CreateAlbumPage}/>
                 <Route exact path={routes.createMusic} component={CreateMusicPage}/>
-
+                <Route exact path={routes.blockUser} component={BlockUserPage}/>
                 {/* <Route exact path={routes.detail} component={DetailPage}/> */}
                 <Route path="*" component={NotFoundPage} />
             </Switch>

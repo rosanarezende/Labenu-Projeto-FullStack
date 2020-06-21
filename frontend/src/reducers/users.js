@@ -1,5 +1,6 @@
 const initialState = {
     allBands: [],
+    allUsers: [],
 }
 
 const users = (state = initialState, action) => {
@@ -9,6 +10,12 @@ const users = (state = initialState, action) => {
             return {
                 ...state,
                 allBands: action.payload.bands
+            }
+
+        case "SET_ALL_USERS":
+            return {
+                ...state,
+                allUsers: action.payload.users
             }
 
         default:

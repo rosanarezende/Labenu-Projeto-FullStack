@@ -126,8 +126,6 @@ export const aproveBand = (id) => async (dispatch) => {
 
 }
 
-
-
 export const setAllGenres = (genres) => ({
     type: "SET_ALL_GENRES",
     payload: {
@@ -234,3 +232,47 @@ export const getBandAlbuns = () => async (dispatch) => {
     }
 }
 
+
+export const setAllUsers = (users) => ({
+    type: "SET_ALL_USERS",
+    payload: {
+        users
+    }
+})
+
+
+export const getAllUsers = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/users`, {
+            headers: {
+                authorization: getToken()
+            }
+        })
+        dispatch(setAllUsers(response.data))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de usuários!", "red"))
+        dispatch(setOpen(true))
+    }
+
+}
+
+export const blockUser = (id) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${baseUrl}/block-user`,
+            { id: id },
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel aprovar o artista!", "red"))
+        dispatch(setOpen(true))
+    }
+}

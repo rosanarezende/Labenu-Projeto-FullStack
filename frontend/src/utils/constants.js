@@ -7,7 +7,8 @@ export const routes = {
     genres: "/genres",
     profile: "/profile",
     createAlbum: "/create/album",
-    createMusic: "/create/music"
+    createMusic: "/create/music",
+    blockUser: "/user/block"
     
     // detail: '/produto/:id'
 }
