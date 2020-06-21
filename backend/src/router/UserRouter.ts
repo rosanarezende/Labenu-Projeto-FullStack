@@ -9,5 +9,7 @@ userRouter.post("/signup/administrator", userController.signupAdministratorUser)
 userRouter.post("/signup/band", userController.signupBandUser);
 userRouter.post("/login", userController.login)
 userRouter.post("/approve-band", userController.aproveBand)
+userRouter.post("/block-user", userController.blockUser)
 
 userRouter.get("/bands", userController.getAllBands)
+userRouter.get("/users", userController.getAllUsers)
