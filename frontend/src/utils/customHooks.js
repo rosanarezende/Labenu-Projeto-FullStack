@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllBands, getAllGenres, getBandAlbuns, getAllUsers } from "../actions"
+import { getAllBands, getAllGenres, getBandAlbuns, getAllUsers, getProfile } from "../actions"
 
 export const useUser = () => {
     const [userRole, setUserRole] = useState("")
@@ -61,4 +61,15 @@ export const useAllUsers = () => {
     }, [dispatch])
 
     return allUsers
+}
+
+export const useProfile = () => {
+    const { profile } = useSelector(state => state.users)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getProfile())
+    }, [dispatch])
+
+    return profile
 }

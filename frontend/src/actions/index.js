@@ -276,3 +276,47 @@ export const blockUser = (id) => async (dispatch) => {
         dispatch(setOpen(true))
     }
 }
+
+export const setProfile = (user) => ({
+    type: "SET_PROFILE",
+    payload: {
+        user
+    }
+})
+
+export const getProfile = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/profile`, {
+            headers: {
+                authorization: getToken()
+            }
+        })
+        dispatch(setProfile(response?.data))
+
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar os dados do usuário logado!", "red"))
+        dispatch(setOpen(true))
+    }
+
+}
+
+export const changeName = (name) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${baseUrl}/change-name`,
+            { name: name },
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel alterar o nome do usuário!", "red"))
+        dispatch(setOpen(true))
+    }
+}
