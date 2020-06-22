@@ -21,12 +21,25 @@ export class MusicController {
         const { name, albumId } = req.body
         try{
             await MusicController.MusicBusiness.createMusic(token, name, albumId)
+            await BaseDatabase.destroyConnection()
             res.status(200).send({ message: "Successfully created music" })
         }
         catch (err) {
+            await BaseDatabase.destroyConnection()
             res.status(err.errorCode || 400).send({ message: err.message });
         }
-        await BaseDatabase.destroyConnection()
+    }
+
+    public async getAllMusicsDetailed(req: Request, res: Response){
+        try{
+            const musics = await MusicController.MusicBusiness.getAllMusicsDetailed()
+            await BaseDatabase.destroyConnection()
+            res.status(200).send(musics)
+        }
+        catch (err) {
+            await BaseDatabase.destroyConnection()
+            res.status(err.errorCode || 400).send({ message: err.message });
+        }
     }
 
 }

@@ -52,4 +52,11 @@ export class MusicBusiness {
         const music = new Music(id, name, albumId)
         await this.musicDatabase.createMusic(music)
     }
+
+    public async getAllMusicsDetailed(){
+        const musics = await this.musicDatabase.getAllMusicsDetailed()
+
+        return musics
+    }
+
 }
