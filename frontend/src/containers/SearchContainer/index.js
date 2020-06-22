@@ -1,23 +1,33 @@
-import React, {useState} from "react"
+import React from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { push } from 'connected-react-router'
 
 import { useStyles } from "../../utils/theme";
+import { useAllGenres } from "../../utils/customHooks"
+import { routes } from "../../utils/constants"
+import { setInputSearch, setGenreSelected } from "../../actions"
 
 import { InputBase, TextField, MenuItem } from "@material-ui/core"
 import { Search } from "@material-ui/icons"
 
 function SearchContainer() {
+    const dispatch = useDispatch()
     const classes = useStyles();
-    const [selectedGenre, setSelectedGenre ] = useState("")
+    const { inputSearch, selectedGenre } = useSelector(state => state.search)
 
-    const genres = ["JAZZ", "FORRÓ"]
-
-    const onChangeGenre = (event) => {
-        setSelectedGenre(event.target.value)
-    }
+    const allGenres = useAllGenres()
     
+    const onChangeGenre = (event) => {
+        dispatch(setGenreSelected(event.target.value))
+    }
+
+    const onChangeInput = (event) => {
+        dispatch(setInputSearch(event.target.value))
+    }
+        
     return (
         <>
-            <div className={classes.search}>
+            <div className={classes.search} onClick={() => dispatch(push(routes.searchMusic))}>
                 <div className={classes.searchIcon}>
                     <Search />
                 </div>
@@ -28,10 +38,10 @@ function SearchContainer() {
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    value={inputSearch}
+                    onChange={onChangeInput}
                 />
-            </div>
-
-            
+            </div>           
 
             <TextField
                 select
@@ -43,9 +53,9 @@ function SearchContainer() {
                 style={ {width: "100px", marginBottom: "15px"}}
             >
                 <MenuItem value="">Selecione:</MenuItem>
-                {genres.map(genre => 
-                    <MenuItem key={genre} value={genre}>
-                        {genre}
+                {allGenres.map(genre => 
+                    <MenuItem key={genre.id} value={genre.id}>
+                        {genre.name}
                     </MenuItem>)}
             </TextField>
 

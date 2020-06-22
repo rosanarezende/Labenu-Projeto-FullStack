@@ -5,13 +5,16 @@ import messages from "./messages"
 import users from "./users"
 import genres from "./genres"
 import albuns from "./albuns"
+import musics from "./musics"
+import search from "./search"
 
 export const generateReducers = history =>
     combineReducers({
         router: connectRouter(history),
-
         messages,
         users,
         genres,
-        albuns
+        albuns,
+        musics,
+        search
 })

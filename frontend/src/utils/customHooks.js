@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllBands, getAllGenres, getBandAlbuns, getAllUsers, getProfile } from "../actions"
+import { getAllBands, getAllGenres, getBandAlbuns, getAllUsers, getProfile, setProfile, getAllMusics } from "../actions"
 
 export const useUser = () => {
     const [userRole, setUserRole] = useState("")
@@ -17,6 +17,7 @@ export const useUser = () => {
         userRole,
         userName
     }
+    
 
 }
 
@@ -68,8 +69,19 @@ export const useProfile = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        dispatch(setProfile({}))
         dispatch(getProfile())
     }, [dispatch])
 
     return profile
+}
+
+export const useAllMusics = () => {
+    const { allMusics } = useSelector(state => state.musics)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getAllMusics())
+    }, [dispatch])
+
+    return allMusics
 }

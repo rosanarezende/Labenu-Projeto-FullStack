@@ -109,7 +109,7 @@ export const getAllBands = () => async (dispatch) => {
 export const aproveBand = (id) => async (dispatch) => {
     try {
         const response = await axios.post(`${baseUrl}/approve-band`,
-            { id: id },
+            { id },
             {
                 headers: {
                     authorization: getToken()
@@ -117,6 +117,7 @@ export const aproveBand = (id) => async (dispatch) => {
             })
         dispatch(setMessage(response?.data?.message, "green"))
         dispatch(setOpen(true))
+        dispatch(getAllBands())
     }
     catch (err) {
         console.error(err.response)
@@ -150,10 +151,11 @@ export const getAllGenres = () => async (dispatch) => {
 
 }
 
+
 export const addGenre = (name) => async (dispatch) => {
     try {
         const response = await axios.post(`${baseUrl}/genre/add`,
-            name,
+            { name },
             {
                 headers: {
                     authorization: getToken()
@@ -161,6 +163,7 @@ export const addGenre = (name) => async (dispatch) => {
             })
         dispatch(setMessage(response?.data?.message, "green"))
         dispatch(setOpen(true))
+        dispatch(getAllGenres()) // ATENÇÃO
     }
     catch (err) {
         console.error(err.response)
@@ -269,6 +272,7 @@ export const blockUser = (id) => async (dispatch) => {
             })
         dispatch(setMessage(response?.data?.message, "green"))
         dispatch(setOpen(true))
+        dispatch(getAllUsers())
     }
     catch (err) {
         console.error(err.response)
@@ -292,7 +296,6 @@ export const getProfile = () => async (dispatch) => {
             }
         })
         dispatch(setProfile(response?.data))
-
     }
     catch (err) {
         console.error(err.response)
@@ -313,6 +316,7 @@ export const changeName = (name) => async (dispatch) => {
             })
         dispatch(setMessage(response?.data?.message, "green"))
         dispatch(setOpen(true))
+        dispatch(getProfile())
     }
     catch (err) {
         console.error(err.response)
@@ -320,3 +324,38 @@ export const changeName = (name) => async (dispatch) => {
         dispatch(setOpen(true))
     }
 }
+
+export const setAllMusics = (musics) => ({
+    type: "SET_ALL_MUSICS",
+    payload: {
+        musics
+    }
+})
+
+export const getAllMusics = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/music/all`)
+        dispatch(setAllMusics(response.data))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
+        dispatch(setOpen(true))
+    }
+
+}
+
+export const setInputSearch = (inputData) => ({
+    type: 'SET_INPUT_SEARCH',
+    payload: {
+        inputData
+    }
+})
+
+
+export const setGenreSelected = (genreId) => ({
+    type: 'SET_GENRE_SELECTED',
+    payload: {
+        genreId
+    }
+})
