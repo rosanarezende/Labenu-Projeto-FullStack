@@ -16,6 +16,7 @@ export const CreateMusicWrapper = styled.div`
 export const CreateMusicForm = styled.form`
     display: flex;
     flex-direction: column;
+    margin-bottom: 2rem; 
 `
 
 export const CreateMusicTitle = styled(Typography)`

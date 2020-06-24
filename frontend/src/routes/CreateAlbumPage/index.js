@@ -1,15 +1,20 @@
 import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
+import { useAllGenres, useBandAlbuns } from "../../utils/customHooks"
+import { createAlbum, deleteAlbum } from "../../actions"
+
 import Appbar from "../../containers/Appbar"
-import { useAllGenres } from "../../utils/customHooks"
-import { createAlbum } from "../../actions"
+import Message from "../../components/Message"
+import Loading from "../../containers/Loading"
 
 import * as S from "./styles"
-import { MenuItem, Checkbox, ListItemText, Select, OutlinedInput } from "@material-ui/core"
-import Message from "../../components/Message"
+import { MenuItem, Checkbox, ListItemText, Select, OutlinedInput, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton } from "@material-ui/core"
+import { Delete } from "@material-ui/icons"
 
-function CreateAlbumPage(){
+
+function CreateAlbumPage() {
     const allGenres = useAllGenres()
+    const bandAlbuns = useBandAlbuns() // lembrar de atualizar o getAlbuns
     const [albumName, setAlbumName] = useState("")
     const [genreId, setGenreId] = useState([]);
     const dispatch = useDispatch()
@@ -20,8 +25,8 @@ function CreateAlbumPage(){
 
     const handleChange = (e) => {
         setGenreId(e.target.value);
-      };
-    
+    };
+
     const sendInformations = (e) => {
         e.preventDefault()
         const info = {
@@ -33,9 +38,15 @@ function CreateAlbumPage(){
         setGenreId([])
     }
 
+    const onDeleteAlbum = (id) => {
+        if (window.confirm("Deseja deletar esse álbum?")) {
+            dispatch(deleteAlbum(id))
+        }
+    }
+
     return (
         <>
-            <Appbar/>
+            <Appbar />
             <S.CreateAlbumWrapper>
                 <S.CreateAlbumForm onSubmit={sendInformations}>
                     <S.CreateAlbumTitle variant="h6">
@@ -61,25 +72,49 @@ function CreateAlbumPage(){
                             multiple
                             value={genreId}
                             onChange={handleChange}
-                            input={<OutlinedInput/>}
+                            input={<OutlinedInput />}
                             renderValue={() => genreId.length === 1 ? "1 gênero selecionado" : `${genreId.length} gêneros selecionados`}
                         >
-                        {allGenres.map((genre) => (
-                            <MenuItem key={genre.id} value={genre.id}>
-                                <Checkbox checked={genreId.indexOf(genre.id) > -1} />
-                                <ListItemText primary={genre.name} />
-                            </MenuItem>
-                        ))}
+                            {allGenres.map((genre) => (
+                                <MenuItem key={genre.id} value={genre.id}>
+                                    <Checkbox checked={genreId.indexOf(genre.id) > -1} />
+                                    <ListItemText primary={genre.name} />
+                                </MenuItem>
+                            ))}
                         </Select>
                     </S.CreateAlbumFormControl>
 
                     <S.CreateAlbumButton type="onSubmit" variant="contained" color="primary">
                         Criar
                     </S.CreateAlbumButton>
-
                 </S.CreateAlbumForm>
+
+                <div>
+                    <Typography variant="h6">
+                        Álbuns cadastrados:
+                    </Typography>
+                    <List component="nav">
+                        {bandAlbuns.map(album =>
+                            <ListItem key={album.id}>
+                                <ListItemAvatar>
+                                    <Avatar style={{ backgroundColor: "rgba(30, 215, 96, 1)" }}>
+                                        {album?.name.slice(0, 1).toUpperCase()}
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary={album.name} />
+                                <ListItemSecondaryAction onClick={() => onDeleteAlbum(album.id)}>
+                                    <IconButton edge="end" aria-label="icon" color="default">
+                                        <Delete />
+                                    </IconButton>
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                        )}
+                    </List>
+                </div>
+
             </S.CreateAlbumWrapper>
-            <Message/>
+            <Message />
+            <Loading />
         </>
     )
 }

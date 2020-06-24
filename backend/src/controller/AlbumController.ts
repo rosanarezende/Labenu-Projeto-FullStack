@@ -21,7 +21,7 @@ export class AlbumController {
         const { name, genreList } = req.body
         try {
             await AlbumController.AlbumBusiness.createAlbum(token, name, genreList)
-            await BaseDatabase.destroyConnection()
+            // await BaseDatabase.destroyConnection()
             res.status(200).send({ message: "Álbum criado com sucesso!" })
         }
         catch (err) {
@@ -34,8 +34,24 @@ export class AlbumController {
         const token = req.headers.authorization as string
         try {
             const albuns = await AlbumController.AlbumBusiness.getAlbunsByBandId(token)
-            await BaseDatabase.destroyConnection()
+            // await BaseDatabase.destroyConnection()
             res.status(200).send(albuns)
+        }
+        catch (err) {
+            await BaseDatabase.destroyConnection()
+            res.status(err.errorCode || 400).send({ message: err.message });
+        }
+    }
+
+    public async deleteAlbum(req: Request, res: Response){
+        const token = req.headers.authorization as string
+        const { id } = req.params
+        try {
+            await AlbumController.AlbumBusiness.deleteAlbum(token, id)
+            // await BaseDatabase.destroyConnection()
+            res.status(200).send({ 
+                message: "Álbum deletado com sucesso!" 
+            })
         }
         catch (err) {
             await BaseDatabase.destroyConnection()

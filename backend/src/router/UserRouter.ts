@@ -11,6 +11,7 @@ userRouter.post("/login", userController.login)
 userRouter.post("/approve-band", userController.aproveBand)
 userRouter.post("/block-user", userController.blockUser)
 userRouter.post("/change-name", userController.changeNameById)
+userRouter.post("/make-premium", userController.makePremium)
 
 userRouter.get("/bands", userController.getAllBands)
 userRouter.get("/users", userController.getAllUsers)

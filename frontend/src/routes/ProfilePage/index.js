@@ -9,6 +9,7 @@ import Message from "../../components/Message"
 import * as S from "./styles"
 import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, TextField } from "@material-ui/core"
 import { Edit, Check } from "@material-ui/icons"
+import Loading from "../../containers/Loading"
 
 function ProfilePage() {
     const dispatch = useDispatch()
@@ -96,6 +97,7 @@ function ProfilePage() {
                 </List>
             </S.ProfileWrapper>
             <Message />
+            <Loading/>
         </div>
     )
 }

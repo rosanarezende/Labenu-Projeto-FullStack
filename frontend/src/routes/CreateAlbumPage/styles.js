@@ -16,6 +16,7 @@ export const CreateAlbumWrapper = styled.div`
 export const CreateAlbumForm = styled.form`
     display: flex;
     flex-direction: column;
+    margin-bottom: 2rem; 
 `
 
 export const CreateAlbumTitle = styled(Typography)`

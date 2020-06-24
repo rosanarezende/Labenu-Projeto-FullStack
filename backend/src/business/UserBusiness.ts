@@ -267,4 +267,29 @@ export class UserBusiness {
     }
 
 
+    public async makePremium(id: string, token: string) {
+        const userLoggedData = this.authenticator.verify(token)
+        const userLogged = await this.userDatabase.getUserById(userLoggedData.id)
+        if (!userLogged) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
+        if (userLogged.getRole() !== UserRole.ADMINISTRATOR) {
+            throw new UnauthorizedError("Você não tem permissão para bloquear usuário!")
+        }
+
+        const user = await this.userDatabase.getUserById(id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado.");
+        }
+        if (user.getRole() === UserRole.ADMINISTRATOR || user.getRole() === UserRole.BAND) {
+            throw new UnauthorizedError("Apenas ouvintes podem ser transformados em premium!")
+        }
+        if(user.getRole() === UserRole.PAYINGLISTENER){
+            throw new GenericError("Este usuário já é PREMIUM.")
+        }       
+
+        await this.userDatabase.makePremium(id)
+    }
+
+
 }

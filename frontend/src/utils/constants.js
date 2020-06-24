@@ -9,9 +9,9 @@ export const routes = {
     createAlbum: "/create/album",
     createMusic: "/create/music",
     blockUser: "/user/block",
-    searchMusic: "/search"
-    
-    // detail: '/produto/:id'
+    searchMusic: "/search",
+    musicDetail: "/music/:id",
+    premium: "/premium"
 }
 
 export const baseUrl = "http://localhost:3001"

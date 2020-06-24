@@ -5,4 +5,6 @@ export const albumRouter = express.Router();
 const albumController = new AlbumController()
 
 albumRouter.post("/create", albumController.createAlbum)
+albumRouter.delete("/delete/:id", albumController.deleteAlbum)
+
 albumRouter.get("/band", albumController.getAlbunsByBandId)

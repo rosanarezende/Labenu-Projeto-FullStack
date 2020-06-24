@@ -113,4 +113,12 @@ export class UserDatabase extends BaseDatabase {
         `)
     }
 
+    public async makePremium(id: string): Promise<void> {
+        await super.connection().raw(`
+            UPDATE ${UserDatabase.TABLE_NAME}
+            SET role = "PAYING-LISTENER"
+            WHERE id = "${id}"
+        `)
+    }
+
 }

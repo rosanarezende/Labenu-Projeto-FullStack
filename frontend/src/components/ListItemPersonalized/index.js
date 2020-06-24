@@ -1,12 +1,12 @@
 import React from "react"
 import { useDispatch } from 'react-redux'
-import { aproveBand, blockUser } from "../../actions"
+import { aproveBand, blockUser, makePremium } from "../../actions"
 import { ListItem, Avatar, ListItemAvatar, ListItemText, IconButton, ListItemSecondaryAction } from "@material-ui/core"
 import { Check, Block } from "@material-ui/icons"
 
 function ListItemPersonalized(props) {
     const dispatch = useDispatch()
-    const { user, color, toApprove, toBlock } = props
+    const { user, color, toApprove, toBlock, toMakePremium } = props
     const newAvatar = user?.nickname.slice(0, 1).toUpperCase()
 
     const onClickFunction = (id) => {
@@ -18,6 +18,11 @@ function ListItemPersonalized(props) {
         if(toBlock){
             if(window.confirm("Deseja bloquear esse usuário?")){
                 dispatch(blockUser(id))
+            }
+        }
+        if(toMakePremium){
+            if(window.confirm("Deseja tornar esse usuário PREMIUM?")){
+                dispatch(makePremium(id))
             }
         }
     }
@@ -33,12 +38,12 @@ function ListItemPersonalized(props) {
                 primary={user?.name}
                 secondary={`${user?.nickname} - ${user?.email}`}
             />
-            {(toApprove || toBlock) &&
+            {(toApprove || toBlock || toMakePremium) &&
                 <ListItemSecondaryAction onClick={() => onClickFunction(user.id)}>
                     <IconButton edge="end" aria-label="icon" 
-                        color={toApprove ? "primary" : "inherit"}
+                        color={(toApprove || toMakePremium) ? "primary" : "inherit"}
                     >
-                        {toApprove && <Check />}
+                        {( toApprove || toMakePremium ) && <Check />}
                         {toBlock && <Block/>}
                     </IconButton>
                 </ListItemSecondaryAction>

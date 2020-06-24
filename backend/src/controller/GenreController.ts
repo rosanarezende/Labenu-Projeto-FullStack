@@ -20,7 +20,7 @@ export class GenreController {
         const { name } = req.body
         try {
             await GenreController.GenreBusiness.addGenre(name, token)
-            await BaseDatabase.destroyConnection()
+            // await BaseDatabase.destroyConnection()
             res.status(200).send({ message: "Gênero adicionado com sucesso!" })
         }
         catch (err) {
@@ -33,10 +33,11 @@ export class GenreController {
         const token = req.headers.authorization as string
         try{
             const result = await GenreController.GenreBusiness.getAllGenres(token)
-            await BaseDatabase.destroyConnection()
+            // await BaseDatabase.destroyConnection()
             res.status(200).send(result)
         }
         catch (err) {
+            // console.log(err)
             await BaseDatabase.destroyConnection()
             res.status(err.errorCode || 400).send({ message: err.message });
         }

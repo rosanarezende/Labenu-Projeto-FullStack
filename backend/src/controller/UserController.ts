@@ -73,7 +73,7 @@ export class UserController {
         const token = req.headers.authorization as string
         try {
             const bands = await UserController.UserBusiness.getAllBands(token)
-            await BaseDatabase.destroyConnection()
+            // await BaseDatabase.destroyConnection()
             res.status(200).send(bands)
         }
         catch (err) {
@@ -87,7 +87,7 @@ export class UserController {
         const { id } = req.body
         try {
             await UserController.UserBusiness.aproveBand(id, token)
-            await BaseDatabase.destroyConnection()
+            // await BaseDatabase.destroyConnection()
             res.status(200).send({
                 message: "Artista aprovado com sucesso!"
             })
@@ -102,7 +102,7 @@ export class UserController {
         const token = req.headers.authorization as string
         try {
             const users = await UserController.UserBusiness.getAllUsers(token)
-            await BaseDatabase.destroyConnection()
+            // await BaseDatabase.destroyConnection()
             res.status(200).send(users)
         }
         catch (err) {
@@ -116,7 +116,7 @@ export class UserController {
         const { id } = req.body
         try {
             await UserController.UserBusiness.blockUser(id, token)
-            await BaseDatabase.destroyConnection()
+            // await BaseDatabase.destroyConnection()
             res.status(200).send({
                 message: "Usuário bloqueado com sucesso!"
             })
@@ -131,7 +131,7 @@ export class UserController {
         const token = req.headers.authorization as string
         try {
             const user = await UserController.UserBusiness.getProfile(token)
-            await BaseDatabase.destroyConnection()
+            // await BaseDatabase.destroyConnection()
             res.status(200).send(user)
         }
         catch (err) {
@@ -145,9 +145,25 @@ export class UserController {
         const { name } = req.body
         try {
             await UserController.UserBusiness.changeNameById(name, token)
-            await BaseDatabase.destroyConnection()
+            // await BaseDatabase.destroyConnection()
             res.status(200).send({
                 message: "Nome do usuário alterado com sucesso!"
+            })
+        }
+        catch (err) {
+            await BaseDatabase.destroyConnection()
+            res.status(err.errorCode || 400).send({ message: err.message });
+        }
+    }
+
+    public async makePremium(req: Request, res: Response) {
+        const token = req.headers.authorization as string
+        const { id } = req.body
+        try {
+            await UserController.UserBusiness.makePremium(id, token)
+            // await BaseDatabase.destroyConnection()
+            res.status(200).send({
+                message: "Usuário trasnformado em PREMIUM com sucesso!"
             })
         }
         catch (err) {

@@ -27,7 +27,8 @@ function SearchContainer() {
         
     return (
         <>
-            <div className={classes.search} onClick={() => dispatch(push(routes.searchMusic))}>
+            <div className={classes.search} 
+                onClick={() => dispatch(push(routes.searchMusic))}>
                 <div className={classes.searchIcon}>
                     <Search />
                 </div>
@@ -51,8 +52,9 @@ function SearchContainer() {
                 label="Gênero"
                 value={selectedGenre || ""}
                 style={ {width: "100px", marginBottom: "15px"}}
+                onClick={() => dispatch(push(routes.searchMusic))}
             >
-                <MenuItem value="">Selecione:</MenuItem>
+                <MenuItem value={undefined}>Selecione:</MenuItem>
                 {allGenres.map(genre => 
                     <MenuItem key={genre.id} value={genre.id}>
                         {genre.name}

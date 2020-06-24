@@ -7,6 +7,7 @@ import genres from "./genres"
 import albuns from "./albuns"
 import musics from "./musics"
 import search from "./search"
+import loadingReducer from "./loading"
 
 export const generateReducers = history =>
     combineReducers({
@@ -16,5 +17,6 @@ export const generateReducers = history =>
         genres,
         albuns,
         musics,
-        search
+        search,
+        loadingReducer
 })

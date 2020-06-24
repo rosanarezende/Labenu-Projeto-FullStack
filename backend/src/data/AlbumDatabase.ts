@@ -48,4 +48,37 @@ export class AlbumDatabase extends BaseDatabase {
         return result[0].map((res: any) => this.toModel(res))
     }
 
+    // public async getAllAlbuns(): Promise<Album[]> {
+    //     const result = await super.connection().raw(`
+    //         SELECT * 
+    //         FROM ${AlbumDatabase.TABLE_NAME}
+    //     `)
+    //     return result[0].map((res: any) => this.toModel(res))
+    // }
+
+    public async deleteAlbum(albumId: string): Promise<void> {
+        await super.connection().raw(`
+            DELETE from SpotenuMusic
+            WHERE album_id = "${albumId}"
+        `)
+        await super.connection().raw(`
+            DELETE from SpotenuGenreToAlbum
+            WHERE album_id = "${albumId}"
+        `)
+        await super.connection().raw(`
+            DELETE from ${AlbumDatabase.TABLE_NAME}
+            WHERE id = "${albumId}"
+        `)
+    }
+
+    public async getBandByAlbumId(albumId: string): Promise<Album | undefined>{
+        const result = await super.connection().raw(`
+            SELECT * 
+            FROM SpotenuAlbum
+            WHERE id = "${albumId}"
+        `)
+        return this.toModel(result[0])
+    }
+
+
 }

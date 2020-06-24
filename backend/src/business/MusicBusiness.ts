@@ -34,7 +34,7 @@ export class MusicBusiness {
             throw new NotFoundError("User not found");
         }
         if (user.getRole() !== UserRole.BAND) {
-            throw new UnauthorizedError("You must be a band to access this endpoint")
+            throw new UnauthorizedError("Você não tem permissão para acessar esse endpoint.")
         }
         
         const foundAlbum = await this.albumDatabase.getAlbumById(albumId)
@@ -55,8 +55,62 @@ export class MusicBusiness {
 
     public async getAllMusicsDetailed(){
         const musics = await this.musicDatabase.getAllMusicsDetailed()
-
         return musics
+    }
+
+    
+    public async getMusicsByGenre(genreId: string = "nope", page: number){       
+        const offset = 10 * (page-1)
+        const musics = await this.musicDatabase.getMusicsByGenre(genreId, offset)
+        return musics
+    }
+
+    public async getMusicsList(page: number){
+        const offset = 10 * (page-1)
+        const musics = await this.musicDatabase.getMusicsList(offset)
+        return musics
+    }
+
+    public async countMusicsByGenre(genreId: string){
+        const result = await this.musicDatabase.countMusicsByGenre(genreId)
+        return result
+    }
+
+    public async countMusicsList(){
+        const result = await this.musicDatabase.countMusicsList()
+        return result
+    }
+
+    public async getMyMusics(token: string){
+        const userData = this.authenticator.verify(token)
+        const user = await this.userDatabase.getUserById(userData.id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado. Faça novo login.");
+        }
+        if (user.getRole() !== UserRole.BAND) {
+            throw new UnauthorizedError("Você não tem permissão para acessar esse endpoint.")
+        }
+
+        const musics = await this.musicDatabase.getMyMusics(userData.id)
+        return musics
+    }
+
+    public async deleteMusic(token: string, id: string){
+        const userData = this.authenticator.verify(token)
+        const user = await this.userDatabase.getUserById(userData.id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado. Faça novo login.");
+        }
+        if (user.getRole() !== UserRole.BAND) {
+            throw new UnauthorizedError("Você não tem permissão para acessar esse endpoint.")
+        }
+
+        const music = await this.musicDatabase.getMusicById(id)
+        if(music?.getId() === undefined){
+            throw new NotFoundError("Música não encontrada.");
+        }
+        
+        await this.musicDatabase.deleteMusic(id)
     }
 
 }
