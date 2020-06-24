@@ -1,12 +1,16 @@
 import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
-import Appbar from "../../containers/Appbar"
+
 import { useAllGenres } from "../../utils/customHooks"
 import { addGenre } from "../../actions"
+
+import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
+import Loading from "../../containers/Loading"
 
 import * as S from "./styles"
 import { Typography, Button, List, ListItem, ListItemText, ListItemAvatar, Avatar } from "@material-ui/core"
+
 
 function GenresPage() {
     const allGenres = useAllGenres()
@@ -68,6 +72,7 @@ function GenresPage() {
                 </div>
             </S.GenresWrapper>
             <Message/>
+            <Loading/>
         </>
     )
 }

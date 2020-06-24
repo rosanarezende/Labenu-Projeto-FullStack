@@ -4,6 +4,7 @@ import { useUser } from '../../utils/customHooks'
 import * as S from "./style"
 
 function HomePage() {
+    // const profile = useProfile()
     const { userName } = useUser()
 
     return (

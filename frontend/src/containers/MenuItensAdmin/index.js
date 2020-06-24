@@ -1,26 +1,18 @@
 import React from "react"
 import { routes } from "../../utils/constants"
-import { useSelector } from 'react-redux'
 
-// import { useAllBands } from "../../utils/customHooks"
+import { useAllBands } from "../../utils/customHooks"
 import MenuItemPersonalized from "../../components/MenuItemPersonalized"
 
 
 function MenuItensAdmin() {
-    // const allBands = useAllBands()
-    
-    const allBands = useSelector(state => state.genres.allBands)
+    const allBands = useAllBands()
     const bandsNumber = allBands?.filter(band => band?.isApproved === false).length
 
     return (
         <>
             <MenuItemPersonalized
-                badgeContent={bandsNumber}
-                text="APROVAR BANDA"
-                path={routes.approveBand}
-            />
-            <MenuItemPersonalized
-                text="CADASTRAR ADMINISTRADOR"
+                text="CADASTRAR ADMIN"
                 path={routes.signup}
             />
             <MenuItemPersonalized
@@ -28,8 +20,17 @@ function MenuItensAdmin() {
                 path={routes.genres}
             />
             <MenuItemPersonalized
-                text="BLOQUEAR USUÁRIOS"
-            // path={routes.}
+                badgeContent={bandsNumber}
+                text="APROVAR BANDA"
+                path={routes.approveBand}
+            />
+            <MenuItemPersonalized
+                text="BLOQUEAR USUÁRIO"
+                path={routes.blockUser}
+            />
+            <MenuItemPersonalized
+                text="TORNAR PREMIUM"
+                path={routes.premium}
             />
         </>
     )

@@ -1,21 +1,30 @@
 import React from "react"
 import { useDispatch } from 'react-redux'
-import { aproveBand
-    // , getAllBands 
-} from "../../actions"
+import { aproveBand, blockUser, makePremium } from "../../actions"
 import { ListItem, Avatar, ListItemAvatar, ListItemText, IconButton, ListItemSecondaryAction } from "@material-ui/core"
-import { Check } from "@material-ui/icons"
+import { Check, Block } from "@material-ui/icons"
 
 function ListItemPersonalized(props) {
-    const { band, color, toApprove } = props
-    const newAvatar = band?.nickname.slice(0, 1).toUpperCase()
     const dispatch = useDispatch()
+    const { user, color, toApprove, toBlock, toMakePremium } = props
+    const newAvatar = user?.nickname.slice(0, 1).toUpperCase()
 
-    const onApproveBand = (id) => {
-        if(window.confirm("Deseja aprovar esse artista?")){
-            dispatch(aproveBand(id))
+    const onClickFunction = (id) => {
+        if(toApprove){
+            if(window.confirm("Deseja aprovar esse artista?")){
+                dispatch(aproveBand(id))
+            }
         }
-        
+        if(toBlock){
+            if(window.confirm("Deseja bloquear esse usuário?")){
+                dispatch(blockUser(id))
+            }
+        }
+        if(toMakePremium){
+            if(window.confirm("Deseja tornar esse usuário PREMIUM?")){
+                dispatch(makePremium(id))
+            }
+        }
     }
 
     return (
@@ -26,17 +35,16 @@ function ListItemPersonalized(props) {
                 </Avatar>
             </ListItemAvatar>
             <ListItemText
-                primary={band?.name}
-                secondary={`${band?.nickname} - ${band?.email}`}
+                primary={user?.name}
+                secondary={`${user?.nickname} - ${user?.email}`}
             />
-            {toApprove &&
-                <ListItemSecondaryAction onClick={() => onApproveBand(band.id)}>
-                    <IconButton
-                        edge="end"
-                        aria-label="check"
-                        color="primary"
+            {(toApprove || toBlock || toMakePremium) &&
+                <ListItemSecondaryAction onClick={() => onClickFunction(user.id)}>
+                    <IconButton edge="end" aria-label="icon" 
+                        color={(toApprove || toMakePremium) ? "primary" : "inherit"}
                     >
-                        <Check />
+                        {( toApprove || toMakePremium ) && <Check />}
+                        {toBlock && <Block/>}
                     </IconButton>
                 </ListItemSecondaryAction>
             }

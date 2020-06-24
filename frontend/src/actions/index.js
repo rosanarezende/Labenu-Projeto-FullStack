@@ -109,7 +109,7 @@ export const getAllBands = () => async (dispatch) => {
 export const aproveBand = (id) => async (dispatch) => {
     try {
         const response = await axios.post(`${baseUrl}/approve-band`,
-            { id: id },
+            { id },
             {
                 headers: {
                     authorization: getToken()
@@ -117,6 +117,7 @@ export const aproveBand = (id) => async (dispatch) => {
             })
         dispatch(setMessage(response?.data?.message, "green"))
         dispatch(setOpen(true))
+        dispatch(getAllBands())
     }
     catch (err) {
         console.error(err.response)
@@ -125,8 +126,6 @@ export const aproveBand = (id) => async (dispatch) => {
     }
 
 }
-
-
 
 export const setAllGenres = (genres) => ({
     type: "SET_ALL_GENRES",
@@ -152,10 +151,11 @@ export const getAllGenres = () => async (dispatch) => {
 
 }
 
+
 export const addGenre = (name) => async (dispatch) => {
     try {
         const response = await axios.post(`${baseUrl}/genre/add`,
-            name,
+            { name },
             {
                 headers: {
                     authorization: getToken()
@@ -163,6 +163,7 @@ export const addGenre = (name) => async (dispatch) => {
             })
         dispatch(setMessage(response?.data?.message, "green"))
         dispatch(setOpen(true))
+        dispatch(getAllGenres()) // ATENÇÃO
     }
     catch (err) {
         console.error(err.response)
@@ -182,6 +183,7 @@ export const createAlbum = (info) => async (dispatch) => {
             })
         dispatch(setMessage(response?.data?.message, "green"))
         dispatch(setOpen(true))
+        dispatch(getBandAlbuns())
     }
     catch (err) {
         console.error(err.response)
@@ -201,6 +203,7 @@ export const createMusic = (info) => async (dispatch) => {
             })
         dispatch(setMessage(response?.data?.message, "green"))
         dispatch(setOpen(true))
+        dispatch(getMyMusics())
     }
     catch (err) {
         console.error(err.response)
@@ -234,3 +237,308 @@ export const getBandAlbuns = () => async (dispatch) => {
     }
 }
 
+
+export const setAllUsers = (users) => ({
+    type: "SET_ALL_USERS",
+    payload: {
+        users
+    }
+})
+
+
+export const getAllUsers = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/users`, {
+            headers: {
+                authorization: getToken()
+            }
+        })
+        dispatch(setAllUsers(response.data))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de usuários!", "red"))
+        dispatch(setOpen(true))
+    }
+
+}
+
+export const blockUser = (id) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${baseUrl}/block-user`,
+            { id: id },
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+        dispatch(getAllUsers())
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel aprovar o artista!", "red"))
+        dispatch(setOpen(true))
+    }
+}
+
+export const setProfile = (user) => ({
+    type: "SET_PROFILE",
+    payload: {
+        user
+    }
+})
+
+export const getProfile = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/profile`, {
+            headers: {
+                authorization: getToken()
+            }
+        })
+        dispatch(setProfile(response?.data))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar os dados do usuário logado!", "red"))
+        dispatch(setOpen(true))
+    }
+
+}
+
+export const changeName = (name) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${baseUrl}/change-name`,
+            { name: name },
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+        dispatch(getProfile())
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel alterar o nome do usuário!", "red"))
+        dispatch(setOpen(true))
+    }
+}
+
+export const setAllMusics = (musics) => ({
+    type: "SET_ALL_MUSICS",
+    payload: {
+        musics
+    }
+})
+
+export const getAllMusics = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/music/all`)
+        dispatch(setAllMusics(response.data))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
+        dispatch(setOpen(true))
+    }
+
+}
+
+
+export const setMyMusics = (musics) => ({
+    type: "SET_MY_MUSICS",
+    payload: {
+        musics
+    }
+})
+
+export const getMyMusics = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/music/my`,
+        {
+            headers: {
+                authorization: getToken()
+            }
+        })
+        dispatch(setMyMusics(response.data))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
+        dispatch(setOpen(true))
+    }
+
+}
+
+
+export const setInputSearch = (inputData) => ({
+    type: 'SET_INPUT_SEARCH',
+    payload: {
+        inputData
+    }
+})
+
+
+export const setGenreSelected = (genreId) => ({
+    type: 'SET_GENRE_SELECTED',
+    payload: {
+        genreId
+    }
+})
+
+export const setMusicIdSelected = (musicId) => ({
+    type: 'SET_MUSIC_ID_SELECTED',
+    payload: {
+        musicId
+    }
+})
+
+export const setMusicsList = (musics) => ({
+    type: "SET_MUSICS_LIST",
+    payload: {
+        musics
+    }
+})
+
+export const getMusicsList = (page = 1) => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/music/list/${page}`)
+        dispatch(setMusicsList(response.data))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
+        dispatch(setOpen(true))
+    }
+}
+
+export const setCountMusicsList = (num) => ({
+    type: "SET_COUNT_MUSICS_LIST",
+    payload: {
+        num
+    }
+})
+
+export const getCountMusicsList = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/music/count/all`)
+        dispatch(setCountMusicsList(response.data.count))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
+        dispatch(setOpen(true))
+    }
+
+}
+
+export const setMusicsByGenre = (musics) => ({
+    type: "SET_MUSICS_BY_GENRE",
+    payload: {
+        musics
+    }
+})
+
+export const getMusicsByGenre = (genreId = "nope", page = 1) => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/music/${genreId}/${page}`)
+        dispatch(setMusicsByGenre(response.data))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
+        dispatch(setOpen(true))
+    }
+}
+
+export const setCountMusicsByGenre = (num) => ({
+    type: "SET_COUNT_MUSICS_BY_GENRE",
+    payload: {
+        num
+    }
+})
+
+export const getCountMusicsByGenre = (genreId = "nope") => async (dispatch) => {
+    try {
+        const response = await axios.get(`${baseUrl}/music/count/${genreId}`)
+        dispatch(setCountMusicsByGenre(response.data.count))
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
+        dispatch(setOpen(true))
+    }
+}
+
+export const setLoading = (option) => ({
+    type: 'SET_LOADING',
+    payload: {
+        option
+    }
+})
+
+
+export const makePremium = (id) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${baseUrl}/make-premium`,
+            { id: id },
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+        dispatch(getAllUsers())
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel aprovar o artista!", "red"))
+        dispatch(setOpen(true))
+    }
+}
+
+// lembrar de modificar quando tiver playlist
+export const deleteAlbum = (id) => async (dispatch) => {
+    // console.log(id)
+    try {
+        const response = await axios.delete(`${baseUrl}/album/delete/${id}`,
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+        dispatch(getBandAlbuns())
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel aprovar o artista!", "red"))
+        dispatch(setOpen(true))
+    }
+}
+
+// lembrar de modificar quando tiver playlist
+export const deleteMusic = (id) => async (dispatch) => {
+    // console.log(id)
+    try {
+        const response = await axios.delete(`${baseUrl}/music/delete/${id}`,
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+        dispatch(getMyMusics())
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel aprovar o artista!", "red"))
+        dispatch(setOpen(true))
+    }
+}

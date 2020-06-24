@@ -1,57 +1,57 @@
 import React from "react"
-import { useAllBands } from "../../utils/customHooks"
+import { useAllUsers } from "../../utils/customHooks"
 
-import Appbar from '../../containers/Appbar'
-import ListItemPersonalized from "../../components/ListItemPersonalized"
+import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
+import Loading from "../../containers/Loading"
+import ListItemPersonalized from "../../components/ListItemPersonalized"
 
 import { Typography, List } from "@material-ui/core"
 import * as S from "./styles"
-import Loading from "../../containers/Loading"
 
-function ApproveBandPage() {
-    const allBands = useAllBands()
-    const approvedBands = allBands?.filter(band => band.isApproved === true)
-    const notApprovedBands = allBands?.filter(band => band.isApproved === false)
+function MakePremiumPage() {
+    const allUsers = useAllUsers()
+    const normalUsers = allUsers?.filter(user => user.role === "NON-PAYING-LISTENER")
+    const premiumUsers = allUsers?.filter(user => user.role === "PAYING-LISTENER")
 
     return (
         <>
             <Appbar />
-            <S.BandsWrapper>
+            <S.MakePremiumWrapper>
                 <div>
                     <Typography variant="h6">
-                        Não Aprovadas
+                        Não Pagantes
                     </Typography>
                     <List>
-                        {notApprovedBands?.map(band =>
+                        {normalUsers?.map(user =>
                             <ListItemPersonalized
-                                user={band}
+                                user={user}
                                 color="#f44336"
-                                toApprove
-                                key={band.id}
+                                toMakePremium
+                                key={user.id}
                             />
                         )}
                     </List>
                 </div>
                 <div>
                     <Typography variant="h6">
-                        Aprovadas
+                        Premium
                     </Typography>
                     <List>
-                        {approvedBands?.map(band =>
+                        {premiumUsers?.map(user =>
                             <ListItemPersonalized
-                                user={band}
+                                user={user}
                                 color="rgba(30, 215, 96, 1)"
-                                key={band.id}
+                                key={user.id}
                             />
                         )}
                     </List>
                 </div>
-            </S.BandsWrapper>
+            </S.MakePremiumWrapper>
             <Message />
             <Loading />
         </>
     )
 }
 
-export default ApproveBandPage
+export default MakePremiumPage

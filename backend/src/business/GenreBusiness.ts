@@ -52,9 +52,9 @@ export class GenreBusiness {
         if (!user) {
             throw new NotFoundError("Usuário não encontrado. Realize novo login.");
         }
-        if (user.getRole() === UserRole.NONPAYINGLISTENER || user.getRole() === UserRole.PAYINGLISTENER) {
-            throw new UnauthorizedError("Você não tem permissão para visualizar todos os gêneros!")
-        }
+        // if (user.getRole() === UserRole.NONPAYINGLISTENER || user.getRole() === UserRole.PAYINGLISTENER) {
+        //     throw new UnauthorizedError("Você não tem permissão para visualizar todos os gêneros!")
+        // }
         
         const genres = await this.genreDatabase.getAllGenres()
         return genres

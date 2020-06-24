@@ -7,9 +7,11 @@ export const routes = {
     genres: "/genres",
     profile: "/profile",
     createAlbum: "/create/album",
-    createMusic: "/create/music"
-    
-    // detail: '/produto/:id'
+    createMusic: "/create/music",
+    blockUser: "/user/block",
+    searchMusic: "/search",
+    musicDetail: "/music/:id",
+    premium: "/premium"
 }
 
 export const baseUrl = "http://localhost:3001"

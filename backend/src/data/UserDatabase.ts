@@ -20,7 +20,6 @@ export class UserDatabase extends BaseDatabase {
         );
     }
 
-    //1 e 2
     public async createListeningOrAdmnistrationUser(user: User): Promise<void> {
         await super.connection()
             .insert({
@@ -42,8 +41,6 @@ export class UserDatabase extends BaseDatabase {
         return this.toModel(result[0])
     }
 
-
-    //3
     public async createBandUser(user: User): Promise<void> {
         await super.connection()
             .insert({
@@ -59,7 +56,6 @@ export class UserDatabase extends BaseDatabase {
             .into(UserDatabase.TABLE_NAME)
     }
 
-    //4
     public async getAllBands(): Promise<User[]> {
         const result = await super.connection().raw(`
             SELECT * 
@@ -69,8 +65,6 @@ export class UserDatabase extends BaseDatabase {
         return result[0].map((res: any) => this.toModel(res))
     }
 
-
-    // 5
     public async approveBand(id: string): Promise<void> {
         await super.connection().raw(`
             UPDATE ${UserDatabase.TABLE_NAME}
@@ -79,8 +73,6 @@ export class UserDatabase extends BaseDatabase {
         `)
     }
 
-
-    // 6
     public async getUserByEmail(email: string): Promise<User | undefined> {
         const result = await super.connection()
             .select("*")
@@ -89,7 +81,6 @@ export class UserDatabase extends BaseDatabase {
         return this.toModel(result[0])
     }
 
-
     public async getUserByNickname(nickname: string): Promise<User | undefined> {
         const result = await super.connection()
             .select("*")
@@ -97,14 +88,37 @@ export class UserDatabase extends BaseDatabase {
             .where({ nickname })
         return this.toModel(result[0])
     }
-
     
-    // public async getAllUsers(): Promise<User[]> {
-    //     const result = await super.connection()
-    //         .select("*")
-    //         .from(UserDatabase.TABLE_NAME)
-    //     const users = result[0].map((res: any) => this.toModel(res))
-    //     return users
-    // }
+    public async getAllUsers(): Promise<User[]> {
+        const result = await super.connection().raw(`
+            SELECT * 
+            FROM ${UserDatabase.TABLE_NAME}
+        `)
+        return result[0].map((res: any) => this.toModel(res))
+    }
+
+    public async blockUser(id: string): Promise<void> {
+        await super.connection().raw(`
+            UPDATE ${UserDatabase.TABLE_NAME}
+            SET is_approved = 0 
+            WHERE id = "${id}"
+        `)
+    }
+
+    public async changeNameById(id: string, name: string): Promise<void> {
+        await super.connection().raw(`
+            UPDATE ${UserDatabase.TABLE_NAME}
+            SET name = "${name}"
+            WHERE id = "${id}"
+        `)
+    }
+
+    public async makePremium(id: string): Promise<void> {
+        await super.connection().raw(`
+            UPDATE ${UserDatabase.TABLE_NAME}
+            SET role = "PAYING-LISTENER"
+            WHERE id = "${id}"
+        `)
+    }
 
 }

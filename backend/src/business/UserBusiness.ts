@@ -16,7 +16,6 @@ export class UserBusiness {
         private idGenerator: IdGenerator
     ) { }
 
-    //1 
     public async signupListeningUser(
         name: string,
         email: string,
@@ -27,11 +26,9 @@ export class UserBusiness {
         if (!name || !email || !nickname || !password || !role) {
             throw new InvalidParameterError("Preencha os campos para prosseguir.");
         }
-
         if (email.indexOf("@") === -1) {
             throw new InvalidParameterError("Email inválido");
         }
-
         if (password.length < 6) {
             throw new InvalidParameterError("Senha inválida");
         }
@@ -49,7 +46,6 @@ export class UserBusiness {
         return { accessToken, role: user.getRole(), name: user.getName() }
     }
 
-    //2
     public async signupAdministratorUser(
         name: string,
         email: string,
@@ -73,7 +69,6 @@ export class UserBusiness {
         if (email.indexOf("@") === -1) {
             throw new InvalidParameterError("Email inválido");
         }
-
         if (password.length < 10) {
             throw new InvalidParameterError("Senha inválida");
         }
@@ -86,14 +81,9 @@ export class UserBusiness {
 
         await this.userDatabase.createListeningOrAdmnistrationUser(newUser)
 
-        // const accessToken = 
         this.authenticator.generateToken({ id, role })
-
-        // nem precisaria devolver, pois ele só cria, não se loga nesse momento
-        // return { accessToken, role: user.getRole(), name: user.getName() }
     }
 
-    //3
     public async signupBandUser(
         name: string,
         email: string,
@@ -104,11 +94,9 @@ export class UserBusiness {
         if (!name || !email || !nickname || !password || !description) {
             throw new InvalidParameterError("Preencha os campos para prosseguir.");
         }
-
         if (email.indexOf("@") === -1) {
             throw new InvalidParameterError("Email inválido");
         }
-
         if (password.length < 6) {
             throw new InvalidParameterError("Senha inválida");
         }
@@ -122,52 +110,6 @@ export class UserBusiness {
         await this.userDatabase.createBandUser(user)
     }
 
-    //4
-    public async getAllBands(token: string) {
-        const userData = this.authenticator.verify(token)
-        const user = await this.userDatabase.getUserById(userData.id)
-        if (!user) {
-            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
-        }
-        if (user.getRole() !== UserRole.ADMINISTRATOR) {
-            throw new UnauthorizedError("Você não tem permissão visualizar todos os artistas!")
-        }
-
-        const bands = await this.userDatabase.getAllBands()
-        
-        return bands.map(band => ({
-                id: band.getId(),
-                name: band.getName(),
-                email: band.getEmail(),
-                nickname: band.getNickame(),
-                isApproved: band.getIsApproved() == true ? true : false
-        }))
-    }
-
-    //5
-    public async aproveBand(id: string, token: string) {
-        const userData = this.authenticator.verify(token)
-        const user = await this.userDatabase.getUserById(userData.id)
-        if (!user) {
-            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
-        }
-        if (user.getRole() !== UserRole.ADMINISTRATOR) {
-            throw new UnauthorizedError("Você não tem permissão para aprovar artista!")
-        }
-
-        const band = await this.userDatabase.getUserById(id)
-        if (!band) {
-            throw new NotFoundError("Artista não encontrado.");
-        }
-        if(band.getIsApproved() == true){
-            throw new GenericError("Artista já aprovado anteriormente.")
-        }       
-
-        await this.userDatabase.approveBand(id)
-    }
-
-
-    //6
     public async login(input: string, password: string) {
         if (!input || !password) {
             throw new InvalidParameterError("Preencha os campos para prosseguir.");
@@ -202,14 +144,152 @@ export class UserBusiness {
             role: user.getRole(),
         });
 
-        const userInformation = {
-            role: user.getRole(), 
-            name: user.getName()
-        }
-
         return { accessToken, role: user.getRole(), name: user.getName()  };
     }
 
+    public async getAllBands(token: string) {
+        const userData = this.authenticator.verify(token)
+        const user = await this.userDatabase.getUserById(userData.id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
+        if (user.getRole() !== UserRole.ADMINISTRATOR) {
+            throw new UnauthorizedError("Você não tem permissão visualizar todos os artistas!")
+        }
+
+        const bands = await this.userDatabase.getAllBands()
+        
+        return bands.map(band => ({
+                id: band.getId(),
+                name: band.getName(),
+                email: band.getEmail(),
+                nickname: band.getNickame(),
+                isApproved: band.getIsApproved() == true ? true : false
+        }))
+    }
+
+    public async aproveBand(id: string, token: string) {
+        const userData = this.authenticator.verify(token)
+        const user = await this.userDatabase.getUserById(userData.id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
+        if (user.getRole() !== UserRole.ADMINISTRATOR) {
+            throw new UnauthorizedError("Você não tem permissão para aprovar artista!")
+        }
+
+        const band = await this.userDatabase.getUserById(id)
+        if (!band) {
+            throw new NotFoundError("Artista não encontrado.");
+        }
+        if(band.getIsApproved() == true){
+            throw new GenericError("Artista já aprovado anteriormente.")
+        }       
+
+        await this.userDatabase.approveBand(id)
+    }
+
+    public async getAllUsers(token: string) {
+        const userData = this.authenticator.verify(token)
+        const user = await this.userDatabase.getUserById(userData.id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
+        if (user.getRole() !== UserRole.ADMINISTRATOR) {
+            throw new UnauthorizedError("Você não tem permissão visualizar todos os usuários!")
+        }
+
+        const users = await this.userDatabase.getAllUsers()
+        
+        return users.map(user => ({
+                id: user.getId(),
+                name: user.getName(),
+                email: user.getEmail(),
+                nickname: user.getNickame(),
+                isApproved: user.getIsApproved() == true ? true : false,
+                role: user.getRole()
+        }))
+    }
+
+    public async blockUser(id: string, token: string) {
+        const userLoggedData = this.authenticator.verify(token)
+        const userLogged = await this.userDatabase.getUserById(userLoggedData.id)
+        if (!userLogged) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
+        if (userLogged.getRole() !== UserRole.ADMINISTRATOR) {
+            throw new UnauthorizedError("Você não tem permissão para bloquear usuário!")
+        }
+
+        const user = await this.userDatabase.getUserById(id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado.");
+        }
+        if (user.getRole() === UserRole.ADMINISTRATOR) {
+            throw new UnauthorizedError("Você não tem permissão para bloquear um administrador!")
+        }
+        if(user.getIsApproved() == false){
+            throw new GenericError("Este usuário já estava bloqueado.")
+        }       
+
+        await this.userDatabase.blockUser(id)
+    }
+
+    public async getProfile(token: string){
+        const userLoggedData = this.authenticator.verify(token)
+        const userLogged = await this.userDatabase.getUserById(userLoggedData.id)
+        if (!userLogged) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
+
+        // não mandar a senha
+        return {
+            id: userLogged.getId(),
+            name: userLogged.getName(),
+            nickname: userLogged.getNickame(),
+            email: userLogged.getEmail(),
+            description: userLogged.getDescription(),
+            role: userLogged.getRole(),
+            isApproved: userLogged.getIsApproved()
+        }
+        
+        return userLogged
+    }
+
+    public async changeNameById(name: string, token: string) {
+        const userLoggedData = this.authenticator.verify(token)
+        const userLogged = await this.userDatabase.getUserById(userLoggedData.id)
+        if (!userLogged) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
+
+        await this.userDatabase.changeNameById(userLogged.getId(), name)
+    }
+
+
+    public async makePremium(id: string, token: string) {
+        const userLoggedData = this.authenticator.verify(token)
+        const userLogged = await this.userDatabase.getUserById(userLoggedData.id)
+        if (!userLogged) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
+        if (userLogged.getRole() !== UserRole.ADMINISTRATOR) {
+            throw new UnauthorizedError("Você não tem permissão para bloquear usuário!")
+        }
+
+        const user = await this.userDatabase.getUserById(id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado.");
+        }
+        if (user.getRole() === UserRole.ADMINISTRATOR || user.getRole() === UserRole.BAND) {
+            throw new UnauthorizedError("Apenas ouvintes podem ser transformados em premium!")
+        }
+        if(user.getRole() === UserRole.PAYINGLISTENER){
+            throw new GenericError("Este usuário já é PREMIUM.")
+        }       
+
+        await this.userDatabase.makePremium(id)
+    }
 
 
 }

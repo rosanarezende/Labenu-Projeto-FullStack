@@ -1,5 +1,7 @@
 const initialState = {
     allBands: [],
+    allUsers: [],
+    profile: {}
 }
 
 const users = (state = initialState, action) => {
@@ -9,6 +11,18 @@ const users = (state = initialState, action) => {
             return {
                 ...state,
                 allBands: action.payload.bands
+            }
+
+        case "SET_ALL_USERS":
+            return {
+                ...state,
+                allUsers: action.payload.users
+            }
+
+        case "SET_PROFILE":
+            return {
+                ...state,
+                profile: action.payload.user
             }
 
         default:

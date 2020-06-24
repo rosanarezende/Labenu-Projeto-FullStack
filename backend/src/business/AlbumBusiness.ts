@@ -76,5 +76,33 @@ export class AlbumBusiness {
         // }))
     }
 
+    // public async getAllAlbuns(token: string) {
+    //     const userData = this.authenticator.verify(token)
+    //     const user = await this.userDatabase.getUserById(userData.id)
+    //     if (!user) {
+    //         throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+    //     }
+    //     if (user.getRole() !== UserRole.BAND) {
+    //         throw new UnauthorizedError("Você não tem permissão para buscar álbuns por artista!")
+    //     }
+
+    //     const albuns = await this.albumDatabase.getAllAlbuns()
+    //     return albuns
+    // }
+
+    public async deleteAlbum(token: string, albumId: string){
+        const userData = this.authenticator.verify(token)
+        const user = await this.userDatabase.getUserById(userData.id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
+        if (user.getRole() !== UserRole.BAND) {
+            throw new UnauthorizedError("Você não tem permissão para deletar esse álbum!")
+        }
+
+        // vou proteger no front, mas preciso pensar em como uma banda só pode deletar seus álbuns
+
+        await this.albumDatabase.deleteAlbum(albumId)
+    }
 
 }

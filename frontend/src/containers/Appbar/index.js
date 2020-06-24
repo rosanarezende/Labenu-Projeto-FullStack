@@ -17,7 +17,6 @@ import MenuItensBand from '../MenuItensBand'
 import MenuItensPayingListener from '../MenuItensPayingListener'
 import SearchContainer from '../SearchContainer'
 
-
 function Appbar() {
     const classes = useStyles();
     const dispatch = useDispatch()
