@@ -542,3 +542,64 @@ export const deleteMusic = (id) => async (dispatch) => {
         dispatch(setOpen(true))
     }
 }
+
+
+export const editMusicName = (info) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${baseUrl}/music/edit-name`,
+            info,
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+        dispatch(getMyMusics())
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel alterar o nome da música!", "red"))
+        dispatch(setOpen(true))
+    }
+}
+
+export const editAlbumName = (info) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${baseUrl}/album/edit-name`,
+            info,
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+        dispatch(getMyMusics())
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel alterar o nome do álbum!", "red"))
+        dispatch(setOpen(true))
+    }
+}
+
+export const changeAlbum = (info) => async (dispatch) => {
+    try {
+        const response = await axios.post(`${baseUrl}/music/change-album`,
+            info,
+            {
+                headers: {
+                    authorization: getToken()
+                }
+            })
+        dispatch(setMessage(response?.data?.message, "green"))
+        dispatch(setOpen(true))
+        dispatch(getMyMusics())
+    }
+    catch (err) {
+        console.error(err.response)
+        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel alterar o álbum!", "red"))
+        dispatch(setOpen(true))
+    }
+}

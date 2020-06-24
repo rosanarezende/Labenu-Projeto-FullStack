@@ -5,6 +5,9 @@ export const musicRouter = express.Router();
 const musicController = new MusicController()
 
 musicRouter.post("/create", musicController.createMusic)
+musicRouter.post("/edit-name", musicController.editMusicName)
+musicRouter.post("/change-album", musicController.editAlbumToMusic)
+
 musicRouter.delete("/delete/:id", musicController.deleteMusic)
 
 musicRouter.get("/all", musicController.getAllMusicsDetailed)

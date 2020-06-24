@@ -80,5 +80,13 @@ export class AlbumDatabase extends BaseDatabase {
         return this.toModel(result[0])
     }
 
+    public async editAlbumName(albumId: string, albumName: string): Promise<void>{
+        await super.connection().raw(`
+            UPDATE SpotenuAlbum
+            SET name = "${albumName}"
+            WHERE id = "${albumId}";
+        `)
+    }
+
 
 }

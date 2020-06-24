@@ -14,11 +14,11 @@ import { Delete } from "@material-ui/icons"
 
 function CreateAlbumPage() {
     const allGenres = useAllGenres()
-    const bandAlbuns = useBandAlbuns() // lembrar de atualizar o getAlbuns
+    const bandAlbuns = useBandAlbuns()
     const [albumName, setAlbumName] = useState("")
     const [genreId, setGenreId] = useState([]);
     const dispatch = useDispatch()
-
+    
     const getAlbumName = (e) => {
         setAlbumName(e.target.value)
     }

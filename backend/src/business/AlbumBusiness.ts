@@ -100,9 +100,33 @@ export class AlbumBusiness {
             throw new UnauthorizedError("Você não tem permissão para deletar esse álbum!")
         }
 
+        const album = await this.albumDatabase.getAlbumById(albumId)
+        if(album?.getId() === undefined){
+            throw new NotFoundError("Álbum não encontrado.");
+        }
+        
         // vou proteger no front, mas preciso pensar em como uma banda só pode deletar seus álbuns
 
         await this.albumDatabase.deleteAlbum(albumId)
+    }
+
+    public async editAlbumName(token: string, albumId: string, albumName: string){
+        const userData = this.authenticator.verify(token)
+        const user = await this.userDatabase.getUserById(userData.id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado. Realize novo login.");
+        }
+        if (user.getRole() !== UserRole.BAND) {
+            throw new UnauthorizedError("Você não tem permissão para deletar esse álbum!")
+        }
+
+        const album = await this.albumDatabase.getAlbumById(albumId)
+        if(album?.getId() === undefined){
+            throw new NotFoundError("Álbum não encontrado.");
+        }
+
+        await this.albumDatabase.editAlbumName(albumId, albumName)
+
     }
 
 }
