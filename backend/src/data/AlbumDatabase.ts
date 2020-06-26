@@ -28,18 +28,18 @@ export class AlbumDatabase extends BaseDatabase {
         return this.toModel(result[0])
     }
 
-    public async relateGenreAlbum(albumId: string, genreList: string[]): Promise<void>{
-        for(const genre of genreList){
+    public async relateGenreAlbum(albumId: string, genreList: string[]): Promise<void> {
+        for (const genre of genreList) {
             await this.connection()
                 .insert({
-                   album_id: albumId,
-                   genre_id: genre
+                    album_id: albumId,
+                    genre_id: genre
                 })
                 .into(AlbumDatabase.TABLE_RELATION)
         }
     }
 
-    public async getAlbunsByBandId(bandId: string): Promise<Album[]>{
+    public async getAlbunsByBandId(bandId: string): Promise<Album[]> {
         const result = await super.connection().raw(`
             SELECT * 
             FROM ${AlbumDatabase.TABLE_NAME}
@@ -57,6 +57,22 @@ export class AlbumDatabase extends BaseDatabase {
     // }
 
     public async deleteAlbum(albumId: string): Promise<void> {
+        const result = await super.connection().raw(`
+            SELECT 
+                m.id as music_id,
+                m.album_id
+            FROM SpotenuPlaylist p
+            JOIN SpotenuPlaylistToMusic pm ON p.id = pm.playlist_id
+            JOIN SpotenuMusic m ON pm.music_id = m.id
+            JOIN SpotenuAlbum a ON m.album_id = a.id
+            WHERE a.id = "${albumId}";
+        `)
+        for (let item of result[0]) {
+            await super.connection().raw(`
+                DELETE from SpotenuPlaylistToMusic
+                WHERE music_id = "${item?.music_id}"
+            `)
+        }
         await super.connection().raw(`
             DELETE from SpotenuMusic
             WHERE album_id = "${albumId}"
@@ -71,13 +87,21 @@ export class AlbumDatabase extends BaseDatabase {
         `)
     }
 
-    public async getBandByAlbumId(albumId: string): Promise<Album | undefined>{
+    public async getBandByAlbumId(albumId: string): Promise<Album | undefined> {
         const result = await super.connection().raw(`
             SELECT * 
             FROM SpotenuAlbum
             WHERE id = "${albumId}"
         `)
         return this.toModel(result[0])
+    }
+
+    public async editAlbumName(albumId: string, albumName: string): Promise<void> {
+        await super.connection().raw(`
+            UPDATE SpotenuAlbum
+            SET name = "${albumName}"
+            WHERE id = "${albumId}";
+        `)
     }
 
 

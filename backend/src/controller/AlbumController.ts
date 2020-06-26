@@ -59,4 +59,20 @@ export class AlbumController {
         }
     }
 
+    public async editAlbumName(req: Request, res: Response){
+        const token = req.headers.authorization as string
+        const { albumId, albumName } = req.body
+        try{
+            await AlbumController.AlbumBusiness.editAlbumName(token, albumId, albumName)
+            // await BaseDatabase.destroyConnection()
+            res.status(200).send({
+                message: "Álbum editado com sucesso!"
+            })
+        }
+        catch (err) {
+            await BaseDatabase.destroyConnection()
+            res.status(err.errorCode || 400).send({ message: err.message });
+        }
+    }
+
 }

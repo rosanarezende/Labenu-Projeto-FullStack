@@ -124,4 +124,36 @@ export class MusicController {
         }
     }
 
+    public async editMusicName(req: Request, res: Response){
+        const token = req.headers.authorization as string
+        const { musicId, musicName } = req.body
+        try{
+            await MusicController.MusicBusiness.editMusicName(token, musicId, musicName)
+            // await BaseDatabase.destroyConnection()
+            res.status(200).send({
+                message: "Música editada com sucesso!"
+            })
+        }
+        catch (err) {
+            await BaseDatabase.destroyConnection()
+            res.status(err.errorCode || 400).send({ message: err.message });
+        }
+    }
+
+    public async editAlbumToMusic(req: Request, res: Response){
+        const token = req.headers.authorization as string
+        const { musicId, albumId } = req.body
+        try{
+            await MusicController.MusicBusiness.editAlbumToMusic(token, musicId, albumId)
+            // await BaseDatabase.destroyConnection()
+            res.status(200).send({
+                message: "Música relacionada ao novo álbum com sucesso!"
+            })
+        }
+        catch (err) {
+            await BaseDatabase.destroyConnection()
+            res.status(err.errorCode || 400).send({ message: err.message });
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
+
 import { useAllGenres, useBandAlbuns } from "../../utils/customHooks"
 import { createAlbum, deleteAlbum } from "../../actions"
 
@@ -14,11 +15,11 @@ import { Delete } from "@material-ui/icons"
 
 function CreateAlbumPage() {
     const allGenres = useAllGenres()
-    const bandAlbuns = useBandAlbuns() // lembrar de atualizar o getAlbuns
+    const bandAlbuns = useBandAlbuns()
     const [albumName, setAlbumName] = useState("")
     const [genreId, setGenreId] = useState([]);
     const dispatch = useDispatch()
-
+    
     const getAlbumName = (e) => {
         setAlbumName(e.target.value)
     }

@@ -21,10 +21,10 @@ function MenuPC(props){
     return (
         <Menu
             anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
             id={menuId}
             keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            transformOrigin={{ vertical: 'botton', horizontal: 'right' }}
             open={isMenuOpen}
             onClose={handleMenuClose}
         >

@@ -113,4 +113,47 @@ export class MusicBusiness {
         await this.musicDatabase.deleteMusic(id)
     }
 
+    public async editMusicName(token: string, musicId: string, musicName: string){
+        const userData = this.authenticator.verify(token)
+        const user = await this.userDatabase.getUserById(userData.id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado. Faça novo login.");
+        }
+        if (user.getRole() !== UserRole.BAND) {
+            throw new UnauthorizedError("Você não tem permissão para acessar esse endpoint.")
+        }
+
+        const music = await this.musicDatabase.getMusicById(musicId)
+        if(music?.getId() === undefined){
+            throw new NotFoundError("Música não encontrada.");
+        }
+
+        await this.musicDatabase.editMusicName(musicId, musicName)
+
+    }
+
+    public async editAlbumToMusic(token: string, musicId: string, albumId: string){
+        const userData = this.authenticator.verify(token)
+        const user = await this.userDatabase.getUserById(userData.id)
+        if (!user) {
+            throw new NotFoundError("Usuário não encontrado. Faça novo login.");
+        }
+        if (user.getRole() !== UserRole.BAND) {
+            throw new UnauthorizedError("Você não tem permissão para acessar esse endpoint.")
+        }
+
+        const music = await this.musicDatabase.getMusicById(musicId)
+        if(music?.getId() === undefined){
+            throw new NotFoundError("Música não encontrada.");
+        }
+
+        const album = await this.albumDatabase.getAlbumById(albumId)
+        if(album?.getId() === undefined){
+            throw new NotFoundError("Álbum não encontrado.");
+        }
+
+        await this.musicDatabase.editAlbumToMusic(musicId, albumId)
+
+    }
+
 }

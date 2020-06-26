@@ -147,6 +147,10 @@ export class MusicDatabase extends BaseDatabase {
 
     public async deleteMusic(id: string): Promise<void> {
         await super.connection().raw(`
+            DELETE from SpotenuPlaylistToMusic
+            WHERE music_id = "${id}"
+        `)
+        await super.connection().raw(`
             DELETE from SpotenuMusic
             WHERE id = "${id}"
         `)
@@ -161,5 +165,20 @@ export class MusicDatabase extends BaseDatabase {
         return this.toModel(result[0][0])
     }
 
+    public async editMusicName(musicId: string, musicName: string): Promise<void>{
+        await super.connection().raw(`
+            UPDATE SpotenuMusic
+            SET name = "${musicName}"
+            WHERE id = "${musicId}";
+        `)
+    }
+
+    public async editAlbumToMusic(musicId: string, albumId: string): Promise<void>{
+        await super.connection().raw(`
+            UPDATE SpotenuMusic
+            SET album_id = "${albumId}"
+            WHERE id = "${musicId}";
+        `)
+    }
 
 }

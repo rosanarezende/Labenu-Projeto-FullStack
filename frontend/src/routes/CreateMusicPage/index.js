@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
-import { createMusic, deleteMusic } from "../../actions"
+
+import { createMusic, deleteMusic, editMusicName, changeAlbum } from "../../actions"
 import { useBandAlbuns, useMyMusics } from "../../utils/customHooks"
 
 import Appbar from "../../containers/Appbar"
@@ -20,7 +21,6 @@ function CreateMusicPage() {
 	const [musicToEdit, setMusicToEdit] = useState({})
 	const [name, setName] = useState("")
 	const [album, setAlbum] = useState("")
-	console.log(musicToEdit)
 
 	const getMusicForm = (e) => {
 		const { name, value } = e.target
@@ -34,6 +34,7 @@ function CreateMusicPage() {
 	}
 
 	const onDeleteMusic = (id) => {
+		console.log(id)
 		if (window.confirm("Deseja deletar essa música?")) {
 			dispatch(deleteMusic(id))
 		}
@@ -49,8 +50,11 @@ function CreateMusicPage() {
 	}
 
 	const closeEditName = async () => {
-		// esse changeMusic tem que receber 2 parâmetros, o que vai editar e o conteúdo
-		// await dispatch(changeMusic(name)) // vou ter que fazer um if else
+		const info = {
+			musicId: musicToEdit.music_id,
+			musicName: name
+		}
+		await dispatch(editMusicName(info))
 		setAppearsEdit(false)
 	}
 
@@ -58,10 +62,12 @@ function CreateMusicPage() {
 		setAlbum(e.target.value)
 	}
 
-
 	const closeEditAlbum = async () => {
-		// esse changeMusic tem que receber 2 parâmetros, o que vai editar e o conteúdo
-		// await dispatch(changeMusic(name)) // vou ter que fazer um if else
+		const info = {
+			albumId: album,
+			musicId: musicToEdit.music_id
+		}
+		await dispatch(changeAlbum(info))
 		setAppearsEdit(false)
 	}
 
@@ -101,13 +107,13 @@ function CreateMusicPage() {
 					</S.CreateMusicInput>
 					<S.CreateMusicButton type="onSubmit" variant="contained" color="primary">
 						Criar
-          </S.CreateMusicButton>
+          			</S.CreateMusicButton>
 				</S.CreateMusicForm>
 
 				<div>
 					<Typography variant="h6">
 						Músicas cadastradas:
-          </Typography>
+          			</Typography>
 
 					{appearsEdit
 						? <div style={{ margin: "1rem auto" }}>
