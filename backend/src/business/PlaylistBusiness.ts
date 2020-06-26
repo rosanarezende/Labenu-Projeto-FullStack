@@ -1,9 +1,6 @@
 import { UserDatabase } from "../data/UserDatabase";
-import { AlbumDatabase } from "../data/AlbumDatabase";
-import { GenreDatabase } from "../data/GenreDatabase";
 import { MusicDatabase } from "../data/MusicDatabase";
 import { PlaylistDatabase } from "../data/PlaylistDatabase";
-
 
 import { IdGenerator } from "../services/IdGenerator";
 import { Authenticator } from "../services/Authenticator";
@@ -12,20 +9,15 @@ import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { InvalidParameterError } from "../errors/InvalidParameterError";
 
-import { User, stringToUserRole, UserRole } from "../model/User";
-import { Album } from "../model/Album";
+import { UserRole } from "../model/User";
 import { Playlist } from "../model/Playlist";
 import { GenericError } from "../errors/GenericError";
-
 
 export class PlaylistBusiness {
     constructor(
         private playlistDatabase: PlaylistDatabase,
         private userDatabase: UserDatabase,
         private musicDatabase: MusicDatabase,
-        // private albumDatabase: AlbumDatabase,
-        // private genreDatabase: GenreDatabase,
-
         private idGenerator: IdGenerator,
         private authenticator: Authenticator,
     ) { }
@@ -61,7 +53,7 @@ export class PlaylistBusiness {
             throw new NotFoundError("Usuário não encontrado. Realize novo login.");
         }
         if (user.getRole() !== UserRole.PAYINGLISTENER) {
-            throw new UnauthorizedError("Você não tem permissão para cadastrar uma playlist!")
+            throw new UnauthorizedError("Você não tem permissão para visualizar essas playlists!")
         }
 
         const userId = user.getId()
@@ -78,7 +70,7 @@ export class PlaylistBusiness {
             throw new NotFoundError("Usuário não encontrado. Realize novo login.");
         }
         if (user.getRole() === UserRole.ADMINISTRATOR || user.getRole() === UserRole.BAND) {
-            throw new UnauthorizedError("Você não tem permissão para cadastrar uma playlist!")
+            throw new UnauthorizedError("Você não tem permissão para adicionar música na playlist!")
         }
 
         const music = await this.musicDatabase.getMusicById(musicId)
@@ -106,16 +98,6 @@ export class PlaylistBusiness {
         await this.playlistDatabase.relateOneMusicToPlaylist(playlistId, musicId)
     }
 
-    // se fossem várias músicas
-    // const musics = await this.musicDatabase.getAllMusics()
-    // for(const music of musicList){
-    //     let found = musics.find(item => item.getId() === music)
-    //     if(!found){
-    //         throw new NotFoundError("Música não encontrada!")
-    //     }
-    // }
-
-
     public async removeMusicFromPlaylist(token: string, musicId: string, playlistId: string){
         const userLoggedData = this.authenticator.verify(token)
         const user = await this.userDatabase.getUserById(userLoggedData.id)
@@ -123,7 +105,7 @@ export class PlaylistBusiness {
             throw new NotFoundError("Usuário não encontrado. Faça novo login.");
         }
         if (user.getRole() === UserRole.ADMINISTRATOR || user.getRole() === UserRole.BAND) {
-            throw new UnauthorizedError("Você não tem permissão para cadastrar uma playlist!")
+            throw new UnauthorizedError("Você não tem permissão para remover a música da playlist!")
         }
 
         const music = await this.musicDatabase.getMusicById(musicId)
@@ -155,7 +137,7 @@ export class PlaylistBusiness {
             throw new NotFoundError("Usuário não encontrado. Faça novo login.");
         }
         if (user.getRole() === UserRole.ADMINISTRATOR || user.getRole() === UserRole.BAND) {
-            throw new UnauthorizedError("Você não tem permissão para cadastrar uma playlist!")
+            throw new UnauthorizedError("Você não tem permissão para deletar essa playlist!")
         }
 
         const playlist = await this.playlistDatabase.getPlaylistById(playlistId)
@@ -163,7 +145,6 @@ export class PlaylistBusiness {
             throw new NotFoundError("Playlist não encontrada!")
         }
 
-        // só quem pode deletar a playlist é quem o criou??? e ser for colab???
         if (playlist.getCollaborative() === false) {
             const myPlaylists = await this.playlistDatabase.getPlaylistsByUserId(user.getId())
             const findPlaylist = myPlaylists.find(playlist => playlist.getId() === playlistId)
@@ -183,7 +164,7 @@ export class PlaylistBusiness {
             throw new NotFoundError("Usuário não encontrado. Realize novo login.");
         }
         if (user.getRole() === UserRole.ADMINISTRATOR || user.getRole() === UserRole.BAND) {
-            throw new UnauthorizedError("Você não tem permissão para cadastrar uma playlist!")
+            throw new UnauthorizedError("Você não tem permissão para visualizar os detalhes da playlist!")
         }
 
         const offset = 10 * (page-1)
@@ -207,7 +188,7 @@ export class PlaylistBusiness {
             throw new NotFoundError("Usuário não encontrado. Realize novo login.");
         }
         if (user.getRole() !== UserRole.PAYINGLISTENER) {
-            throw new UnauthorizedError("Você não tem permissão para cadastrar uma playlist!")
+            throw new UnauthorizedError("Você não tem permissão para tornar essa playlist colaborativa!")
         }
 
         const playlist = await this.playlistDatabase.getPlaylistById(playlistId)
@@ -216,7 +197,6 @@ export class PlaylistBusiness {
         }
 
         await this.playlistDatabase.makeCollaborative(playlistId, option)
-
     }
 
     public async editPlaylistName(token: string, playlistId: string, playlistName: string){
@@ -226,7 +206,7 @@ export class PlaylistBusiness {
             throw new NotFoundError("Usuário não encontrado. Realize novo login.");
         }
         if (user.getRole() === UserRole.ADMINISTRATOR || user.getRole() === UserRole.BAND) {
-            throw new UnauthorizedError("Você não tem permissão para cadastrar uma playlist!")
+            throw new UnauthorizedError("Você não tem permissão para editar o nome dessa playlist!")
         }
 
         const playlist = await this.playlistDatabase.getPlaylistById(playlistId)
@@ -239,9 +219,6 @@ export class PlaylistBusiness {
         }
 
         await this.playlistDatabase.editPlaylistName(playlistId, playlistName)
-
     }
-
-
 
 }

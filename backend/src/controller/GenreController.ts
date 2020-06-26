@@ -16,7 +16,7 @@ export class GenreController {
     )
 
     public async addGenre(req: Request, res: Response) {
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { name } = req.body
         try {
             await GenreController.GenreBusiness.addGenre(name, token)
@@ -30,7 +30,7 @@ export class GenreController {
     }
 
     public async getAllGenres(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         try{
             const result = await GenreController.GenreBusiness.getAllGenres(token)
             // await BaseDatabase.destroyConnection()

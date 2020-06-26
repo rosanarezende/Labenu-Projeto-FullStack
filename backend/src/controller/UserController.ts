@@ -28,7 +28,7 @@ export class UserController {
     }
 
     public async signupAdministratorUser(req: Request, res: Response) {
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { name, email, nickname, password } = req.body
         try {
             const result = await UserController.UserBusiness.signupAdministratorUser(name, email, nickname, password, token)
@@ -70,7 +70,7 @@ export class UserController {
     }
 
     public async getAllBands(req: Request, res: Response) {
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         try {
             const bands = await UserController.UserBusiness.getAllBands(token)
             // await BaseDatabase.destroyConnection()
@@ -83,7 +83,7 @@ export class UserController {
     }
 
     public async aproveBand(req: Request, res: Response) {
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { id } = req.body
         try {
             await UserController.UserBusiness.aproveBand(id, token)
@@ -99,7 +99,7 @@ export class UserController {
     }
 
     public async getAllUsers(req: Request, res: Response) {
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         try {
             const users = await UserController.UserBusiness.getAllUsers(token)
             // await BaseDatabase.destroyConnection()
@@ -112,7 +112,7 @@ export class UserController {
     }
     
     public async blockUser(req: Request, res: Response) {
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { id } = req.body
         try {
             await UserController.UserBusiness.blockUser(id, token)
@@ -128,7 +128,7 @@ export class UserController {
     }
 
     public async getProfile(req: Request, res: Response) {
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         try {
             const user = await UserController.UserBusiness.getProfile(token)
             // await BaseDatabase.destroyConnection()
@@ -141,7 +141,7 @@ export class UserController {
     }
 
     public async changeNameById(req: Request, res: Response) {
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { name } = req.body
         try {
             await UserController.UserBusiness.changeNameById(name, token)
@@ -157,7 +157,7 @@ export class UserController {
     }
 
     public async makePremium(req: Request, res: Response) {
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { id } = req.body
         try {
             await UserController.UserBusiness.makePremium(id, token)

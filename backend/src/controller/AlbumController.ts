@@ -17,7 +17,7 @@ export class AlbumController {
     )
 
     public async createAlbum(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { name, genreList } = req.body
         try {
             await AlbumController.AlbumBusiness.createAlbum(token, name, genreList)
@@ -31,7 +31,7 @@ export class AlbumController {
     }
 
     public async getAlbunsByBandId(req: Request, res: Response) {
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         try {
             const albuns = await AlbumController.AlbumBusiness.getAlbunsByBandId(token)
             // await BaseDatabase.destroyConnection()
@@ -44,7 +44,7 @@ export class AlbumController {
     }
 
     public async deleteAlbum(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { id } = req.params
         try {
             await AlbumController.AlbumBusiness.deleteAlbum(token, id)
@@ -60,7 +60,7 @@ export class AlbumController {
     }
 
     public async editAlbumName(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { albumId, albumName } = req.body
         try{
             await AlbumController.AlbumBusiness.editAlbumName(token, albumId, albumName)
