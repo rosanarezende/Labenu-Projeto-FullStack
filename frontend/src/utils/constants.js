@@ -3,15 +3,25 @@ export const routes = {
     home: "/home",
     login: "/login",
     signup: "/signup",
-    approveBand: "/approveband",
-    genres: "/genres",
     profile: "/profile",
+    
+    genres: "/genres",
+    
     createAlbum: "/create/album",
     createMusic: "/create/music",
+    
+    approveBand: "/approveband",
     blockUser: "/user/block",
+    premium: "/premium",
+
     searchMusic: "/search",
     musicDetail: "/music/:id",
-    premium: "/premium"
+
+    createPlaylist: "/create/playlist",
+    myPlaylists: "/playlists/my",
+    playlistDetail: "/playlist/:id",
+
+
 }
 
 export const baseUrl = "http://localhost:3001"

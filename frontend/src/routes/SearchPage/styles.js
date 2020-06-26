@@ -1,5 +1,7 @@
 import styled from "styled-components"
 
+import { ListItemText} from "@material-ui/core"
+
 export const SearchWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -9,5 +11,11 @@ export const SearchWrapper = styled.div`
     @media screen and (max-device-width: 1000px) {  
         width: 90%;
         margin: 2em auto;
+    }
+`
+
+export const ListTextHover = styled(ListItemText)`
+    :hover{
+        cursor: pointer;
     }
 `

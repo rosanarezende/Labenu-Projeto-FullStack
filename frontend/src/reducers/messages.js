@@ -1,7 +1,9 @@
 const initialState = {
     open: false,
     text: "",
-    color: ""
+    color: "",
+
+    secreteMessage: false
 }
 
 const messages = (state = initialState, action) => {
@@ -18,6 +20,12 @@ const messages = (state = initialState, action) => {
                 ...state,
                 text: action.payload.text,
                 color: action.payload.color
+            }
+
+        case "SET_SECRET_MESSAGE":
+            return {
+                ...state,
+                secreteMessage: action.payload.option
             }
 
         default:

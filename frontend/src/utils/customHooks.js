@@ -16,6 +16,8 @@ import {
     getMyMusics
 } from "../actions"
 
+import { getMyPlaylists, getPlaylistDetail, getCountPlaylistDetail } from "../actions/playlists"
+
 export const useUser = () => {
     const [userRole, setUserRole] = useState("")
     const [userName, setUserName] = useState("")
@@ -145,4 +147,36 @@ export const useMyMusics = () => {
     dispatch(setLoading(false))
 
     return myMusics
+}
+
+export const useMyPlaylists = () => {
+    const { myPlaylists } = useSelector(state => state.playlists)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(setLoading(true))
+        dispatch(getMyPlaylists()) 
+    }, [dispatch])
+    dispatch(setLoading(false))
+
+    return myPlaylists
+}
+
+export const usePlaylistDetail = (num) => {
+    const dispatch = useDispatch()
+    const { playlistDetail } = useSelector(state => state.playlists)
+    let playlistSelected = useSelector(state => state.playlists.playlistSelected)
+    let { numPlaylistDetail } = useSelector(state => state.playlists)
+
+    useEffect((playlistSelected) => {
+        if(playlistSelected?.id === undefined){
+            playlistSelected = { id: window.location.pathname.substr(10, 36) }
+        }
+        dispatch(setLoading(true))
+        dispatch(getPlaylistDetail(playlistSelected?.id, num)) 
+        dispatch(getCountPlaylistDetail(playlistSelected?.id))
+    }, [dispatch, playlistSelected, num])
+
+    dispatch(setLoading(false))
+
+    return { playlistDetail, numPlaylistDetail }
 }

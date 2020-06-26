@@ -7,6 +7,7 @@ import genres from "./genres"
 import albuns from "./albuns"
 import musics from "./musics"
 import search from "./search"
+import playlists from "./playlists"
 import loadingReducer from "./loading"
 
 export const generateReducers = history =>
@@ -18,5 +19,6 @@ export const generateReducers = history =>
         albuns,
         musics,
         search,
+        playlists,
         loadingReducer
 })

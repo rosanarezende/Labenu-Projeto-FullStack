@@ -37,7 +37,6 @@ export class GenreController {
             res.status(200).send(result)
         }
         catch (err) {
-            // console.log(err)
             await BaseDatabase.destroyConnection()
             res.status(err.errorCode || 400).send({ message: err.message });
         }

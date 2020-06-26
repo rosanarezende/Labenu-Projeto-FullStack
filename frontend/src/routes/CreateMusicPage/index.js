@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
+
 import { createMusic, deleteMusic, editMusicName, changeAlbum } from "../../actions"
 import { useBandAlbuns, useMyMusics } from "../../utils/customHooks"
 
@@ -33,6 +34,7 @@ function CreateMusicPage() {
 	}
 
 	const onDeleteMusic = (id) => {
+		console.log(id)
 		if (window.confirm("Deseja deletar essa música?")) {
 			dispatch(deleteMusic(id))
 		}
@@ -105,7 +107,7 @@ function CreateMusicPage() {
 					</S.CreateMusicInput>
 					<S.CreateMusicButton type="onSubmit" variant="contained" color="primary">
 						Criar
-          </S.CreateMusicButton>
+          			</S.CreateMusicButton>
 				</S.CreateMusicForm>
 
 				<div>

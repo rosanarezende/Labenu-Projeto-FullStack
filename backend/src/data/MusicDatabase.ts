@@ -147,6 +147,10 @@ export class MusicDatabase extends BaseDatabase {
 
     public async deleteMusic(id: string): Promise<void> {
         await super.connection().raw(`
+            DELETE from SpotenuPlaylistToMusic
+            WHERE music_id = "${id}"
+        `)
+        await super.connection().raw(`
             DELETE from SpotenuMusic
             WHERE id = "${id}"
         `)
