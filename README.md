@@ -2,7 +2,7 @@
 Desenvolvimento de aplicações completas, incluindo frontend Web com React e backend com Node.js.
 
 ![Screenshot_1](https://user-images.githubusercontent.com/45580434/79641791-06e1c100-8170-11ea-8ecf-b6c889805d55.png)
-<br>
+<br><br>
 
 ## FullStack - Projeto Final: Spotenu
 
@@ -31,7 +31,6 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 
 ### Principais linguagens, tecnologias e ferramentas utilizadas
 
-<br>
 
 #### Frontend
 
@@ -49,6 +48,7 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 - Autenticação e autorização
 - Teste unitário, de lógica e de componentes
 - Responsividade e adaptação de aplicação web para front.
+
 <br><br>
 
 #### Backend
@@ -64,6 +64,7 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 - Bcryptjs (para criptografar senhas)
 - Jsonwebtoken (para gerar tokens de autenticação)
 - Jest (para testes automatizados)
+
 <br><br>
 
 #### Infraestrutura
