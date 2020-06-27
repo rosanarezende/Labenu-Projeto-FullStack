@@ -39,7 +39,7 @@ function SearchContainer() {
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
-                    value={inputSearch}
+                    value={inputSearch || ""}
                     onChange={onChangeInput}
                 />
             </div>           

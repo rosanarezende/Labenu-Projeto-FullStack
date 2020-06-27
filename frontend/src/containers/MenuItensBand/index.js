@@ -1,8 +1,7 @@
-import React from "react"
+import React, { forwardRef } from "react"
 
 import { routes } from "../../utils/constants"
 import MenuItemPersonalized from "../../components/MenuItemPersonalized"
-
 
 function MenuItensBand() {
 
@@ -20,4 +19,4 @@ function MenuItensBand() {
     )
 }
 
-export default MenuItensBand
+export default forwardRef(MenuItensBand)

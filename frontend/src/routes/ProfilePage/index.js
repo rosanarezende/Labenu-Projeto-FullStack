@@ -27,7 +27,7 @@ function ProfilePage() {
     }
 
     return (
-        <div>
+        <>
             <Appbar />
             <S.ProfileWrapper>
                 <S.ProfileTitle variant="h6">
@@ -39,7 +39,7 @@ function ProfilePage() {
                         {appearsEdit
                             ?
                             <>
-                                <ListItemText secondary={
+                                <ListItemText primary={
                                     <TextField
                                         name='name'
                                         placeholder={profile.name}
@@ -98,7 +98,7 @@ function ProfilePage() {
             </S.ProfileWrapper>
             <Message />
             <Loading/>
-        </div>
+        </>
     )
 }
 
