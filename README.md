@@ -4,7 +4,7 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 ![Screenshot_1](https://user-images.githubusercontent.com/45580434/79641791-06e1c100-8170-11ea-8ecf-b6c889805d55.png)
 <br><br>
 
-## FullStack - Projeto Final: Spotenu
+# FullStack - Projeto Final: Spotenu
 
 <!-- <p align="center">
   <img  height='600' src=''>
@@ -29,10 +29,11 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 
 <br>
 
-### Principais linguagens, tecnologias e ferramentas utilizadas
+## Principais linguagens, tecnologias e ferramentas utilizadas
 
+<br>
 
-#### Frontend
+### Frontend
 
 - HTML
 - CSS
@@ -51,7 +52,7 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 
 <br>
 
-#### Backend
+### Backend
 
 - Node
 - Typescript
@@ -67,7 +68,7 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 
 <br>
 
-#### Infraestrutura
+### Infraestrutura
 
 - Serviços Cloud AWS 
     - EC2 (para o banco de dados)
@@ -77,7 +78,7 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 
 <br><br>
 
-### Escopo do projeto
+## Escopo do projeto
 
 O *Spotenu* é um projeto que visa facilitar o acesso a músicas pelo mundo. Para isso, vamos dar suporte para dois tipos de usuários: as bandas (ou músicos) e os ouvintes (usuários que consomem as músicas). Além disso, nós vamos montar uma operação com funcionários próprios que precisam gerenciar os dados que circulam no nosso sistema. Eles serão os nossos administradores.
 
@@ -107,7 +108,7 @@ Por fim, há a possibilidade de bloquear qualquer usuário (que não seja um adm
 
 <br>
 
-#### Backend
+### Backend
 
 - **1. Signup de usuário ouvinte**
 
@@ -169,7 +170,7 @@ Por fim, há a possibilidade de bloquear qualquer usuário (que não seja um adm
 
 <br><br>
 
-#### Infraestrutura
+### Infraestrutura
 
 A ideia é que você utilize os serviços da AWS e do Firebase que ensinamos nessas semanas. Você pode se aventurar entre outros serviços desses Cloud. Além disso, você pode usar os dois juntos se quiser, por exemplo: subir o backend em Firebase Functions mas usar o Bucket do S3 para armazenar as mídias.
 
@@ -192,7 +193,7 @@ A ideia é que você utilize os serviços da AWS e do Firebase que ensinamos nes
 
 <br><br>
 
-#### Frontend
+### Frontend
 
 Abaixo estão as telas necessárias para a aplicação. É sua responsabilidade pensar nas informações que devem ser solicitadas em cada fluxo. Além disso, o formato e o layout é livre, e pode se basear em qualquer site. Você deve mostrar, em todas as telas, os erros que voltarem da API.
 
@@ -253,7 +254,7 @@ Abaixo estão as telas necessárias para a aplicação. É sua responsabilidade 
 
 <br><br>
 
-#### Desafios
+### Desafios
 
 Você deve implementar os endpoints e as telas necessárias para se fazer as funcionalidades abaxio:
 
@@ -363,7 +364,7 @@ Você deve implementar os endpoints e as telas necessárias para se fazer as fun
 
 <br><br>
 
-#### Comunicado sobre Testes
+### Comunicado sobre Testes
 
 Nós gostaríamos de que você escrevesse testes automatizados durante a sua implementação. Não é obrigatório, mas consideramos importante!
 
