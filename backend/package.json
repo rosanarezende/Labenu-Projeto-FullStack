@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "node ./node_modules/jest/bin/jest.js",
-    "start": "tsc && node ./build/index.js",
-    "start:dev": " ts-node-dev ./src/index.ts"
+    "start": "tsc && node ./build/local.js",
+    "start:dev": " ts-node-dev ./src/local.ts",
+    "build": "rm -rf build && tsc",
+    "postbuild": "cp ./package.json build && cd build && npm i && npm run ziplambda",
+    "ziplambda": "rm -f ../lambda.zip && bestzip ../lambda.zip ./*"
   },
   "author": "Rosana Rezende",
   "license": "MIT",
@@ -20,12 +23,14 @@
     "@types/node": "^14.0.6",
     "@types/uuid": "^7.0.3",
     "bcryptjs": "^2.4.3",
+    "bestzip": "^2.1.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jest": "^26.0.1",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.1",
+    "lbn-lambda-express": "^0.1.10",
     "mysql": "^2.18.1",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.2",

@@ -6,17 +6,11 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 
 ## FullStack - Projeto Final: Spotenu
 
-[Deploy](https://)
-
-<p align="center">
+<!-- <p align="center">
   <img  height='600' src=''>
-</p>
-
+</p> -->
+<br>
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/rosanarezende/Labenu-Projeto-FullStack">
-
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/rosanarezende/Labenu-Projeto-FullStack">
-
   <a href="https://github.com/rosanarezende/Labenu-Projeto-FullStack/commits/master">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/rosanarezende/Labenu-Projeto-FullStack">
   </a>
@@ -27,8 +21,13 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 
    <img alt="Repository size" src="https://img.shields.io/github/repo-size/rosanarezende/Labenu-Projeto-FullStack">
 </p>
-<br>
 
+
+[Deploy](http://spotenu.surge.sh/)
+
+[Documentação da API](https://documenter.getpostman.com/view/8138743/T17AiqSL?version=latest)
+
+<br>
 
 ### Principais linguagens, tecnologias e ferramentas utilizadas
 
@@ -44,7 +43,7 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 - Redux (para gerenciamento de estados)
 - Redux-Thunk (para integração do redux com requisições assíncronas)
 - React Router (para aplicar múltiplas rotas)
-- Uso de bibliotecas de UI (MaterialUI)
+- Uso de bibliotecas de UI (Material UI)
 - Styled-components
 - Formulários com validação
 - Autenticação e autorização
@@ -59,7 +58,7 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 - Arquitetura MVC**
 - MySQL (para construção do banco de dados)
 - Knex (para conexão com o banco de dados)
-- Express (para intração do código através do protocolo HTTP)
+- Express (para integração do código através do protocolo HTTP)
 - Dotenv (para acessar informações sensíveis por meio de variáveis de ambiente)
 - UUID (para geraração de id)
 - Bcryptjs (para criptografar senhas)
@@ -69,7 +68,11 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 
 #### Infraestrutura
 
-- Cloud (AWS / Firebase)
+- Serviços Cloud AWS 
+    - EC2 (para o banco de dados)
+    - Lambda e API Gateway (para o banckend)
+
+- Surge.sh (para o front)
 
 <br><br>
 

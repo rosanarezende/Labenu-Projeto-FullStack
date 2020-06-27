@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
 
 import { usePlaylistDetail } from "../../utils/customHooks"
@@ -18,9 +18,14 @@ function PlaylistDetailPage() {
     const [page, setPage] = useState(1)
     const { playlistDetail, numPlaylistDetail } = usePlaylistDetail(page)
     const [appearsEditName, setAppearsEditName] = useState(false)
-    const [name, setName] = useState(playlistDetail[0]?.name)
-    const [collaborative, setCollaborative] = useState(playlistDetail[0]?.collaborative === 0 ? false : true)
+    const [name, setName] = useState("")
+    const [collaborative, setCollaborative] = useState(false)
     
+    useEffect(() => {
+        setCollaborative(playlistDetail[0]?.collaborative === 0 ? false : true)
+        setName(playlistDetail[0]?.name)
+    }, [playlistDetail])
+
     const onChangeName = (e) => { setName(e.target.value) }
 
     const closeEditName = async () => {
@@ -47,7 +52,9 @@ function PlaylistDetailPage() {
             playlistId: playlistDetail[0]?.id,
             musicId: id
         }
-        dispatch(removeMusicFromPlaylist(info))
+        if(window.confirm("Deseja aprovar esse artista?")){
+            dispatch(removeMusicFromPlaylist(info))
+        }
     }
 
     let pages = Math.ceil(numPlaylistDetail / 10) || 3

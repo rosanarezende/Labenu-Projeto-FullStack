@@ -9,7 +9,7 @@ import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { InvalidParameterError } from "../errors/InvalidParameterError";
 
-import { User, stringToUserRole, UserRole } from "../model/User";
+import { UserRole } from "../model/User";
 import { Album } from "../model/Album";
 
 export class AlbumBusiness {
@@ -22,6 +22,9 @@ export class AlbumBusiness {
     ) { }
 
     public async createAlbum(token: string, name: string, genreList: string[]){
+        if (!name || !genreList || !token) {
+            throw new InvalidParameterError("Preencha os campos para prosseguir.");
+        }
         const userData = this.authenticator.verify(token)
         const user = await this.userDatabase.getUserById(userData.id)
         if (!user) {
@@ -29,9 +32,6 @@ export class AlbumBusiness {
         }
         if (user.getRole() !== UserRole.BAND) {
             throw new UnauthorizedError("Você não tem permissão para cadastrar um álbum!")
-        }
-        if (!name || !genreList || !token) {
-            throw new InvalidParameterError("Preencha os campos para prosseguir.");
         }
 
         const id = this.idGenerator.generatorId()
@@ -66,29 +66,7 @@ export class AlbumBusiness {
 
         const albuns = await this.albumDatabase.getAlbunsByBandId(user.getId())
         return albuns
-            
-        // return bands.map(band => ({
-        //         id: band.getId(),
-        //         name: band.getName(),
-        //         email: band.getEmail(),
-        //         nickname: band.getNickame(),
-        //         isApproved: band.getIsApproved() == true ? true : false
-        // }))
     }
-
-    // public async getAllAlbuns(token: string) {
-    //     const userData = this.authenticator.verify(token)
-    //     const user = await this.userDatabase.getUserById(userData.id)
-    //     if (!user) {
-    //         throw new NotFoundError("Usuário não encontrado. Realize novo login.");
-    //     }
-    //     if (user.getRole() !== UserRole.BAND) {
-    //         throw new UnauthorizedError("Você não tem permissão para buscar álbuns por artista!")
-    //     }
-
-    //     const albuns = await this.albumDatabase.getAllAlbuns()
-    //     return albuns
-    // }
 
     public async deleteAlbum(token: string, albumId: string){
         const userData = this.authenticator.verify(token)
@@ -105,8 +83,6 @@ export class AlbumBusiness {
             throw new NotFoundError("Álbum não encontrado.");
         }
         
-        // vou proteger no front, mas preciso pensar em como uma banda só pode deletar seus álbuns
-
         await this.albumDatabase.deleteAlbum(albumId)
     }
 
@@ -126,7 +102,6 @@ export class AlbumBusiness {
         }
 
         await this.albumDatabase.editAlbumName(albumId, albumName)
-
     }
 
 }

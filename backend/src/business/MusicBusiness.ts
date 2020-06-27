@@ -25,13 +25,13 @@ export class MusicBusiness {
     
     public async createMusic(token: string, name: string, albumId: string){
         if (!name || !albumId || !token) {
-            throw new InvalidParameterError("Missing input");
+            throw new InvalidParameterError("Preencha os campos para prosseguir.");
         }
 
         const userData = this.authenticator.verify(token)
         const user = await this.userDatabase.getUserById(userData.id)
         if (!user) {
-            throw new NotFoundError("User not found");
+            throw new NotFoundError("Usuário não encontrado. Faça novo login");
         }
         if (user.getRole() !== UserRole.BAND) {
             throw new UnauthorizedError("Você não tem permissão para acessar esse endpoint.")
@@ -39,13 +39,13 @@ export class MusicBusiness {
         
         const foundAlbum = await this.albumDatabase.getAlbumById(albumId)
         if(!foundAlbum){
-            throw new NotFoundError("Album not found")
+            throw new NotFoundError("Álbum não encontrado")
         }
 
         const musicsInAlbum = await this.musicDatabase.getMusicsByAlbumId(albumId)
         const foundName = musicsInAlbum.find(item => item.getName() === name)
         if(foundName){
-            throw new GenericError("A song with this name already exists on this album")
+            throw new GenericError("Uma música com esse nome já existe neste álbum")
         }
 
         const id = this.idGenerator.generatorId()
@@ -58,7 +58,6 @@ export class MusicBusiness {
         return musics
     }
 
-    
     public async getMusicsByGenre(genreId: string = "nope", page: number){       
         const offset = 10 * (page-1)
         const musics = await this.musicDatabase.getMusicsByGenre(genreId, offset)

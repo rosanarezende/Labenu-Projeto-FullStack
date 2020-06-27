@@ -29,11 +29,11 @@ function SearchContainer() {
         <>
             <div className={classes.search} 
                 onClick={() => dispatch(push(routes.searchMusic))}>
-                <div className={classes.searchIcon}>
+                {/* <div className={classes.searchIcon}>
                     <Search />
-                </div>
+                </div> */}
                 <InputBase
-                    placeholder="Música..."
+                    placeholder="Buscar música..."
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,

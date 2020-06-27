@@ -18,7 +18,7 @@ export class MusicController {
     )
     
     public async createMusic(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { name, albumId } = req.body
         try{
             await MusicController.MusicBusiness.createMusic(token, name, albumId)
@@ -96,7 +96,7 @@ export class MusicController {
     }
 
     public async getMyMusics(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         try{
             const musics = await MusicController.MusicBusiness.getMyMusics(token)
             // await BaseDatabase.destroyConnection()
@@ -109,7 +109,7 @@ export class MusicController {
     }
 
     public async deleteMusic(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { id } = req.params
         try{
             await MusicController.MusicBusiness.deleteMusic(token, id)
@@ -125,7 +125,7 @@ export class MusicController {
     }
 
     public async editMusicName(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { musicId, musicName } = req.body
         try{
             await MusicController.MusicBusiness.editMusicName(token, musicId, musicName)
@@ -141,7 +141,7 @@ export class MusicController {
     }
 
     public async editAlbumToMusic(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { musicId, albumId } = req.body
         try{
             await MusicController.MusicBusiness.editAlbumToMusic(token, musicId, albumId)

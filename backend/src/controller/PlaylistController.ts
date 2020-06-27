@@ -22,7 +22,7 @@ export class PlaylistController {
     )    
 
     public async createPlaylist(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { name } = req.body
         try {
             await PlaylistController.PlaylistBusiness.createPlaylist(token, name)
@@ -36,7 +36,7 @@ export class PlaylistController {
     }
 
     public async getPlaylistsByUserId(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         try {
             const result = await PlaylistController.PlaylistBusiness.getPlaylistsByUserId(token)
             // await BaseDatabase.destroyConnection()
@@ -49,7 +49,7 @@ export class PlaylistController {
     }
 
     public async addMusicToPlaylist(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { playlistId, musicId } = req.body
         try {
             await PlaylistController.PlaylistBusiness.addMusicToPlaylist(token, musicId, playlistId)
@@ -63,7 +63,7 @@ export class PlaylistController {
     }
 
     public async removeMusicFromPlaylist(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { playlistId, musicId } = req.body
         try {
             await PlaylistController.PlaylistBusiness.removeMusicFromPlaylist(token, musicId, playlistId)
@@ -77,7 +77,7 @@ export class PlaylistController {
     }
 
     public async deletePlaylist(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { id } = req.params
         try {
             await PlaylistController.PlaylistBusiness.deletePlaylist(token, id)
@@ -91,14 +91,16 @@ export class PlaylistController {
     }
 
     public async getPlaylistDetail(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { id, page } = req.params
+        console.log(req.headers)
         try {
             const result = await PlaylistController.PlaylistBusiness.getPlaylistDetail(token, id, Number(page))
             // await BaseDatabase.destroyConnection()
             res.status(200).send(result)
         }
         catch (err) {
+            console.log(err)
             await BaseDatabase.destroyConnection()
             res.status(err.errorCode || 400).send({ message: err.message });
         }
@@ -118,7 +120,7 @@ export class PlaylistController {
     }
 
     public async makeCollaborative(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { playlistId, option } = req.body
         try {
             await PlaylistController.PlaylistBusiness.makeCollaborative(token, playlistId, option)
@@ -132,7 +134,7 @@ export class PlaylistController {
     }
 
     public async editPlaylistName(req: Request, res: Response){
-        const token = req.headers.authorization as string
+        const token = req.headers.authorization || req.headers.Authorization as string
         const { playlistId, playlistName } = req.body
         try {
             await PlaylistController.PlaylistBusiness.editPlaylistName(token, playlistId, playlistName)

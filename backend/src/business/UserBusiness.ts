@@ -242,7 +242,6 @@ export class UserBusiness {
             throw new NotFoundError("Usuário não encontrado. Realize novo login.");
         }
 
-        // não mandar a senha
         return {
             id: userLogged.getId(),
             name: userLogged.getName(),
@@ -274,7 +273,7 @@ export class UserBusiness {
             throw new NotFoundError("Usuário não encontrado. Realize novo login.");
         }
         if (userLogged.getRole() !== UserRole.ADMINISTRATOR) {
-            throw new UnauthorizedError("Você não tem permissão para bloquear usuário!")
+            throw new UnauthorizedError("Você não tem permissão para tornar o usuário premium!")
         }
 
         const user = await this.userDatabase.getUserById(id)
