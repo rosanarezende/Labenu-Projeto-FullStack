@@ -23,10 +23,9 @@ function SearchPage() {
 	const { inputSearch, selectedGenre } = useSelector(state => state.search)
 	const { musicsList, numMusicsList } = useMusicsList(page)
 	const { musicsByGenre, numMusicsByGenre } = useMusicsByGenre(selectedGenre, page)
-
 	const [anchorEl, setAnchorEl] = useState(null); // levar
 	const [musicIdClicked, setMusicIdClicked] = useState("")
-
+	
 	let filteredMusics = []
 	let filteredSearch
 	if (selectedGenre) {
@@ -69,7 +68,7 @@ function SearchPage() {
 
 	const handleClose = (playlist, id) => {
 		const info = {
-			playlistId: playlist.id,
+			playlistId: playlist?.id,
 			musicId: id
 		}
 		dispatch(addMusicToPlaylist(info))

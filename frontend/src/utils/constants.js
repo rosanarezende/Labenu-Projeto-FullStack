@@ -24,7 +24,7 @@ export const routes = {
 
 }
 
-export const baseUrl = "http://localhost:3001"
+export const baseUrl = "https://djl4tmngvb.execute-api.us-east-1.amazonaws.com/v1"
 
 export const getToken = () => localStorage.getItem("token")
 

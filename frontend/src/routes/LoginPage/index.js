@@ -8,6 +8,7 @@ import * as S from "./styles"
 
 import { login } from '../../actions';
 import Message from '../../components/Message';
+import Loading from '../../containers/Loading';
 
 function LoginPage() {
     const [userInfo, setUserInfo] = useState({})
@@ -96,6 +97,7 @@ function LoginPage() {
             </S.GoSignupDiv>
 
         </S.LoginWrapper>
+        <Loading/>
         {open && <Message/>}
         </>
     )

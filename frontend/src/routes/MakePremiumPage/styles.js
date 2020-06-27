@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const MakePremiumWrapper = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 80%;
     margin: 3em auto;
 
