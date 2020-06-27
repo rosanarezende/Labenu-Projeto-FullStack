@@ -49,7 +49,7 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 - Teste unitário, de lógica e de componentes
 - Responsividade e adaptação de aplicação web para front.
 
-<br><br>
+<br>
 
 #### Backend
 
@@ -65,7 +65,7 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 - Jsonwebtoken (para gerar tokens de autenticação)
 - Jest (para testes automatizados)
 
-<br><br>
+<br>
 
 #### Infraestrutura
 
