@@ -21,7 +21,6 @@ export const routes = {
     myPlaylists: "/playlists/my",
     playlistDetail: "/playlist/:id",
 
-
 }
 
 export const baseUrl = "https://djl4tmngvb.execute-api.us-east-1.amazonaws.com/v1"

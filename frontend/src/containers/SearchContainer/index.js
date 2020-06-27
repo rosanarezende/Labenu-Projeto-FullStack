@@ -8,7 +8,7 @@ import { routes } from "../../utils/constants"
 import { setInputSearch, setGenreSelected } from "../../actions"
 
 import { InputBase, TextField, MenuItem } from "@material-ui/core"
-import { Search } from "@material-ui/icons"
+// import { Search } from "@material-ui/icons"
 
 function SearchContainer() {
     const dispatch = useDispatch()

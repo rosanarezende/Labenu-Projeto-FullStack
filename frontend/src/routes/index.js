@@ -22,6 +22,13 @@ import CreatePlaylistPage from './CreatePlaylistPage';
 import MyPlaylistsPage from './MyPlaylistsPage';
 import PlaylistDetailPage from './PlaylistDetailPage';
 
+import ProtectedRouteLogged from '../containers/ProtectedRouteLogged';
+import ProtectedRouteListener from '../containers/ProtectedRouteListener';
+import ProtectedRoutePayingListener from '../containers/ProtectedRoutePayingListener';
+import ProtectedRouteAdministrator from '../containers/ProtectedRouteAdministrator';
+import ProtectedRouteBand from '../containers/ProtectedRouteBand';
+
+
 function Routes(props) {
 	const { history } = props
 
@@ -30,20 +37,31 @@ function Routes(props) {
 			<Switch>
 				<Route exact path={routes.acess} component={AccessPage} />
 				<Route exact path={routes.login} component={LoginPage} />
-				<Route exact path={routes.home} component={HomePage} />
 				<Route exact path={routes.signup} component={SignupPage} />
-				<Route exact path={routes.approveBand} component={ApproveBandPage} />
-				<Route exact path={routes.genres} component={GenresPage} />
-				<Route exact path={routes.profile} component={ProfilePage} />
-				<Route exact path={routes.createAlbum} component={CreateAlbumPage} />
-				<Route exact path={routes.createMusic} component={CreateMusicPage} />
-				<Route exact path={routes.blockUser} component={BlockUserPage} />
-				<Route exact path={routes.searchMusic} component={SearchPage} />
-				<Route exact path={routes.musicDetail} component={MusicDetailPage} />
-				<Route exact path={routes.premium} component={MakePremiumPage} />
-				<Route exact path={routes.createPlaylist} component={CreatePlaylistPage} />
-				<Route exact path={routes.myPlaylists} component={MyPlaylistsPage} />
-				<Route exact path={routes.playlistDetail} component={PlaylistDetailPage} />
+
+				{/* todos logados acessam */}
+				<ProtectedRouteLogged exact path={routes.home} component={HomePage} />
+				<ProtectedRouteLogged exact path={routes.profile} component={ProfilePage} />
+
+				{/* qq ouvinte */}
+				<ProtectedRouteListener exact path={routes.searchMusic} component={SearchPage} />
+				<ProtectedRouteListener exact path={routes.musicDetail} component={MusicDetailPage} />
+
+				{/* ouvinte pagante */}
+				<ProtectedRoutePayingListener exact path={routes.createPlaylist} component={CreatePlaylistPage} />
+				<ProtectedRoutePayingListener exact path={routes.myPlaylists} component={MyPlaylistsPage} />
+				<ProtectedRoutePayingListener exact path={routes.playlistDetail} component={PlaylistDetailPage} />
+				
+				{/* administrador */}
+				<ProtectedRouteAdministrator exact path={routes.approveBand} component={ApproveBandPage} />
+				<ProtectedRouteAdministrator exact path={routes.genres} component={GenresPage} />
+				<ProtectedRouteAdministrator exact path={routes.blockUser} component={BlockUserPage} />
+				<ProtectedRouteAdministrator exact path={routes.premium} component={MakePremiumPage} />
+
+				{/* banda */}
+				<ProtectedRouteBand exact path={routes.createAlbum} component={CreateAlbumPage} />
+				<ProtectedRouteBand exact path={routes.createMusic} component={CreateMusicPage} />
+				
 				<Route path="*" component={NotFoundPage} />
 			</Switch>
 		</ConnectedRouter>
