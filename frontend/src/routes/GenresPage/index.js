@@ -46,7 +46,6 @@ function GenresPage() {
                         value={genreName}
                         onChange={getGenreName}
                         required
-                    // InputLabelProps={{ shrink: true }}
                     />
 
                     <Button type="onSubmit" variant="outlined" color="primary">

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { forwardRef } from "react"
 
 import { routes } from "../../utils/constants"
 import MenuItemPersonalized from "../../components/MenuItemPersonalized"
@@ -20,4 +20,4 @@ function MenuItensPayingListener() {
     )
 }
 
-export default MenuItensPayingListener
+export default forwardRef(MenuItensPayingListener)

@@ -1,7 +1,6 @@
 import React from "react"
 import { useAllUsers } from "../../utils/customHooks"
 
-
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"

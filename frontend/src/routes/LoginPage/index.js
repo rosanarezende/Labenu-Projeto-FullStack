@@ -48,9 +48,6 @@ function LoginPage() {
                     value={userInfo.input || ''}
                     onChange={getUserInfo}
                     required
-                    // InputLabelProps={{
-                    //     shrink: true,
-                    // }}
                 />
 
                 <S.InputWrapper
@@ -62,9 +59,6 @@ function LoginPage() {
                     value={userInfo.password || ''}
                     onChange={getUserInfo}
                     required
-                    // InputLabelProps={{
-                    //     shrink: true,
-                    // }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">

@@ -28,7 +28,6 @@ import ProtectedRoutePayingListener from '../containers/ProtectedRoutePayingList
 import ProtectedRouteAdministrator from '../containers/ProtectedRouteAdministrator';
 import ProtectedRouteBand from '../containers/ProtectedRouteBand';
 
-
 function Routes(props) {
 	const { history } = props
 
@@ -39,26 +38,21 @@ function Routes(props) {
 				<Route exact path={routes.login} component={LoginPage} />
 				<Route exact path={routes.signup} component={SignupPage} />
 
-				{/* todos logados acessam */}
 				<ProtectedRouteLogged exact path={routes.home} component={HomePage} />
 				<ProtectedRouteLogged exact path={routes.profile} component={ProfilePage} />
 
-				{/* qq ouvinte */}
 				<ProtectedRouteListener exact path={routes.searchMusic} component={SearchPage} />
 				<ProtectedRouteListener exact path={routes.musicDetail} component={MusicDetailPage} />
 
-				{/* ouvinte pagante */}
 				<ProtectedRoutePayingListener exact path={routes.createPlaylist} component={CreatePlaylistPage} />
 				<ProtectedRoutePayingListener exact path={routes.myPlaylists} component={MyPlaylistsPage} />
 				<ProtectedRoutePayingListener exact path={routes.playlistDetail} component={PlaylistDetailPage} />
 				
-				{/* administrador */}
 				<ProtectedRouteAdministrator exact path={routes.approveBand} component={ApproveBandPage} />
 				<ProtectedRouteAdministrator exact path={routes.genres} component={GenresPage} />
 				<ProtectedRouteAdministrator exact path={routes.blockUser} component={BlockUserPage} />
 				<ProtectedRouteAdministrator exact path={routes.premium} component={MakePremiumPage} />
 
-				{/* banda */}
 				<ProtectedRouteBand exact path={routes.createAlbum} component={CreateAlbumPage} />
 				<ProtectedRouteBand exact path={routes.createMusic} component={CreateMusicPage} />
 				
