@@ -1,12 +1,6 @@
 import styled from "styled-components"
 import { TextField, Typography, Button } from "@material-ui/core"
 
-export const PlaylistDetailForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 4rem; 
-`
-
 export const PlaylistDetailTitle = styled(Typography)`
     margin-bottom: 1em;
     @media screen and (max-device-width: 1000px) {  

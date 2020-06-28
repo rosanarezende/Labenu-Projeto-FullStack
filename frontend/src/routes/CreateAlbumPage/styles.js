@@ -1,11 +1,5 @@
 import styled from "styled-components"
-import { TextField, Typography, FormControl, InputLabel, Button } from "@material-ui/core"
-
-export const CreateAlbumForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2rem; 
-`
+import { TextField, FormControl, InputLabel, Button } from "@material-ui/core"
 
 export const CreateAlbumInput = styled(TextField)`
     width: 80%;

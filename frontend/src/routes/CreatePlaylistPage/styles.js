@@ -1,11 +1,5 @@
 import styled from "styled-components"
-import { TextField, Typography, Button } from "@material-ui/core"
-
-export const CreatePlaylistForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 4rem; 
-`
+import { TextField, Button } from "@material-ui/core"
 
 export const CreatePlaylistInput = styled(TextField)`
     width: 80%;

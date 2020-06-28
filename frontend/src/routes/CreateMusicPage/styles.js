@@ -1,11 +1,6 @@
 import styled from "styled-components"
-import { TextField, Typography, Button } from "@material-ui/core"
+import { TextField, Button } from "@material-ui/core"
 
-export const CreateMusicForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2rem; 
-`
 export const CreateMusicInput = styled(TextField)`
     width: 80%;
     margin: 0 auto 2em;

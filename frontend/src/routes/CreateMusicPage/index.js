@@ -9,6 +9,7 @@ import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
 import { PageWrapper } from "../../components/PageWrapper"
 import { PageTitle } from "../../components/PageTitle"
+import { PageForm } from "../../components/PageForm"
 
 import * as S from "./styles"
 import { MenuItem, ListItemText, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, TextField } from "@material-ui/core"
@@ -47,9 +48,7 @@ function CreateMusicPage() {
 		setMusicToEdit(music)
 	}
 
-	const onChangeName = (e) => {
-		setName(e.target.value)
-	}
+	const onChangeName = (e) => { setName(e.target.value) }
 
 	const closeEditName = async () => {
 		const info = {
@@ -60,9 +59,7 @@ function CreateMusicPage() {
 		setAppearsEdit(false)
 	}
 
-	const onChangeAlbum = (e) => {
-		setAlbum(e.target.value)
-	}
+	const onChangeAlbum = (e) => { setAlbum(e.target.value) }
 
 	const closeEditAlbum = async () => {
 		const info = {
@@ -77,7 +74,7 @@ function CreateMusicPage() {
 		<>
 			<Appbar />
 			<PageWrapper>
-				<S.CreateMusicForm onSubmit={sendInformations}>
+				<PageForm onSubmit={sendInformations}>
 					<PageTitle variant="h6">
 						Criar música:
           			</PageTitle>
@@ -110,7 +107,7 @@ function CreateMusicPage() {
 					<S.CreateMusicButton type="onSubmit" variant="contained" color="primary">
 						Criar
           			</S.CreateMusicButton>
-				</S.CreateMusicForm>
+				</PageForm>
 
 				<div>
 					<Typography variant="h6">
@@ -154,7 +151,7 @@ function CreateMusicPage() {
 											name="album"
 											onChange={onChangeAlbum}
 											value={album || ""}
-											style={ { minWidth: "180px"}}
+											style={{ minWidth: "180px" }}
 										>
 											{bandAlbuns.map(album =>
 												<MenuItem value={album.id} key={album.id}>{album.name}</MenuItem>

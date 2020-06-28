@@ -9,6 +9,7 @@ import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
 import { PageWrapper } from "../../components/PageWrapper"
 import { PageTitle } from "../../components/PageTitle"
+import { PageForm } from "../../components/PageForm"
 
 import * as S from "./styles"
 import { MenuItem, Checkbox, ListItemText, Select, OutlinedInput, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton } from "@material-ui/core"
@@ -16,19 +17,15 @@ import { Delete } from "@material-ui/icons"
 
 
 function CreateAlbumPage() {
+    const dispatch = useDispatch()
     const allGenres = useAllGenres()
     const bandAlbuns = useBandAlbuns()
     const [albumName, setAlbumName] = useState("")
     const [genreId, setGenreId] = useState([]);
-    const dispatch = useDispatch()
     
-    const getAlbumName = (e) => {
-        setAlbumName(e.target.value)
-    }
+    const getAlbumName = (e) => { setAlbumName(e.target.value) }
 
-    const handleChange = (e) => {
-        setGenreId(e.target.value);
-    };
+    const handleChange = (e) => { setGenreId(e.target.value) }
 
     const sendInformations = (e) => {
         e.preventDefault()
@@ -51,7 +48,7 @@ function CreateAlbumPage() {
         <>
             <Appbar />
             <PageWrapper>
-                <S.CreateAlbumForm onSubmit={sendInformations}>
+                <PageForm onSubmit={sendInformations}>
                     <PageTitle variant="h6">
                         Criar álbum:
                     </PageTitle>
@@ -90,7 +87,7 @@ function CreateAlbumPage() {
                     <S.CreateAlbumButton type="onSubmit" variant="contained" color="primary">
                         Criar
                     </S.CreateAlbumButton>
-                </S.CreateAlbumForm>
+                </PageForm>
 
                 <div>
                     <Typography variant="h6">

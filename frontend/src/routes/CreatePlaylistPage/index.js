@@ -11,11 +11,11 @@ import Loading from "../../containers/Loading"
 import Appbar from "../../containers/Appbar"
 import { PageWrapper } from "../../components/PageWrapper"
 import { PageTitle } from "../../components/PageTitle"
+import { PageForm } from "../../components/PageForm"
 
 import * as S from "./styles"
 import { Typography, Fab } from "@material-ui/core"
 import { DirectionsRun } from "@material-ui/icons"
-
 
 function CreatePlaylistPage() {
 	const dispatch = useDispatch()
@@ -26,9 +26,7 @@ function CreatePlaylistPage() {
 		dispatch(setSecretMessage(false))
 	}, [dispatch])
 
-	const getPlaylistName = (e) => {
-		setName(e.target.value)
-	}
+	const getPlaylistName = (e) => { setName(e.target.value) }
 
 	const sendPlaylistName = (e) => {
 		e.preventDefault()
@@ -41,7 +39,7 @@ function CreatePlaylistPage() {
 		<>
 			<Appbar />
 			<PageWrapper>
-				<S.CreatePlaylistForm onSubmit={sendPlaylistName}>
+				<PageForm onSubmit={sendPlaylistName} style={ {marginBottom: "4rem"}}>
 					<PageTitle variant="h6">
 						Criar Playlist:
                 	</PageTitle>
@@ -59,7 +57,7 @@ function CreatePlaylistPage() {
 						variant={secreteMessage ? "outlined" : "contained"} >
 						Criar
           			</S.CreatePlaylistButton>
-				</S.CreatePlaylistForm>
+				</PageForm>
 
 				{secreteMessage &&
 					<S.SecretMessage>
