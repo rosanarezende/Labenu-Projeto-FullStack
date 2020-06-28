@@ -7,13 +7,6 @@ export const CreatePlaylistForm = styled.form`
     margin-bottom: 4rem; 
 `
 
-export const CreatePlaylistTitle = styled(Typography)`
-    margin-bottom: 2em;
-    @media screen and (max-device-width: 1000px) {  
-        margin-bottom: 1em;
-    }
-`
-
 export const CreatePlaylistInput = styled(TextField)`
     width: 80%;
     margin: 0 auto 2em;

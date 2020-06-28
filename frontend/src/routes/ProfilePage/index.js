@@ -7,8 +7,8 @@ import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
 import { PageWrapper } from "../../components/PageWrapper"
+import { PageTitle } from "../../components/PageTitle"
 
-import * as S from "./styles"
 import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, TextField } from "@material-ui/core"
 import { Edit, Check } from "@material-ui/icons"
 
@@ -31,9 +31,9 @@ function ProfilePage() {
         <>
             <Appbar />
             <PageWrapper>
-                <S.ProfileTitle variant="h6">
+                <PageTitle variant="h6">
                     Perfil
-                </S.ProfileTitle>
+                </PageTitle>
                 <List>
                     <ListItem>
                         <ListItemText primary="Nome:" />

@@ -10,6 +10,7 @@ import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
 import Appbar from "../../containers/Appbar"
 import { PageWrapper } from "../../components/PageWrapper"
+import { PageTitle } from "../../components/PageTitle"
 
 import * as S from "./styles"
 import { Typography, Fab } from "@material-ui/core"
@@ -41,9 +42,9 @@ function CreatePlaylistPage() {
 			<Appbar />
 			<PageWrapper>
 				<S.CreatePlaylistForm onSubmit={sendPlaylistName}>
-					<S.CreatePlaylistTitle>
+					<PageTitle variant="h6">
 						Criar Playlist:
-                </S.CreatePlaylistTitle>
+                	</PageTitle>
 					<S.CreatePlaylistInput
 						required
 						variant="outlined"

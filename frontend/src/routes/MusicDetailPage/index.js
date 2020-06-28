@@ -5,9 +5,9 @@ import { useAllMusics } from "../../utils/customHooks"
 
 import Appbar from "../../containers/Appbar"
 import { PageWrapper } from "../../components/PageWrapper"
+import { PageTitle } from "../../components/PageTitle"
 
 import { Typography } from "@material-ui/core"
-import * as S from "./styles"
 
 function MusicDetailPage() {
     const { musicIdSelected } = useSelector(state => state.musics)
@@ -25,9 +25,9 @@ function MusicDetailPage() {
         <>
             <Appbar />
             <PageWrapper>
-                <S.MusicDetailTitle variant="h6" align="center">
+                <PageTitle variant="h6" align="center">
                     {music?.music_name}
-                </S.MusicDetailTitle>
+                </PageTitle>
                 <Typography variant="subtitle1">
                     Álbum: <strong>{music?.album_name}</strong>
                 </Typography>

@@ -8,6 +8,7 @@ import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
 import { PageWrapper } from "../../components/PageWrapper"
+import { PageTitle } from "../../components/PageTitle"
 
 import * as S from "./styles"
 import { MenuItem, ListItemText, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, TextField } from "@material-ui/core"
@@ -77,9 +78,9 @@ function CreateMusicPage() {
 			<Appbar />
 			<PageWrapper>
 				<S.CreateMusicForm onSubmit={sendInformations}>
-					<S.CreateMusicTitle variant="h6">
+					<PageTitle variant="h6">
 						Criar música:
-          		</S.CreateMusicTitle>
+          			</PageTitle>
 					<S.CreateMusicInput
 						required
 						variant="outlined"

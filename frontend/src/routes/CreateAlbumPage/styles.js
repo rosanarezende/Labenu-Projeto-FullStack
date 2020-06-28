@@ -7,13 +7,6 @@ export const CreateAlbumForm = styled.form`
     margin-bottom: 2rem; 
 `
 
-export const CreateAlbumTitle = styled(Typography)`
-    margin-bottom: 2em;
-    @media screen and (max-device-width: 1000px) {  
-        margin-bottom: 1em;
-    }
-`
-
 export const CreateAlbumInput = styled(TextField)`
     width: 80%;
     margin: 0 auto 2em;

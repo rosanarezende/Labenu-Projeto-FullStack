@@ -8,6 +8,7 @@ import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
 import { PageWrapper } from "../../components/PageWrapper"
+import { PageTitle } from "../../components/PageTitle"
 
 import * as S from "./styles"
 import { MenuItem, Checkbox, ListItemText, Select, OutlinedInput, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton } from "@material-ui/core"
@@ -51,9 +52,9 @@ function CreateAlbumPage() {
             <Appbar />
             <PageWrapper>
                 <S.CreateAlbumForm onSubmit={sendInformations}>
-                    <S.CreateAlbumTitle variant="h6">
+                    <PageTitle variant="h6">
                         Criar álbum:
-                    </S.CreateAlbumTitle>
+                    </PageTitle>
                     <S.CreateAlbumInput
                         required
                         variant="outlined"
