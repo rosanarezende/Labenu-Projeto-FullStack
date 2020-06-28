@@ -8,8 +8,8 @@ import Appbar from "../../containers/Appbar"
 import Loading from "../../containers/Loading"
 import Message from "../../components/Message"
 import { PageWrapper } from "../../components/PageWrapper"
+import { PageTitle } from "../../components/PageTitle"
 
-import * as S from "./styles"
 import { List, ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, Typography, TextField, Grid, Switch } from "@material-ui/core"
 import { HighlightOff, Edit, Check } from "@material-ui/icons"
 import { Pagination } from "@material-ui/lab"
@@ -66,9 +66,9 @@ function PlaylistDetailPage() {
         <>
             <Appbar />
             <PageWrapper>
-                <S.PlaylistDetailTitle variant="h6" align="center">
+                <PageTitle variant="h6" align="center">
                     Detalhes da Playlist
-                </S.PlaylistDetailTitle>
+                </PageTitle>
 
                 <List>
                     <ListItem>

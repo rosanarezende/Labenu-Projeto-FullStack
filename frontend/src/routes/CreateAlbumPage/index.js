@@ -10,6 +10,7 @@ import Loading from "../../containers/Loading"
 import { PageWrapper } from "../../components/PageWrapper"
 import { PageTitle } from "../../components/PageTitle"
 import { PageForm } from "../../components/PageForm"
+import { PageInput } from "../../components/PageInput"
 
 import * as S from "./styles"
 import { MenuItem, Checkbox, ListItemText, Select, OutlinedInput, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton } from "@material-ui/core"
@@ -52,7 +53,7 @@ function CreateAlbumPage() {
                     <PageTitle variant="h6">
                         Criar álbum:
                     </PageTitle>
-                    <S.CreateAlbumInput
+                    <PageInput
                         required
                         variant="outlined"
                         type='text'

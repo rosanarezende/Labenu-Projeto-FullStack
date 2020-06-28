@@ -10,6 +10,7 @@ import Loading from "../../containers/Loading"
 import { PageWrapper } from "../../components/PageWrapper"
 import { PageTitle } from "../../components/PageTitle"
 import { PageForm } from "../../components/PageForm"
+import { PageInput } from "../../components/PageInput"
 
 import * as S from "./styles"
 import { MenuItem, ListItemText, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, TextField } from "@material-ui/core"
@@ -78,7 +79,7 @@ function CreateMusicPage() {
 					<PageTitle variant="h6">
 						Criar música:
           			</PageTitle>
-					<S.CreateMusicInput
+					<PageInput
 						required
 						variant="outlined"
 						type='text'
@@ -88,7 +89,7 @@ function CreateMusicPage() {
 						onChange={getMusicForm}
 						InputLabelProps={{ shrink: true }}
 					/>
-					<S.CreateMusicInput
+					<PageInput
 						select
 						required
 						key="albumId"
@@ -103,7 +104,7 @@ function CreateMusicPage() {
 						{bandAlbuns.map(album =>
 							<MenuItem value={album.id} key={album.id}>{album.name}</MenuItem>
 						)}
-					</S.CreateMusicInput>
+					</PageInput>
 					<S.CreateMusicButton type="onSubmit" variant="contained" color="primary">
 						Criar
           			</S.CreateMusicButton>
@@ -171,8 +172,6 @@ function CreateMusicPage() {
 
 						: <List component="nav">
 							{myMusics.map(music =>
-
-
 								<ListItem key={music?.music_id}>
 									<ListItemAvatar>
 										<Avatar style={{ backgroundColor: "rgba(30, 215, 96, 1)" }}>

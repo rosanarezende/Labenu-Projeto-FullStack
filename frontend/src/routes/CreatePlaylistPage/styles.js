@@ -1,13 +1,5 @@
 import styled from "styled-components"
-import { TextField, Button } from "@material-ui/core"
-
-export const CreatePlaylistInput = styled(TextField)`
-    width: 80%;
-    margin: 0 auto 2em;
-    @media screen and (max-device-width: 1000px) {  
-        width: 100%;
-    }
-`
+import { Button } from "@material-ui/core"
 
 export const CreatePlaylistButton = styled(Button)`
     width: 30%;

@@ -12,6 +12,7 @@ import Appbar from "../../containers/Appbar"
 import { PageWrapper } from "../../components/PageWrapper"
 import { PageTitle } from "../../components/PageTitle"
 import { PageForm } from "../../components/PageForm"
+import { PageInput } from "../../components/PageInput"
 
 import * as S from "./styles"
 import { Typography, Fab } from "@material-ui/core"
@@ -43,7 +44,7 @@ function CreatePlaylistPage() {
 					<PageTitle variant="h6">
 						Criar Playlist:
                 	</PageTitle>
-					<S.CreatePlaylistInput
+					<PageInput
 						required
 						variant="outlined"
 						type='text'
