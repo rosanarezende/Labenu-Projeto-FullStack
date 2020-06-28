@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { signupAdministrator, signupBand, signupListening, setOpen, setMessage } from '../../actions';
+
+import { setOpen, setMessage } from '../../actions';
+import { signupAdministrator, signupBand, signupListening } from "../../actions/users"
 import { useUser } from '../../utils/customHooks'
+
 import * as S from "./styles"
 import { InputAdornment, MenuItem } from '@material-ui/core';
+
 import Appbar from '../../containers/Appbar';
 import Message from '../../components/Message';
 import ButtonBack from '../../components/ButtonBack';

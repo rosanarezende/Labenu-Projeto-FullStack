@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
 
 import { useAllGenres } from "../../utils/customHooks"
-import { addGenre } from "../../actions"
+import { addGenre } from "../../actions/genres"
 
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"

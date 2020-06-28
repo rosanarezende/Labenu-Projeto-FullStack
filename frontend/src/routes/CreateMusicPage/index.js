@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
 
-import { createMusic, deleteMusic, editMusicName, changeAlbum } from "../../actions"
+import { createMusic, deleteMusic, editMusicName } from "../../actions/musics"
+import { changeAlbum } from "../../actions/albuns"
 import { useBandAlbuns, useMyMusics } from "../../utils/customHooks"
 
 import Appbar from "../../containers/Appbar"
@@ -11,8 +12,8 @@ import { PageWrapper } from "../../components/PageWrapper"
 import { PageTitle } from "../../components/PageTitle"
 import { PageForm } from "../../components/PageForm"
 import { PageInput } from "../../components/PageInput"
+import { PageButton } from "../../components/PageButton"
 
-import * as S from "./styles"
 import { MenuItem, ListItemText, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, TextField } from "@material-ui/core"
 import { Delete, Edit, Check } from "@material-ui/icons"
 
@@ -105,9 +106,9 @@ function CreateMusicPage() {
 							<MenuItem value={album.id} key={album.id}>{album.name}</MenuItem>
 						)}
 					</PageInput>
-					<S.CreateMusicButton type="onSubmit" variant="contained" color="primary">
+					<PageButton type="onSubmit" variant="contained" color="primary">
 						Criar
-          			</S.CreateMusicButton>
+          			</PageButton>
 				</PageForm>
 
 				<div>

@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { FormControl, InputLabel, Button } from "@material-ui/core"
+import { FormControl, InputLabel } from "@material-ui/core"
 
 export const CreateAlbumFormControl = styled(FormControl)`
     width: 80%;
@@ -13,13 +13,4 @@ export const CreateAlbumInputLabel = styled(InputLabel)`
     background-color: #fafafa;
     padding: 0 5px;
     margin-left: -5px;
-`
-
-export const CreateAlbumButton = styled(Button)`
-    width: 30%;
-    margin: 1em auto 0;
-    @media screen and (max-device-width: 1000px) {  
-        width: 100%;
-        margin: 0 auto;
-    }
 `

@@ -13,6 +13,7 @@ import { PageWrapper } from "../../components/PageWrapper"
 import { PageTitle } from "../../components/PageTitle"
 import { PageForm } from "../../components/PageForm"
 import { PageInput } from "../../components/PageInput"
+import { PageButton } from "../../components/PageButton"
 
 import * as S from "./styles"
 import { Typography, Fab } from "@material-ui/core"
@@ -54,10 +55,10 @@ function CreatePlaylistPage() {
 						onChange={getPlaylistName}
 						InputLabelProps={{ shrink: true }}
 					/>
-					<S.CreatePlaylistButton type="onSubmit" color="primary"
+					<PageButton type="onSubmit" color="primary"
 						variant={secreteMessage ? "outlined" : "contained"} >
 						Criar
-          			</S.CreatePlaylistButton>
+          			</PageButton>
 				</PageForm>
 
 				{secreteMessage &&

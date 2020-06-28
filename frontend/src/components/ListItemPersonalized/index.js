@@ -1,6 +1,8 @@
 import React from "react"
 import { useDispatch } from 'react-redux'
-import { aproveBand, blockUser, makePremium } from "../../actions"
+
+import { aproveBand, blockUser, makePremium } from "../../actions/users"
+
 import { ListItem, Avatar, ListItemAvatar, ListItemText, IconButton, ListItemSecondaryAction } from "@material-ui/core"
 import { Check, Block } from "@material-ui/icons"
 

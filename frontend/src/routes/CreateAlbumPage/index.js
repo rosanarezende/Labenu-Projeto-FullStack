@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
 
 import { useAllGenres, useBandAlbuns } from "../../utils/customHooks"
-import { createAlbum, deleteAlbum } from "../../actions"
+import { createAlbum, deleteAlbum } from "../../actions/albuns"
 
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
@@ -11,6 +11,7 @@ import { PageWrapper } from "../../components/PageWrapper"
 import { PageTitle } from "../../components/PageTitle"
 import { PageForm } from "../../components/PageForm"
 import { PageInput } from "../../components/PageInput"
+import { PageButton } from "../../components/PageButton"
 
 import * as S from "./styles"
 import { MenuItem, Checkbox, ListItemText, Select, OutlinedInput, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton } from "@material-ui/core"
@@ -85,9 +86,9 @@ function CreateAlbumPage() {
                         </Select>
                     </S.CreateAlbumFormControl>
 
-                    <S.CreateAlbumButton type="onSubmit" variant="contained" color="primary">
+                    <PageButton type="onSubmit" variant="contained" color="primary">
                         Criar
-                    </S.CreateAlbumButton>
+                    </PageButton>
                 </PageForm>
 
                 <div>

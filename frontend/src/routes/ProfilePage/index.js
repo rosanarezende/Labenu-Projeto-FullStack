@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
 import { useProfile } from "../../utils/customHooks"
-import { changeName } from "../../actions"
+import { changeName } from "../../actions/users"
 
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { push } from 'connected-react-router'
 
 import { useMusicsList, useMusicsByGenre, useUser } from "../../utils/customHooks"
-import { setMusicIdSelected } from "../../actions"
+import { setMusicIdSelected } from "../../actions/musics"
 
 import Message from "../../components/Message"
 import Appbar from "../../containers/Appbar"

@@ -1,21 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { 
-    getAllBands, 
-    getAllGenres, 
-    getBandAlbuns, 
-    getAllUsers, 
-    getProfile, 
-    setProfile, 
-    getAllMusics,
-    getMusicsList,
-    getMusicsByGenre,
-    // setLoading,
-    getCountMusicsByGenre,
-    getCountMusicsList,
-    getMyMusics
-} from "../actions"
 
+import { getAllMusics, getMusicsList, getMyMusics, getMusicsByGenre, getCountMusicsByGenre, getCountMusicsList } from "../actions/musics"
+import { getBandAlbuns } from "../actions/albuns"
+import { getAllGenres } from "../actions/genres"
+import { getAllBands, getAllUsers, getProfile, setProfile } from "../actions/users"
 import { getMyPlaylists, getPlaylistDetail, getCountPlaylistDetail } from "../actions/playlists"
 
 export const useUser = () => {

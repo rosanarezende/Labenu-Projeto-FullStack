@@ -6,7 +6,7 @@ import { routes } from "../../utils/constants"
 import { InputAdornment } from '@material-ui/core';
 import * as S from "./styles"
 
-import { login } from '../../actions';
+import { login } from '../../actions/users';
 import Message from '../../components/Message';
 import Loading from '../../containers/Loading';
 
