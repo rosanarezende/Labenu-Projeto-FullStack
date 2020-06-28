@@ -2,11 +2,12 @@ import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
 
 import { useAllGenres } from "../../utils/customHooks"
-import { addGenre } from "../../actions"
+import { addGenre } from "../../actions/genres"
 
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
+import { PageWrapper } from "../../components/PageWrapper"
 
 import * as S from "./styles"
 import { Typography, Button, List, ListItem, ListItemText, ListItemAvatar, Avatar } from "@material-ui/core"
@@ -30,7 +31,7 @@ function GenresPage() {
     return (
         <>
             <Appbar />
-            <S.GenresWrapper>
+            <PageWrapper>
                 <S.GenreForm onSubmit={sendGenreName}>
                     <S.GenreTitle variant="h6">
                         Cadastrar gênero musical:
@@ -45,7 +46,6 @@ function GenresPage() {
                         value={genreName}
                         onChange={getGenreName}
                         required
-                    // InputLabelProps={{ shrink: true }}
                     />
 
                     <Button type="onSubmit" variant="outlined" color="primary">
@@ -70,7 +70,7 @@ function GenresPage() {
                         )}
                     </List>
                 </div>
-            </S.GenresWrapper>
+            </PageWrapper>
             <Message/>
             <Loading/>
         </>

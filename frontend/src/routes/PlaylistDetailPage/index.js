@@ -7,8 +7,9 @@ import { removeMusicFromPlaylist, makeCollaborative, editPlaylistName } from "..
 import Appbar from "../../containers/Appbar"
 import Loading from "../../containers/Loading"
 import Message from "../../components/Message"
+import { PageWrapper } from "../../components/PageWrapper"
+import { PageTitle } from "../../components/PageTitle"
 
-import * as S from "./styles"
 import { List, ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, Typography, TextField, Grid, Switch } from "@material-ui/core"
 import { HighlightOff, Edit, Check } from "@material-ui/icons"
 import { Pagination } from "@material-ui/lab"
@@ -64,10 +65,10 @@ function PlaylistDetailPage() {
     return (
         <>
             <Appbar />
-            <S.PlaylistDetailWrapper>
-                <S.PlaylistDetailTitle variant="h6" align="center">
+            <PageWrapper>
+                <PageTitle variant="h6" align="center">
                     Detalhes da Playlist
-                </S.PlaylistDetailTitle>
+                </PageTitle>
 
                 <List>
                     <ListItem>
@@ -152,7 +153,7 @@ function PlaylistDetailPage() {
                         </ListItem>)
                     })}
                 </List>
-            </S.PlaylistDetailWrapper>
+            </PageWrapper>
             <Loading />
             <Message />
         </>

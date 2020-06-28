@@ -5,10 +5,11 @@ import { push } from 'connected-react-router'
 import { useStyles } from "../../utils/theme";
 import { useAllGenres } from "../../utils/customHooks"
 import { routes } from "../../utils/constants"
-import { setInputSearch, setGenreSelected } from "../../actions"
+import { setInputSearch } from "../../actions"
+import { setGenreSelected } from "../../actions/genres"
 
 import { InputBase, TextField, MenuItem } from "@material-ui/core"
-import { Search } from "@material-ui/icons"
+// import { Search } from "@material-ui/icons"
 
 function SearchContainer() {
     const dispatch = useDispatch()
@@ -39,7 +40,7 @@ function SearchContainer() {
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
-                    value={inputSearch}
+                    value={inputSearch || ""}
                     onChange={onChangeInput}
                 />
             </div>           

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { forwardRef } from "react"
 import { routes } from "../../utils/constants"
 
 import { useAllBands } from "../../utils/customHooks"
@@ -36,4 +36,4 @@ function MenuItensAdmin() {
     )
 }
 
-export default MenuItensAdmin
+export default forwardRef(MenuItensAdmin)

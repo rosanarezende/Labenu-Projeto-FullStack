@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
-export const SecretMessage = styled.div`
+export const PageForm = styled.form`
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    margin-bottom: 2rem; 
 `

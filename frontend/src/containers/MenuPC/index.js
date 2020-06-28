@@ -1,4 +1,4 @@
-import React from "react"
+import React, { forwardRef } from "react"
 import { useDispatch } from 'react-redux'
 import { push } from 'connected-react-router'
 
@@ -7,7 +7,7 @@ import { routes } from "../../utils/constants"
 import { Menu, MenuItem } from "@material-ui/core"
 
 
-function MenuPC(props){
+function MenuPC(props, ref){
     const dispatch = useDispatch()
     const { menuId, anchorEl, isMenuOpen, handleMenuClose } = props
     const goToLogin = push(routes.login)
@@ -21,10 +21,8 @@ function MenuPC(props){
     return (
         <Menu
             anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             id={menuId}
-            keepMounted
-            transformOrigin={{ vertical: 'botton', horizontal: 'right' }}
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
@@ -34,4 +32,4 @@ function MenuPC(props){
     )
 }
 
-export default MenuPC
+export default forwardRef(MenuPC)

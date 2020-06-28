@@ -9,11 +9,15 @@ import { routes } from "../../utils/constants"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
 import Appbar from "../../containers/Appbar"
+import { PageWrapper } from "../../components/PageWrapper"
+import { PageTitle } from "../../components/PageTitle"
+import { PageForm } from "../../components/PageForm"
+import { PageInput } from "../../components/PageInput"
+import { PageButton } from "../../components/PageButton"
 
 import * as S from "./styles"
 import { Typography, Fab } from "@material-ui/core"
 import { DirectionsRun } from "@material-ui/icons"
-
 
 function CreatePlaylistPage() {
 	const dispatch = useDispatch()
@@ -24,9 +28,7 @@ function CreatePlaylistPage() {
 		dispatch(setSecretMessage(false))
 	}, [dispatch])
 
-	const getPlaylistName = (e) => {
-		setName(e.target.value)
-	}
+	const getPlaylistName = (e) => { setName(e.target.value) }
 
 	const sendPlaylistName = (e) => {
 		e.preventDefault()
@@ -38,12 +40,12 @@ function CreatePlaylistPage() {
 	return (
 		<>
 			<Appbar />
-			<S.CreatePlaylistWrapper>
-				<S.CreatePlaylistForm onSubmit={sendPlaylistName}>
-					<S.CreatePlaylistTitle>
+			<PageWrapper>
+				<PageForm onSubmit={sendPlaylistName} style={ {marginBottom: "4rem"}}>
+					<PageTitle variant="h6">
 						Criar Playlist:
-                </S.CreatePlaylistTitle>
-					<S.CreatePlaylistInput
+                	</PageTitle>
+					<PageInput
 						required
 						variant="outlined"
 						type='text'
@@ -53,11 +55,11 @@ function CreatePlaylistPage() {
 						onChange={getPlaylistName}
 						InputLabelProps={{ shrink: true }}
 					/>
-					<S.CreatePlaylistButton type="onSubmit" color="primary"
+					<PageButton type="onSubmit" color="primary"
 						variant={secreteMessage ? "outlined" : "contained"} >
 						Criar
-          			</S.CreatePlaylistButton>
-				</S.CreatePlaylistForm>
+          			</PageButton>
+				</PageForm>
 
 				{secreteMessage &&
 					<S.SecretMessage>
@@ -77,7 +79,7 @@ function CreatePlaylistPage() {
         				</Fab>
 					</S.SecretMessage>
 				}
-			</S.CreatePlaylistWrapper>
+			</PageWrapper>
 			<Message />
 			<Loading />
 		</>

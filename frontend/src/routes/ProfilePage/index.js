@@ -1,15 +1,16 @@
 import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
 import { useProfile } from "../../utils/customHooks"
-import { changeName } from "../../actions"
+import { changeName } from "../../actions/users"
 
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
+import Loading from "../../containers/Loading"
+import { PageWrapper } from "../../components/PageWrapper"
+import { PageTitle } from "../../components/PageTitle"
 
-import * as S from "./styles"
 import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, TextField } from "@material-ui/core"
 import { Edit, Check } from "@material-ui/icons"
-import Loading from "../../containers/Loading"
 
 function ProfilePage() {
     const dispatch = useDispatch()
@@ -27,19 +28,19 @@ function ProfilePage() {
     }
 
     return (
-        <div>
+        <>
             <Appbar />
-            <S.ProfileWrapper>
-                <S.ProfileTitle variant="h6">
+            <PageWrapper>
+                <PageTitle variant="h6">
                     Perfil
-                </S.ProfileTitle>
+                </PageTitle>
                 <List>
                     <ListItem>
                         <ListItemText primary="Nome:" />
                         {appearsEdit
                             ?
                             <>
-                                <ListItemText secondary={
+                                <ListItemText primary={
                                     <TextField
                                         name='name'
                                         placeholder={profile.name}
@@ -95,10 +96,10 @@ function ProfilePage() {
                         </ListItem>
                     }
                 </List>
-            </S.ProfileWrapper>
+            </PageWrapper>
             <Message />
             <Loading/>
-        </div>
+        </>
     )
 }
 

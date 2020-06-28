@@ -2,11 +2,16 @@ import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
 
 import { useAllGenres, useBandAlbuns } from "../../utils/customHooks"
-import { createAlbum, deleteAlbum } from "../../actions"
+import { createAlbum, deleteAlbum } from "../../actions/albuns"
 
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
+import { PageWrapper } from "../../components/PageWrapper"
+import { PageTitle } from "../../components/PageTitle"
+import { PageForm } from "../../components/PageForm"
+import { PageInput } from "../../components/PageInput"
+import { PageButton } from "../../components/PageButton"
 
 import * as S from "./styles"
 import { MenuItem, Checkbox, ListItemText, Select, OutlinedInput, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton } from "@material-ui/core"
@@ -14,19 +19,15 @@ import { Delete } from "@material-ui/icons"
 
 
 function CreateAlbumPage() {
+    const dispatch = useDispatch()
     const allGenres = useAllGenres()
     const bandAlbuns = useBandAlbuns()
     const [albumName, setAlbumName] = useState("")
     const [genreId, setGenreId] = useState([]);
-    const dispatch = useDispatch()
     
-    const getAlbumName = (e) => {
-        setAlbumName(e.target.value)
-    }
+    const getAlbumName = (e) => { setAlbumName(e.target.value) }
 
-    const handleChange = (e) => {
-        setGenreId(e.target.value);
-    };
+    const handleChange = (e) => { setGenreId(e.target.value) }
 
     const sendInformations = (e) => {
         e.preventDefault()
@@ -48,12 +49,12 @@ function CreateAlbumPage() {
     return (
         <>
             <Appbar />
-            <S.CreateAlbumWrapper>
-                <S.CreateAlbumForm onSubmit={sendInformations}>
-                    <S.CreateAlbumTitle variant="h6">
+            <PageWrapper>
+                <PageForm onSubmit={sendInformations}>
+                    <PageTitle variant="h6">
                         Criar álbum:
-                    </S.CreateAlbumTitle>
-                    <S.CreateAlbumInput
+                    </PageTitle>
+                    <PageInput
                         required
                         variant="outlined"
                         type='text'
@@ -85,10 +86,10 @@ function CreateAlbumPage() {
                         </Select>
                     </S.CreateAlbumFormControl>
 
-                    <S.CreateAlbumButton type="onSubmit" variant="contained" color="primary">
+                    <PageButton type="onSubmit" variant="contained" color="primary">
                         Criar
-                    </S.CreateAlbumButton>
-                </S.CreateAlbumForm>
+                    </PageButton>
+                </PageForm>
 
                 <div>
                     <Typography variant="h6">
@@ -113,7 +114,7 @@ function CreateAlbumPage() {
                     </List>
                 </div>
 
-            </S.CreateAlbumWrapper>
+            </PageWrapper>
             <Message />
             <Loading />
         </>

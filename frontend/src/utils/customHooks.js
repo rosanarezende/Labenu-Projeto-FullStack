@@ -1,21 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { 
-    getAllBands, 
-    getAllGenres, 
-    getBandAlbuns, 
-    getAllUsers, 
-    getProfile, 
-    setProfile, 
-    getAllMusics,
-    getMusicsList,
-    getMusicsByGenre,
-    setLoading,
-    getCountMusicsByGenre,
-    getCountMusicsList,
-    getMyMusics
-} from "../actions"
 
+import { getAllMusics, getMusicsList, getMyMusics, getMusicsByGenre, getCountMusicsByGenre, getCountMusicsList } from "../actions/musics"
+import { getBandAlbuns } from "../actions/albuns"
+import { getAllGenres } from "../actions/genres"
+import { getAllBands, getAllUsers, getProfile, setProfile } from "../actions/users"
 import { getMyPlaylists, getPlaylistDetail, getCountPlaylistDetail } from "../actions/playlists"
 
 export const useUser = () => {
@@ -36,127 +25,114 @@ export const useUser = () => {
 }
 
 export const useAllBands = () => {
-    const { allBands } = useSelector(state => state.users)
     const dispatch = useDispatch()
+    const { allBands } = useSelector(state => state.users)
 
     useEffect(() => {
-        dispatch(setLoading(true))
         dispatch(getAllBands())
     }, [dispatch])
-    dispatch(setLoading(false))
+
     return allBands
 }
 
 export const useAllGenres = () => {
-    const { allGenres } = useSelector(state => state.genres)
     const dispatch = useDispatch()
+    const { allGenres } = useSelector(state => state.genres)
+    
     useEffect(() => {
-        dispatch(setLoading(true))
         dispatch(getAllGenres())
     }, [dispatch])
-    dispatch(setLoading(false))
     
     return allGenres
 }
 
 export const useBandAlbuns = () => {
-    const { bandAlbuns } = useSelector(state => state.albuns)
     const dispatch = useDispatch()
+    const { bandAlbuns } = useSelector(state => state.albuns)
 
     useEffect(() => {
-        dispatch(setLoading(true))
         dispatch(getBandAlbuns())
     }, [dispatch])
-    dispatch(setLoading(false))
 
     return bandAlbuns
 }
 
 export const useAllUsers = () => {
-    const { allUsers } = useSelector(state => state.users)
     const dispatch = useDispatch()
+    const { allUsers } = useSelector(state => state.users)
 
     useEffect(() => {
-        dispatch(setLoading(true))
         dispatch(getAllUsers())
     }, [dispatch])
-    dispatch(setLoading(false))
 
     return allUsers
 }
 
 export const useProfile = () => {
-    const { profile } = useSelector(state => state.users)
     const dispatch = useDispatch()
+    const { profile } = useSelector(state => state.users)
 
     useEffect(() => {
-        dispatch(setLoading(true))
         dispatch(setProfile({}))
         dispatch(getProfile())
     }, [dispatch])
-    dispatch(setLoading(false))
 
     return profile
 }
 
 export const useAllMusics = () => {
-    const { allMusics } = useSelector(state => state.musics)
     const dispatch = useDispatch()
+    const { allMusics } = useSelector(state => state.musics)
+    
     useEffect(() => {
-        dispatch(setLoading(true))
         dispatch(getAllMusics())
     }, [dispatch])
-    dispatch(setLoading(false))
 
     return allMusics
 }
 
 export const useMusicsList = (num) => {
-    const { musicsList, numMusicsList } = useSelector(state => state.musics)
     const dispatch = useDispatch()
+    const { musicsList, numMusicsList } = useSelector(state => state.musics)
+    
     useEffect(() => {
-        dispatch(setLoading(true))
         dispatch(getMusicsList(num))
         dispatch(getCountMusicsList())
     }, [dispatch, num])
-    dispatch(setLoading(false))
 
     return {musicsList, numMusicsList}
 }
 
 export const useMusicsByGenre = (genreId, num) => {
-    const { musicsByGenre, numMusicsByGenre } = useSelector(state => state.musics)
     const dispatch = useDispatch()
+    const { musicsByGenre, numMusicsByGenre } = useSelector(state => state.musics)
+    
     useEffect(() => {
-        dispatch(setLoading(true))
         dispatch(getMusicsByGenre(genreId, num))
         dispatch(getCountMusicsByGenre(genreId))
     }, [dispatch, genreId, num])
-    dispatch(setLoading(false))
 
     return { musicsByGenre, numMusicsByGenre }
 }
 
 export const useMyMusics = () => {
-    const { myMusics } = useSelector(state => state.musics)
     const dispatch = useDispatch()
+    const { myMusics } = useSelector(state => state.musics)
+
     useEffect(() => {
-        dispatch(setLoading(true))
         dispatch(getMyMusics())
     }, [dispatch])
-    dispatch(setLoading(false))
 
     return myMusics
 }
 
 export const useMyPlaylists = () => {
-    const { myPlaylists } = useSelector(state => state.playlists)
     const dispatch = useDispatch()
+    const { myPlaylists } = useSelector(state => state.playlists)
+    
     useEffect(() => {
-        dispatch(setLoading(true))
         dispatch(getMyPlaylists()) 
     }, [dispatch])
-    dispatch(setLoading(false))
 
     return myPlaylists
 }
@@ -171,12 +147,9 @@ export const usePlaylistDetail = (num) => {
         if(playlistSelected?.id === undefined){
             playlistSelected = { id: window.location.pathname.substr(10, 36) }
         }
-        dispatch(setLoading(true))
         dispatch(getPlaylistDetail(playlistSelected?.id, num)) 
         dispatch(getCountPlaylistDetail(playlistSelected?.id))
     }, [dispatch, playlistSelected, num])
-
-    dispatch(setLoading(false))
 
     return { playlistDetail, numPlaylistDetail }
 }

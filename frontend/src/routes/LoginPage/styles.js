@@ -31,6 +31,7 @@ export const InputWrapper = styled(TextField)`
     height: 56px;
     margin: 8px auto;
 `
+
 export const ButtonWrapper = styled(Button)`
     width: 100%;
     height: 42px;

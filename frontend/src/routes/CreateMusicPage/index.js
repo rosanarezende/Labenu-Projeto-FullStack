@@ -1,14 +1,19 @@
 import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
 
-import { createMusic, deleteMusic, editMusicName, changeAlbum } from "../../actions"
+import { createMusic, deleteMusic, editMusicName } from "../../actions/musics"
+import { changeAlbum } from "../../actions/albuns"
 import { useBandAlbuns, useMyMusics } from "../../utils/customHooks"
 
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
+import { PageWrapper } from "../../components/PageWrapper"
+import { PageTitle } from "../../components/PageTitle"
+import { PageForm } from "../../components/PageForm"
+import { PageInput } from "../../components/PageInput"
+import { PageButton } from "../../components/PageButton"
 
-import * as S from "./styles"
 import { MenuItem, ListItemText, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, TextField } from "@material-ui/core"
 import { Delete, Edit, Check } from "@material-ui/icons"
 
@@ -45,9 +50,7 @@ function CreateMusicPage() {
 		setMusicToEdit(music)
 	}
 
-	const onChangeName = (e) => {
-		setName(e.target.value)
-	}
+	const onChangeName = (e) => { setName(e.target.value) }
 
 	const closeEditName = async () => {
 		const info = {
@@ -58,9 +61,7 @@ function CreateMusicPage() {
 		setAppearsEdit(false)
 	}
 
-	const onChangeAlbum = (e) => {
-		setAlbum(e.target.value)
-	}
+	const onChangeAlbum = (e) => { setAlbum(e.target.value) }
 
 	const closeEditAlbum = async () => {
 		const info = {
@@ -74,12 +75,12 @@ function CreateMusicPage() {
 	return (
 		<>
 			<Appbar />
-			<S.CreateMusicWrapper>
-				<S.CreateMusicForm onSubmit={sendInformations}>
-					<S.CreateMusicTitle variant="h6">
+			<PageWrapper>
+				<PageForm onSubmit={sendInformations}>
+					<PageTitle variant="h6">
 						Criar música:
-          </S.CreateMusicTitle>
-					<S.CreateMusicInput
+          			</PageTitle>
+					<PageInput
 						required
 						variant="outlined"
 						type='text'
@@ -89,7 +90,7 @@ function CreateMusicPage() {
 						onChange={getMusicForm}
 						InputLabelProps={{ shrink: true }}
 					/>
-					<S.CreateMusicInput
+					<PageInput
 						select
 						required
 						key="albumId"
@@ -104,11 +105,11 @@ function CreateMusicPage() {
 						{bandAlbuns.map(album =>
 							<MenuItem value={album.id} key={album.id}>{album.name}</MenuItem>
 						)}
-					</S.CreateMusicInput>
-					<S.CreateMusicButton type="onSubmit" variant="contained" color="primary">
+					</PageInput>
+					<PageButton type="onSubmit" variant="contained" color="primary">
 						Criar
-          			</S.CreateMusicButton>
-				</S.CreateMusicForm>
+          			</PageButton>
+				</PageForm>
 
 				<div>
 					<Typography variant="h6">
@@ -152,7 +153,7 @@ function CreateMusicPage() {
 											name="album"
 											onChange={onChangeAlbum}
 											value={album || ""}
-											style={ { minWidth: "180px"}}
+											style={{ minWidth: "180px" }}
 										>
 											{bandAlbuns.map(album =>
 												<MenuItem value={album.id} key={album.id}>{album.name}</MenuItem>
@@ -172,8 +173,6 @@ function CreateMusicPage() {
 
 						: <List component="nav">
 							{myMusics.map(music =>
-
-
 								<ListItem key={music?.music_id}>
 									<ListItemAvatar>
 										<Avatar style={{ backgroundColor: "rgba(30, 215, 96, 1)" }}>
@@ -203,7 +202,7 @@ function CreateMusicPage() {
 					}
 				</div>
 
-			</S.CreateMusicWrapper>
+			</PageWrapper>
 			<Message />
 			<Loading />
 		</>

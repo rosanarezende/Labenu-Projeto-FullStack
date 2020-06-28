@@ -2,30 +2,28 @@ import React, { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { push } from 'connected-react-router'
 
-import { useMusicsList, useMusicsByGenre, useMyPlaylists, useUser } from "../../utils/customHooks"
-import { setMusicIdSelected } from "../../actions"
-import { addMusicToPlaylist } from "../../actions/playlists"
+import { useMusicsList, useMusicsByGenre, useUser } from "../../utils/customHooks"
+import { setMusicIdSelected } from "../../actions/musics"
 
+import Message from "../../components/Message"
 import Appbar from "../../containers/Appbar"
 import Loading from "../../containers/Loading"
-import Message from "../../components/Message"
+import MenuAddPlaylists from "../../containers/MenuAddPlaylists"
+import { PageWrapper } from "../../components/PageWrapper"
 
 import * as S from "./styles"
-import { List, ListItem, ListItemAvatar, Avatar, Typography, Tooltip, ListItemSecondaryAction, IconButton, Menu, MenuItem } from "@material-ui/core"
+import { List, ListItem, ListItemAvatar, Avatar, Typography, Tooltip } from "@material-ui/core"
 import { Pagination } from "@material-ui/lab"
-import { LibraryAdd } from "@material-ui/icons"
+
 
 function SearchPage() {
 	const dispatch = useDispatch()
 	const [page, setPage] = useState(1)
-	const myPlaylists = useMyPlaylists()
 	const { userRole } = useUser()
 	const { inputSearch, selectedGenre } = useSelector(state => state.search)
 	const { musicsList, numMusicsList } = useMusicsList(page)
 	const { musicsByGenre, numMusicsByGenre } = useMusicsByGenre(selectedGenre, page)
-	const [anchorEl, setAnchorEl] = useState(null); // levar
-	const [musicIdClicked, setMusicIdClicked] = useState("")
-	
+
 	let filteredMusics = []
 	let filteredSearch
 	if (selectedGenre) {
@@ -44,11 +42,6 @@ function SearchPage() {
 	}
 	if (inputSearch || selectedGenre) filteredMusics = filteredSearch
 
-	const onClickMusic = async (musicId) => {
-		await dispatch(setMusicIdSelected(musicId))
-		dispatch(push(`/music/${musicId}`))
-	}
-
 	let pages
 	if (selectedGenre) {
 		if (Math.ceil(numMusicsByGenre / 10) < 3) { pages = 3 }
@@ -59,26 +52,17 @@ function SearchPage() {
 		else { pages = Math.ceil(numMusicsList / 10) }
 	}
 
+	const onClickMusic = async (musicId) => {
+		await dispatch(setMusicIdSelected(musicId))
+		dispatch(push(`/music/${musicId}`))
+	}
+
 	const handleChange = (event, value) => { setPage(value) }
-
-	const handleClick = (event, id) => {
-		setAnchorEl(event.currentTarget)
-		setMusicIdClicked(id)
-	};
-
-	const handleClose = (playlist, id) => {
-		const info = {
-			playlistId: playlist?.id,
-			musicId: id
-		}
-		dispatch(addMusicToPlaylist(info))
-		setAnchorEl(null);
-	};
 
 	return (
 		<>
 			<Appbar />
-			<S.SearchWrapper>
+			<PageWrapper>
 				{filteredMusics?.length === 0
 					? inputSearch
 						? <>
@@ -90,6 +74,7 @@ function SearchPage() {
 								Tente novamente escrevendo o termo da busca de outra forma ou usando outro termo
               				</Typography>
 						</>
+
 						: selectedGenre
 							? <>
 								<Pagination count={3} size="small" onChange={handleChange} color="primary" variant="text" style={{ margin: "2em auto" }} />
@@ -104,7 +89,6 @@ function SearchPage() {
 								Pesquise por nome ou gênero das músicas
               				</Typography>
 
-
 					:
 					<>
 						<Pagination count={pages} size="small" onChange={handleChange} color="primary" variant="text" style={{ margin: "2em auto" }} />
@@ -118,67 +102,30 @@ function SearchPage() {
 								if (selectedGenre) { name = music?.music_name }
 								else { name = music?.name }
 
-								return (
-									<ListItem key={id} >
-										<ListItemAvatar onClick={() => onClickMusic(id)}>
-											<Avatar style={{ backgroundColor: "rgba(30, 215, 96, 1)" }}>
-												{name?.slice(0, 1).toUpperCase()}
-											</Avatar>
-										</ListItemAvatar>
+								return (<ListItem key={id} >
+									<ListItemAvatar onClick={() => onClickMusic(id)}>
+										<Avatar style={{ backgroundColor: "rgba(30, 215, 96, 1)" }}>
+											{name?.slice(0, 1).toUpperCase()}
+										</Avatar>
+									</ListItemAvatar>
 
-										<Tooltip title="Clique para ver detalhes" aria-label="add">
-											<S.ListTextHover
-												primary={name}
-												secondary={music?.band_name && music.band_name}
-												onClick={() => onClickMusic(id)}
-											/>
-										</Tooltip>
+									<Tooltip title="Clique para ver detalhes" aria-label="add">
+										<S.ListTextHover
+											primary={name}
+											secondary={music?.band_name && music.band_name}
+											onClick={() => onClickMusic(id)}
+										/>
+									</Tooltip>
 
-										{userRole === "PAYING-LISTENER" &&
-											<ListItemSecondaryAction>
-												<Tooltip title="Adicionar a playlist" aria-label="add">
-													<IconButton edge="end" aria-label="icon" color="default"
-														aria-controls="long-menu"
-														aria-haspopup="true"
-														onClick={(event) => handleClick(event, id)}
-													>
-														<LibraryAdd />
-													</IconButton>
-												</Tooltip>
-												<Menu
-													// id="long-menu"
-													anchorEl={anchorEl}
-													// keepMounted
-													open={Boolean(anchorEl) && (id === musicIdClicked)}
-													onClose={() => handleClose()}
-													PaperProps={{
-														style: {
-															maxHeight: 48 * 4.5,
-															width: '20ch',
-														},
-													}}
-												>
-													{myPlaylists.map(playlist => {
-														return (
-															<MenuItem key={playlist.id} onClick={() => handleClose(playlist, id)}>
-																{playlist.name}
-															</MenuItem>
-														)
-													})}
-												</Menu>
-											</ListItemSecondaryAction>
-										}
-									</ListItem>
-
-								)
+									{userRole === "PAYING-LISTENER" && <MenuAddPlaylists id={id} />}
+								</ListItem>)
 							})}
-
 						</List>
 					</>
 				}
-			</S.SearchWrapper>
+			</PageWrapper>
 			<Loading />
-			{userRole === "PAYING-LISTENER" && <Message />}
+			<Message />
 		</>
 	)
 }

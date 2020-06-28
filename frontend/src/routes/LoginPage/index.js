@@ -6,7 +6,7 @@ import { routes } from "../../utils/constants"
 import { InputAdornment } from '@material-ui/core';
 import * as S from "./styles"
 
-import { login } from '../../actions';
+import { login } from '../../actions/users';
 import Message from '../../components/Message';
 import Loading from '../../containers/Loading';
 
@@ -48,9 +48,6 @@ function LoginPage() {
                     value={userInfo.input || ''}
                     onChange={getUserInfo}
                     required
-                    // InputLabelProps={{
-                    //     shrink: true,
-                    // }}
                 />
 
                 <S.InputWrapper
@@ -62,9 +59,6 @@ function LoginPage() {
                     value={userInfo.password || ''}
                     onChange={getUserInfo}
                     required
-                    // InputLabelProps={{
-                    //     shrink: true,
-                    // }}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
