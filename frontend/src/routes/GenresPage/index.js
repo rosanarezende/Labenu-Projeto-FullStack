@@ -7,6 +7,7 @@ import { addGenre } from "../../actions"
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
+import { PageWrapper } from "../../components/PageWrapper"
 
 import * as S from "./styles"
 import { Typography, Button, List, ListItem, ListItemText, ListItemAvatar, Avatar } from "@material-ui/core"
@@ -30,7 +31,7 @@ function GenresPage() {
     return (
         <>
             <Appbar />
-            <S.GenresWrapper>
+            <PageWrapper>
                 <S.GenreForm onSubmit={sendGenreName}>
                     <S.GenreTitle variant="h6">
                         Cadastrar gênero musical:
@@ -70,7 +71,7 @@ function GenresPage() {
                         )}
                     </List>
                 </div>
-            </S.GenresWrapper>
+            </PageWrapper>
             <Message/>
             <Loading/>
         </>

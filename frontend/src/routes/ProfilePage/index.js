@@ -5,11 +5,12 @@ import { changeName } from "../../actions"
 
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
+import Loading from "../../containers/Loading"
+import { PageWrapper } from "../../components/PageWrapper"
 
 import * as S from "./styles"
 import { List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, TextField } from "@material-ui/core"
 import { Edit, Check } from "@material-ui/icons"
-import Loading from "../../containers/Loading"
 
 function ProfilePage() {
     const dispatch = useDispatch()
@@ -29,7 +30,7 @@ function ProfilePage() {
     return (
         <>
             <Appbar />
-            <S.ProfileWrapper>
+            <PageWrapper>
                 <S.ProfileTitle variant="h6">
                     Perfil
                 </S.ProfileTitle>
@@ -95,7 +96,7 @@ function ProfilePage() {
                         </ListItem>
                     }
                 </List>
-            </S.ProfileWrapper>
+            </PageWrapper>
             <Message />
             <Loading/>
         </>

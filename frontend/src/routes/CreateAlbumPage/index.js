@@ -7,6 +7,7 @@ import { createAlbum, deleteAlbum } from "../../actions"
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
+import { PageWrapper } from "../../components/PageWrapper"
 
 import * as S from "./styles"
 import { MenuItem, Checkbox, ListItemText, Select, OutlinedInput, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton } from "@material-ui/core"
@@ -48,7 +49,7 @@ function CreateAlbumPage() {
     return (
         <>
             <Appbar />
-            <S.CreateAlbumWrapper>
+            <PageWrapper>
                 <S.CreateAlbumForm onSubmit={sendInformations}>
                     <S.CreateAlbumTitle variant="h6">
                         Criar álbum:
@@ -113,7 +114,7 @@ function CreateAlbumPage() {
                     </List>
                 </div>
 
-            </S.CreateAlbumWrapper>
+            </PageWrapper>
             <Message />
             <Loading />
         </>

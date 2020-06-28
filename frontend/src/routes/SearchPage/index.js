@@ -9,6 +9,7 @@ import Message from "../../components/Message"
 import Appbar from "../../containers/Appbar"
 import Loading from "../../containers/Loading"
 import MenuAddPlaylists from "../../containers/MenuAddPlaylists"
+import { PageWrapper } from "../../components/PageWrapper"
 
 import * as S from "./styles"
 import { List, ListItem, ListItemAvatar, Avatar, Typography, Tooltip } from "@material-ui/core"
@@ -61,17 +62,17 @@ function SearchPage() {
 	return (
 		<>
 			<Appbar />
-			<S.SearchWrapper>
+			<PageWrapper>
 				{filteredMusics?.length === 0
 					? inputSearch
 						? <>
 							<Pagination count={3} size="small" onChange={handleChange} color="primary" variant="text" style={{ margin: "2em auto" }} />
 							<Typography align="center" variant="h6" paragraph>
 								Não foi possível encontrar "<strong>{inputSearch}</strong>"
-              </Typography>
+              				</Typography>
 							<Typography variant="subtitle2" align="center">
 								Tente novamente escrevendo o termo da busca de outra forma ou usando outro termo
-              </Typography>
+              				</Typography>
 						</>
 
 						: selectedGenre
@@ -79,14 +80,14 @@ function SearchPage() {
 								<Pagination count={3} size="small" onChange={handleChange} color="primary" variant="text" style={{ margin: "2em auto" }} />
 								<Typography align="center" variant="h6" paragraph>
 									Não foi possível encontrar músicas deste gênero.
-                </Typography>
+                				</Typography>
 								<Typography variant="subtitle2" align="center">
 									Tente novamente escolhendo outro gênero.
-                </Typography>
+                				</Typography>
 							</>
 							: <Typography align="center" variant="subtitle1">
 								Pesquise por nome ou gênero das músicas
-              	</Typography>
+              				</Typography>
 
 					:
 					<>
@@ -122,7 +123,7 @@ function SearchPage() {
 						</List>
 					</>
 				}
-			</S.SearchWrapper>
+			</PageWrapper>
 			<Loading />
 			<Message />
 		</>

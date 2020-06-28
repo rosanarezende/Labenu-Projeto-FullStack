@@ -1,9 +1,6 @@
-import React
-	// , { useState } 
-	from "react"
+import React from "react"
 import { useDispatch } from "react-redux"
 import { push } from "connected-react-router"
-
 
 import { useMyPlaylists } from "../../utils/customHooks"
 import { deletePlaylist, setPlaylistIdSelected } from "../../actions/playlists"
@@ -11,8 +8,8 @@ import { deletePlaylist, setPlaylistIdSelected } from "../../actions/playlists"
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
+import { PageWrapper } from "../../components/PageWrapper"
 
-import * as S from "./styles"
 import { Typography, List, ListItem, ListItemAvatar, Avatar, ListItemText, ListItemSecondaryAction, IconButton, Tooltip } from "@material-ui/core"
 import { Delete } from "@material-ui/icons"
 
@@ -34,7 +31,7 @@ function MyPlaylistsPage() {
 	return (
 		<>
 			<Appbar />
-			<S.MyPlaylistsWrapper>
+			<PageWrapper>
 				<Typography variant="h6">
 					Minhas playlists
           		</Typography>
@@ -65,7 +62,7 @@ function MyPlaylistsPage() {
 						</ListItem>
 					)}
 				</List>
-			</S.MyPlaylistsWrapper>
+			</PageWrapper>
 			<Message />
 			<Loading />
 		</>

@@ -7,6 +7,7 @@ import { useBandAlbuns, useMyMusics } from "../../utils/customHooks"
 import Appbar from "../../containers/Appbar"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
+import { PageWrapper } from "../../components/PageWrapper"
 
 import * as S from "./styles"
 import { MenuItem, ListItemText, Typography, List, ListItem, ListItemAvatar, Avatar, ListItemSecondaryAction, IconButton, TextField } from "@material-ui/core"
@@ -74,11 +75,11 @@ function CreateMusicPage() {
 	return (
 		<>
 			<Appbar />
-			<S.CreateMusicWrapper>
+			<PageWrapper>
 				<S.CreateMusicForm onSubmit={sendInformations}>
 					<S.CreateMusicTitle variant="h6">
 						Criar música:
-          </S.CreateMusicTitle>
+          		</S.CreateMusicTitle>
 					<S.CreateMusicInput
 						required
 						variant="outlined"
@@ -203,7 +204,7 @@ function CreateMusicPage() {
 					}
 				</div>
 
-			</S.CreateMusicWrapper>
+			</PageWrapper>
 			<Message />
 			<Loading />
 		</>

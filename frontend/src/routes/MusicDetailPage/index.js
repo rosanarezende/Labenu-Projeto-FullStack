@@ -4,6 +4,7 @@ import { useSelector } from "react-redux"
 import { useAllMusics } from "../../utils/customHooks"
 
 import Appbar from "../../containers/Appbar"
+import { PageWrapper } from "../../components/PageWrapper"
 
 import { Typography } from "@material-ui/core"
 import * as S from "./styles"
@@ -23,7 +24,7 @@ function MusicDetailPage() {
     return (
         <>
             <Appbar />
-            <S.MusicDetailWrapper>
+            <PageWrapper>
                 <S.MusicDetailTitle variant="h6" align="center">
                     {music?.music_name}
                 </S.MusicDetailTitle>
@@ -39,7 +40,7 @@ function MusicDetailPage() {
                 <Typography variant="caption" paragraph>
                     Descrição: <strong>{music?.band_description}</strong>
                 </Typography>
-            </S.MusicDetailWrapper>
+            </PageWrapper>
         </>
     )
 }

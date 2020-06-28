@@ -9,6 +9,7 @@ import { routes } from "../../utils/constants"
 import Message from "../../components/Message"
 import Loading from "../../containers/Loading"
 import Appbar from "../../containers/Appbar"
+import { PageWrapper } from "../../components/PageWrapper"
 
 import * as S from "./styles"
 import { Typography, Fab } from "@material-ui/core"
@@ -38,7 +39,7 @@ function CreatePlaylistPage() {
 	return (
 		<>
 			<Appbar />
-			<S.CreatePlaylistWrapper>
+			<PageWrapper>
 				<S.CreatePlaylistForm onSubmit={sendPlaylistName}>
 					<S.CreatePlaylistTitle>
 						Criar Playlist:
@@ -77,7 +78,7 @@ function CreatePlaylistPage() {
         				</Fab>
 					</S.SecretMessage>
 				}
-			</S.CreatePlaylistWrapper>
+			</PageWrapper>
 			<Message />
 			<Loading />
 		</>
