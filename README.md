@@ -6,10 +6,18 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 
 # FullStack - Projeto Final: Spotenu
 
-<!-- <p align="center">
-  <img  height='600' src=''>
-</p> -->
+:dash: [Deploy da aplicação](http://spotenu.surge.sh/)
+
+[Documentação da API](https://documenter.getpostman.com/view/8138743/T17AiqSL?version=latest)
+
 <br>
+
+<p align="center">
+  <img  height='600' src='https://user-images.githubusercontent.com/45580434/86958986-69c17380-c133-11ea-8bee-ad0efbee59e8.gif'>
+</p>
+
+<br>
+
 <p align="center">
   <a href="https://github.com/rosanarezende/Labenu-Projeto-FullStack/commits/master">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/rosanarezende/Labenu-Projeto-FullStack">
@@ -21,11 +29,6 @@ Desenvolvimento de aplicações completas, incluindo frontend Web com React e ba
 
    <img alt="Repository size" src="https://img.shields.io/github/repo-size/rosanarezende/Labenu-Projeto-FullStack">
 </p>
-
-
-[Deploy](http://spotenu.surge.sh/)
-
-[Documentação da API](https://documenter.getpostman.com/view/8138743/T17AiqSL?version=latest)
 
 <br>
 
@@ -364,9 +367,74 @@ Você deve implementar os endpoints e as telas necessárias para se fazer as fun
 
 <br><br>
 
-### Comunicado sobre Testes
+## Como rodar a aplicação
 
-Nós gostaríamos de que você escrevesse testes automatizados durante a sua implementação. Não é obrigatório, mas consideramos importante!
+No terminal, clone o projeto:
+```
+git clone 
+```
 
-Bom trabalho, sabemos que teremos ótimos resultados! 😄
+Entre na pasta do projeto:
+```
+cd frontend
+```
+
+Instale as dependências:
+```
+npm install
+```
+
+Execute a aplicação:
+```
+npm start 
+```
+
+<br>
+
+## Contribuição
+
+Contribuições com o projeto são muito apreciadas. Para isso:
+
+- Faça um Fork do projeto
+
+- Crie uma branch para sua feature
+```
+git checkout -b feature
+```
+
+- Adicione as mudanças
+```
+git add . 
+```
+
+- _Commit_ as mudanças 
+```
+git commit -m 'Adicionando a feature X'
+```
+
+- Faça o push da branch 
+```
+git push origin feature
+```
+
+- Abra um Pull Request
+
+<br>
+
+## Licença
+
+The [MIT License]() (MIT)
+
+Copyright :copyright: 2020 - Spotenu
+
+<br>
+
+## Canais de comunicação
+
+**Rosana-Rezende**: *Desenvolvedora web full-stack | Advogada | MBA em gestão: inteligência de negócios digitais - FGV*
+
+- [Linkedin](https://www.linkedin.com/in/rosanarezende/)
+- [Github](https://github.com/rosanarezende)
+- [Email](rezende_rosana@hotmail.com)
+
 
