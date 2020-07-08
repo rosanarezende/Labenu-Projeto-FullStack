@@ -174,6 +174,7 @@ export const blockUser = (id) => async (dispatch) => {
         dispatch(setMessage(response?.data?.message, "green"))
         dispatch(setOpen(true))
         dispatch(getAllUsers())
+        dispatch(getAllBands())
     }
     catch (err) {
         dispatch(setLoading(false))

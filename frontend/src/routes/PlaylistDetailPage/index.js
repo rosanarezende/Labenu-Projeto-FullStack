@@ -53,7 +53,7 @@ function PlaylistDetailPage() {
             playlistId: playlistDetail[0]?.id,
             musicId: id
         }
-        if(window.confirm("Deseja aprovar esse artista?")){
+        if(window.confirm("Deseja deletar essa música?")){
             dispatch(removeMusicFromPlaylist(info))
         }
     }
