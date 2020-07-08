@@ -1,9 +1,11 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { push } from 'connected-react-router'
 
 import { useMusicsList, useMusicsByGenre, useUser } from "../../utils/customHooks"
 import { setMusicIdSelected } from "../../actions/musics"
+import { setInputSearch } from "../../actions"
+import { setGenreSelected } from "../../actions/genres"
 
 import Message from "../../components/Message"
 import Appbar from "../../containers/Appbar"
@@ -23,6 +25,14 @@ function SearchPage() {
 	const { inputSearch, selectedGenre } = useSelector(state => state.search)
 	const { musicsList, numMusicsList } = useMusicsList(page)
 	const { musicsByGenre, numMusicsByGenre } = useMusicsByGenre(selectedGenre, page)
+
+	useEffect(() => {
+		return () => dispatch(setInputSearch(""))
+	}, [dispatch])
+
+	useEffect(() => {
+		return () => dispatch(setGenreSelected(undefined))
+	}, [dispatch])
 
 	let filteredMusics = []
 	let filteredSearch

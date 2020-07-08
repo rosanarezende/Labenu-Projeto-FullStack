@@ -42,9 +42,7 @@ export const getAllMusics = () => async (dispatch) => {
     }
     catch (err) {
         dispatch(setLoading(false))
-        console.error(err.response)
-        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
-        dispatch(setOpen(true))
+        console.error(err?.response?.data?.message)
     }
 }
 
@@ -69,9 +67,7 @@ export const getMyMusics = () => async (dispatch) => {
     }
     catch (err) {
         dispatch(setLoading(false))
-        console.error(err.response)
-        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
-        dispatch(setOpen(true))
+        console.error(err?.response?.data?.message)
     }
 }
 
@@ -98,9 +94,7 @@ export const getMusicsList = (page = 1) => async (dispatch) => {
     }
     catch (err) {
         dispatch(setLoading(false))
-        console.error(err.response)
-        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
-        dispatch(setOpen(true))
+        console.error(err?.response?.data?.message)
     }
 }
 
@@ -120,9 +114,7 @@ export const getCountMusicsList = () => async (dispatch) => {
     }
     catch (err) {
         dispatch(setLoading(false))
-        console.error(err.response)
-        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
-        dispatch(setOpen(true))
+        console.error(err?.response?.data?.message)
     }
 
 }
@@ -143,9 +135,7 @@ export const getMusicsByGenre = (genreId = "nope", page = 1) => async (dispatch)
     }
     catch (err) {
         dispatch(setLoading(false))
-        console.error(err.response)
-        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
-        dispatch(setOpen(true))
+        console.error(err?.response?.data?.message)
     }
 }
 
@@ -165,9 +155,7 @@ export const getCountMusicsByGenre = (genreId = "nope") => async (dispatch) => {
     }
     catch (err) {
         dispatch(setLoading(false))
-        console.error(err.response)
-        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de músicas!", "red"))
-        dispatch(setOpen(true))
+        console.error(err?.response?.data?.message)
     }
 }
 
@@ -187,7 +175,7 @@ export const deleteMusic = (id) => async (dispatch) => {
     }
     catch (err) {
         dispatch(setLoading(false))
-        console.error(err.response)
+        console.error(err?.response?.data?.message)
         dispatch(setMessage(err?.response?.data?.message || "Não foi possivel aprovar o artista!", "red"))
         dispatch(setOpen(true))
     }
@@ -210,7 +198,7 @@ export const editMusicName = (info) => async (dispatch) => {
     }
     catch (err) {
         dispatch(setLoading(false))
-        console.error(err.response)
+        console.error(err?.response?.data?.message)
         dispatch(setMessage(err?.response?.data?.message || "Não foi possivel alterar o nome da música!", "red"))
         dispatch(setOpen(true))
     }
