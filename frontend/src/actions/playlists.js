@@ -46,8 +46,6 @@ export const getMyPlaylists = () => async (dispatch) => {
     catch (err) {
         dispatch(setLoading(false))
         console.error(err.response)
-        // dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar a lista de playlists!", "red"))
-        // dispatch(setOpen(true))
     }
 }
 
@@ -68,8 +66,6 @@ export const addMusicToPlaylist = (info) => async (dispatch) => {
     catch (err) {
         dispatch(setLoading(false))
         console.error(err.response)
-        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel adicionar a música a playlist!", "red"))
-        dispatch(setOpen(true))
     }
 }
 
@@ -146,8 +142,6 @@ export const getPlaylistDetail = (id, page = 1) => async (dispatch) => {
     catch (err) {
         dispatch(setLoading(false))
         console.error(err.response)
-        dispatch(setMessage(err?.response?.data?.message || "Não foi possivel acessar os detalhes dessa playlist!", "red"))
-        dispatch(setOpen(true))
     }
 }
 

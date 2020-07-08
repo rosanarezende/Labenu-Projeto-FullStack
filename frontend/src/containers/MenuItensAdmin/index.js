@@ -16,12 +16,12 @@ function MenuItensAdmin() {
                 path={routes.signup}
             />
             <MenuItemPersonalized
-                text="GERENCIAR GÊNEROS"
+                text="CADASTRAR GÊNERO"
                 path={routes.genres}
             />
             <MenuItemPersonalized
                 badgeContent={bandsNumber}
-                text="APROVAR BANDA"
+                text="APROVAR ARTISTA"
                 path={routes.approveBand}
             />
             <MenuItemPersonalized
