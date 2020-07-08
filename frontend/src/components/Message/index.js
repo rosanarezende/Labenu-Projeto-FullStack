@@ -22,7 +22,7 @@ function Message() {
     };
 
     return (
-        <Snackbar open={open} autoHideDuration={color === "red" ? 3000 : 6000} onClose={handleClose}>
+        <Snackbar open={open} autoHideDuration={color === "red" ? 3000 : 4000} onClose={handleClose}>
             <Alert onClose={handleClose} severity={color === "red" ? "error" : "success"}>
                 {text}
             </Alert>
