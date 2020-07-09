@@ -376,7 +376,7 @@ git clone
 
 Entre na pasta do projeto:
 ```
-cd frontend
+cd Labenu-Projeto-FullStack/frontend
 ```
 
 Instale as dependências:
@@ -436,5 +436,3 @@ Copyright :copyright: 2020 - Spotenu
 - [Linkedin](https://www.linkedin.com/in/rosanarezende/)
 - [Github](https://github.com/rosanarezende)
 - [Email](rezende_rosana@hotmail.com)
-
-
